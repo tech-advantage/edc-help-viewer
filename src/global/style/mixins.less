@@ -1,0 +1,39 @@
+@import "./variables";
+
+
+.flex-column () {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.flex-center(@direction: row) {
+  display: flex;
+  flex-direction: @direction;
+  justify-content: center;
+  align-items: center;
+}
+
+// Style for an icon in a badge, with icon size as a parameter.
+.edc-info(@height) {
+  @icon-padding: @height / 6 ;
+  @icon-size: @height - (@icon-padding * 2);
+
+  font-size: @icon-size;
+  height: @height;
+  width: @height;
+  padding: @icon-padding;
+  border-radius: @height / 2;
+
+  background-color: @seashell;
+  color: @white;
+  text-align: center;
+  line-height: 1;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -1,0 +1,33 @@
+:host {
+  padding-top: 45px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+
+  .app-content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  // for internet explorer overlapping issues (ie scrollBars)
+  @-ms-viewport {
+    width: auto;
+  }
+
+  app-left-sidebar {
+    width: 285px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+}

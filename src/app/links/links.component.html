@@ -1,0 +1,18 @@
+<div class="context-links">
+  <div class="list-group">
+    <div class="theme list-group-item header" [translate]="'links.articles.header'" *ngIf="linkable.articles?.length > 0"> </div>
+    <a *ngFor="let article of linkable.articles; let i = index;" class="list-group-item" title="{{ article.label }}"
+       [routerLink]="[getArticleLink(i)]"
+       routerLinkActive="activeLink">
+      <i class="fa fa-link fa-fw" aria-hidden="true"></i>
+      <span>{{ article.label }}</span>
+    </a>
+    <div class="theme list-group-item header" [translate]="'links.links.header'" *ngIf="linkable.links?.length > 0"> </div>
+    <a *ngFor="let link of linkable.links" class="list-group-item" title="{{ link.label }}"
+       [routerLink]="[getLinkLink(link)]"
+       routerLinkActive="activeLink">
+      <i class="fa fa-link fa-fw" aria-hidden="true"></i>
+      <span>{{ link.label }}</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+@import "../../../global/style/global.less";
+
+:host {
+  overflow: auto;
+
+  .tree-item-header {
+    padding: 4px 5px 6px 5px;
+    line-height: 22px;
+
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    text-decoration: none;
+
+    .chevron {
+      cursor: default;
+      margin-right: 5px;
+    }
+
+    &:hover {
+      background-color: @whitesmoke;
+    }
+
+    &.active-link {
+      background-color: @themefourthcolor;
+      color: @white;
+    }
+
+    &.parent-search {
+      color: grey;
+    }
+  }
+}

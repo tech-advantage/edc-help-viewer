@@ -1,0 +1,29 @@
+<div class="left-sidebar">
+  <div class="left-sidebar-content">
+
+    <!-- Title of sidebar. -->
+    <div class="theme left-sidebar-title" [translate]="'global.toc.title'">
+    </div>
+
+    <!-- Search row. -->
+    <app-search-doc [informationMaps]="informationMapList" (searchResultsChange)="onSearch($event)"></app-search-doc>
+
+    <!-- List of strategies. -->
+    <ng-container *ngFor="let informationMap of informationMapList; let first = first">
+
+      <!-- Title of strategy. -->
+      <div class="strategy-title" (click)="toggleIm(informationMap)" [ngClass]="{opened: informationMap === opened}">
+        <span>{{ informationMap.label }}</span>
+        <span *ngIf="informationMap.$resultsCount" class="result-count">[{{ informationMap.$resultsCount }}]</span>
+        <i class="fa fa-angle-right"></i>
+      </div>
+
+      <!-- Tree of strategy's documentations. -->
+      <app-tree
+        *ngIf="isOpen(informationMap)"
+        [documentations]="informationMap.topics"
+        [searchResultIds]="searchResultIds">
+      </app-tree>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+@import "../../global/style/global";
+
+:host {
+
+  .edc-info-container {
+
+    > div {
+      box-shadow: 1px 0 10px 1px @black3;
+    }
+
+    margin: 7% auto;
+    width: 800px;
+
+    .edc-info-header {
+      .edc-info-logo {
+        height: 135px !important;
+      }
+      display: flex;
+      justify-content: center;
+      background-color: @white;
+      padding: 5px 20px;
+      margin-bottom: 20px;
+    }
+
+    .edc-info-content {
+      .flex-column();
+      align-items: flex-end;
+      position: relative;
+      height: 280px;
+      background-color: @white;
+      padding: 20px;
+
+      .edc-info-title, .edc-info-subtitle {
+        z-index: 1;
+        text-align: end;
+        margin: 10px 0;
+      }
+
+      .edc-info-title {
+        font-weight: bold;
+        font-size: 30px;
+      }
+      .edc-info-subtitle {
+        color: @lightcarbon;
+        font-size: 22px;
+      }
+
+      .edc-info-icon {
+        position: absolute;
+        top:0;
+        left: 0;
+        padding: 15px;
+        .edc-info-badge {
+          .edc-info(250px);
+        }
+      }
+    }
+  }
+}

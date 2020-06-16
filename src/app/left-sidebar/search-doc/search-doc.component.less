@@ -1,0 +1,48 @@
+@import '../../../global/style/global';
+
+:host {
+  width: 100%;
+}
+
+// Dropdown to display documentation search result (see SearchDocComponent).
+.dropdown-menu.search-doc {
+  height: auto;
+  width: 275px;
+  max-height: 200px;
+  padding: 2px 0;
+  overflow-x: hidden;
+  .list-group {
+    margin-bottom: 0;
+  }
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    cursor: pointer;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    .truncate();
+    &.has-more {
+      background-color: @whitesmoke;
+      font-style: italic;
+      justify-content: center;
+      font-weight: 600;
+    }
+    &.doc-selected {
+      background-color: @ivory;
+    }
+
+    > span {
+      padding-left: 2px;
+      font-size: 13px;
+      .truncate();
+    }
+  }
+  .no-result {
+    text-align: center;
+    font-style: italic;
+    cursor: default;
+    margin: 0 10px;
+  }
+}

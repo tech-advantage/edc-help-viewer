@@ -1,0 +1,19 @@
+@import '../../global/style/global';
+
+:host /deep/ .home {
+  display: flex;
+  flex-direction: column;
+
+  background-color: @white;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  .title {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .subtitle {
+    margin-top: 10px;
+  }
+}

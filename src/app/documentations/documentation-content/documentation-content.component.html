@@ -1,0 +1,16 @@
+<link *ngIf="stylePath" rel="stylesheet" [href]="stylePath">
+<div class="custom-style"
+     [innerHTML]="documentation | html | anchor | safe:'html'"
+     [mathJax]="documentation"
+     [glossaryOnclick]="documentation"
+     (glossaryClicked)="glossaryClicked($event)">
+</div>
+<ng-template #lightbox>
+  <div class="modal-body">
+    <div class="image-container">
+      <img [src]="imgUrl" [alt]="imgUrl"/>
+    </div>
+    <a class="btn pull-right" [href]="imgUrl" target="_blank">{{'global.lightbox.btn' | translate}}</a>
+    <div class="clearfix"></div>
+  </div>
+</ng-template>

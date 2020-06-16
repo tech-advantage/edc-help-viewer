@@ -1,0 +1,60 @@
+@import '../../global/style/global.less';
+
+.left-sidebar {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  width: 275px;
+  background-color: @white;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+  z-index: 10;
+
+  .left-sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .left-sidebar-title {
+    padding: 0 10px;
+    line-height: 32px;
+    font-size: 16px;
+    font-weight: 700;
+    color: @darkcarbon;
+  }
+
+  .strategy-title {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 13px;
+    color: @sonic-silver;
+    background-color: @white;
+    padding: 10px 15px;
+    width: 100%;
+    user-select: none;
+    &:hover {
+      background-color: @whitesmoke;
+    }
+    &.opened {
+      background-color: @seashell;
+      color: @slate-gray;
+      font-weight: 600;
+    }
+  }
+
+  .result-count {
+    margin-left: auto;
+    padding-right: 10px;
+  }
+
+}
+
+// Rotate chevron if strategy is opened, or if strategy is hover.
+.strategy-title.opened .fa-angle-right,
+.strategy-title:hover .fa-angle-right {
+  transform: rotate(90deg);
+}

@@ -1,0 +1,30 @@
+<div *ngFor="let doc of documentations">
+
+  <!-- Only visible if match search. -->
+  <div *ngIf="isVisible(doc)">
+
+    <!-- Documentation item (eventually with chevron). -->
+    <div class="theme tree-item-header"
+         routerLinkActive="active-link"
+         routerLink="/doc/{{doc.id}}"
+         [style.paddingLeft]="getPadding(doc)"
+         [ngClass]="{ 'parent-search': doc.$isParentSearch && !doc.$matchesSearch }">
+
+      <!-- Chevron. -->
+      <span class="chevron" *ngIf="hasTopics(doc)" (click)="toggleCollapse($event, doc)">
+        <span class="fa" [ngClass]="isCollapsed(doc) ? 'fa-chevron-right' : 'fa-chevron-down'"></span>
+      </span>
+
+      <!-- Documentation title. -->
+      <span>{{doc.label}}</span>
+    </div>
+
+    <!-- Sub-items. -->
+    <app-tree
+      *ngIf="!isCollapsed(doc)"
+      [documentations]="doc.topics"
+      [depth]="depth + 1"
+      [searchResultIds]="searchResultIds">
+    </app-tree>
+  </div>
+</div>

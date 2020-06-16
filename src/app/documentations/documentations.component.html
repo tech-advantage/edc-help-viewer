@@ -1,0 +1,17 @@
+<div class="context" *ngIf="documentation">
+  <div class="documentations">
+    <app-documentation-content
+            class="content"
+            [documentation]="documentation"
+            (showGlossary)="showGlossary($event)">
+    </app-documentation-content>
+    <app-tree *ngIf="documentation?.topics" [documentations]="documentation?.topics"></app-tree>
+  </div>
+  <div *ngIf="showLinksbar()" class="panel" [ngClass]="{'show': showSidebar}">
+    <app-links [linkable]="documentation" *ngIf="showSidebar && showLinksbar()"></app-links>
+    <div class="panel-toggle" (click)="togglePanel()" [ngClass]="showSidebar ? 'right':'left'">
+      <i class="arrow"></i>
+    </div>
+  </div>
+</div>
+<app-glossary-bar *ngIf="glossaryId" [glossaryId]="glossaryId" (showGlossary)="showGlossary($event)"></app-glossary-bar>

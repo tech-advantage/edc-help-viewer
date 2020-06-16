@@ -1,0 +1,41 @@
+<div dropdown [isOpen]="isOpen" [autoClose]="true" container="body">
+
+  <!-- Search field. -->
+  <span class="input-icon">
+    <input type="text" class="form-control" [formControl]="searchCtrl" [ngStyle]="{border: 0}"
+           [placeholder]="getPlaceholder()" (focus)="onFocus()"/>
+    <!-- Search icon. -->
+    <i *ngIf="!searchCtrl.value || !isLoading" class="fa fa-search blue" aria-hidden="true"></i>
+    <!-- Loading icon. -->
+    <i *ngIf="searchCtrl.value && isLoading" class="fa fa-spinner fa-spin"></i>
+  </span>
+
+  <!-- Dropdown. -->
+  <div *dropdownMenu class="dropdown-menu search-doc" (clickOutside)="closeDropdown()">
+
+    <!-- Query is NOT valid (less than 3 characters). -->
+    <span *ngIf="!isValid" [translate]="'global.search.tooshort'" class="no-result"></span>
+
+    <!-- Query is valid. -->
+    <ng-container *ngIf="isValid">
+
+      <!-- Results. -->
+      <ul *ngIf="documentations.length" keyboardSelect class="list-group">
+        <li *ngFor="let doc of documentations | slice:0:resultsNumber" class="list-group-item" [routerLink]="['/doc', doc.id]" (click)="closeDropdown()">
+
+          <!-- Template for each element of the list. -->
+          <span [innerHTML]="'[' + doc.strategyLabel + '] ' + doc.label  | highlight:searchCtrl.value"> </span>
+        </li>
+        <li *ngIf="isShowMoreVisible()" class="list-group-item has-more" (click)="showMore($event)">
+          <span [translate]="'global.search.more'"></span>
+        </li>
+      </ul>
+
+      <!-- No result. -->
+      <ng-container *ngIf="!isLoading && !documentations.length">
+        <span [translate]="'global.search.empty'" class="no-result"></span>
+        <i class="fa fa-frown-o" aria-hidden="true"></i>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

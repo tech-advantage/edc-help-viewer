@@ -1,0 +1,11 @@
+<div [ngClass]="getGlossaryContainerClasses()">
+    <div (mousedown)="resizeGlossary($event)" class="glossary-resizer"></div>
+    <div class="glossary-header">
+        <span [translate]="'global.glossary.header.title'"></span>
+        <i class="fa fa-times close-button" (click)="closeGlossary()"></i>
+    </div>
+    <div class="glossary-content"
+         [innerHtml]="glossary | html"
+         [style.height.px]='height'>
+    </div>
+</div>

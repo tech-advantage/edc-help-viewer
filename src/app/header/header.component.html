@@ -1,0 +1,16 @@
+<header class="navbar navbar-inverse navbar-fixed-top">
+  <div class="theme navbar-inner">
+    <div class="navbar-container">
+      <div class="navbar-brand-header">
+        <div class="sidebar-collapse" (click)="toggleCollapseSideBar()">
+          <i class="burger-icon fa fa-bars"></i>
+        </div>
+        <div class="navbar-brand">
+          <img [src]="logoUrl">
+        </div>
+        <span class="navbar-text">{{title}}</span>
+      </div>
+      <p class="navbar-version" *ngIf="version">V {{version}}</p>
+    </div>
+  </div>
+</header>

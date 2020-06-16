@@ -1,0 +1,113 @@
+@import '../../global/style/global';
+
+:host{
+  .flex-column();
+  overflow: hidden;
+
+  /deep/ .context {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    overflow: hidden;
+
+    background-color: @white;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    .documentations{
+      .flex-column();
+      overflow: auto;
+      width: 100%;
+      padding: 20px 0 20px 20px;
+      h2 {
+        font-weight: bolder !important;
+        margin-top: 0;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        margin-right: 10px;
+
+        /* for words referencing glossary */
+        [data-glossary] {
+          color: @glossary-underline;
+          cursor: pointer;
+          text-decoration: none;
+          border-bottom: dotted 1px @glossary-underline;
+        }
+      }
+
+      .footer {
+        font-style: italic;
+        align-self: flex-end;
+      }
+    }
+
+    .panel {
+      box-shadow: -1px 0 5px 0 rgba(0, 0, 0, 0.3);
+      padding: 8px;
+      margin: 0;
+      position: relative;
+      border-radius: 0;
+
+      &.show {
+        .panel-toggle {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .panel-toggle {
+          border-color: @lightgray;
+          display: flex;
+        }
+      }
+    }
+
+    .panel-toggle {
+      box-shadow: -1px 0 5px 0 rgba(0, 0, 0, 0.3);
+      .flex-center;
+      display: flex;
+      cursor: pointer;
+      position: absolute;
+      background-color: white;
+      height: 24px;
+      width: 24px;
+      left: -12px;
+      top: 15%;
+      margin-top: -12px;
+      border: 1px solid @lightgray;
+      border-radius: 50%;
+
+      .arrow {
+        border: solid @sonic-silver;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 2px;
+      }
+
+      &.left {
+        .arrow {
+          transform: rotate(135deg);
+        }
+      }
+
+      &.right {
+        .arrow {
+          transform: rotate(-45deg);
+        }
+      }
+
+      &:hover {
+        background-color: @themeprimary;
+        border-color: @lightgray;
+
+        .arrow {
+          border-color: white;
+        }
+      }
+    }
+  }
+}

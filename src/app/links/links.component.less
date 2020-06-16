@@ -1,0 +1,28 @@
+@import '../../global/style/global';
+
+:host .context-links {
+  min-width: 250px;
+  max-width: 350px;
+  font-size: 11px;
+
+  .list-group-item {
+    .truncate();
+    border-radius: 0;
+    color: @carbon;
+
+    &.header {
+      font-weight: bold;
+      font-size: 1.2em;
+      text-align: center;
+    }
+
+    &.activeLink {
+      font-weight: bold;
+      background-color: @ivory;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
+}
