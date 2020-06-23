@@ -12,7 +12,7 @@ import {
 import { Doc } from 'app/documentations/documentation';
 import { ConfigService } from 'app/config.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { of } from 'rxjs/internal/observable/of';
 import { delay } from 'rxjs/operators';
 
