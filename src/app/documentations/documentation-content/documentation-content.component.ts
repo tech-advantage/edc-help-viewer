@@ -28,7 +28,7 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
   @Input() documentation: Doc;
   @Output() showGlossary = new EventEmitter<number>();
 
-  @ViewChild('lightbox') lightbox: any;
+  @ViewChild('lightbox', { static: true }) lightbox: any;
 
   constructor(private readonly configService: ConfigService,
               private readonly sanitizer: DomSanitizer,
