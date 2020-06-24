@@ -8,7 +8,7 @@
   color: rgb(238, 238, 238);
 }
 /* Header : Background and other font colors */
-.navbar .theme.navbar-inner {
+.navbar .theme.navbar-inner, .navbar.navbar-inner {
   background: rgb(60, 141, 188);
   color: rgb(238, 238, 238);
 }
