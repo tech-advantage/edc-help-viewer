@@ -10,7 +10,7 @@ import { ConfigService } from './config.service';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './header';
 import { TranslateConfig } from '../global/config/translate.config';
 import { DocumentationsModule } from './documentations/documentations.module';
 import { InfoPageModule } from './info/info-page.module';
