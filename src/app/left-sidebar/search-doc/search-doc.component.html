@@ -1,13 +1,15 @@
-<div dropdown [isOpen]="isOpen" [autoClose]="true" container="body">
+<div class="search-container" dropdown [isOpen]="isOpen" [autoClose]="true" container="body">
 
   <!-- Search field. -->
-  <span class="input-icon">
+  <span class="input-group">
+    <div class="input-group-prepend input-group-text">
+      <!-- Search icon. -->
+      <i *ngIf="!searchCtrl.value || !isLoading" class="fa fa-search icon-color" aria-hidden="true"></i>
+        <!-- Loading icon. -->
+      <i *ngIf="searchCtrl.value && isLoading" class="fa fa-spinner fa-spin"></i>
+    </div>
     <input type="text" class="form-control" [formControl]="searchCtrl" [ngStyle]="{border: 0}"
            [placeholder]="getPlaceholder()" (focus)="onFocus()"/>
-    <!-- Search icon. -->
-    <i *ngIf="!searchCtrl.value || !isLoading" class="fa fa-search blue" aria-hidden="true"></i>
-    <!-- Loading icon. -->
-    <i *ngIf="searchCtrl.value && isLoading" class="fa fa-spinner fa-spin"></i>
   </span>
 
   <!-- Dropdown. -->
