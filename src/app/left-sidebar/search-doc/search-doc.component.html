@@ -1,7 +1,8 @@
-<div class="search-container" dropdown [isOpen]="isOpen" [autoClose]="true" container="body">
+<!-- placement="left" : Dirty-hacky thing to fix wrong placement when placement="bottom" -->
+<div class="search-container" dropdown [isOpen]="isOpen" [autoClose]="true" container="body" placement="left">
 
   <!-- Search field. -->
-  <span class="input-group">
+  <span dropdownToggle class="input-group">
     <div class="input-group-prepend input-group-text">
       <!-- Search icon. -->
       <i *ngIf="!searchCtrl.value || !isLoading" class="fa fa-search icon-color" aria-hidden="true"></i>
