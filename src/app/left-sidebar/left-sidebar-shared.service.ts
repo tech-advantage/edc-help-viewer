@@ -1,11 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {getWindowSize, ScreenSize} from '../../utils/global-helper';
+
 
 @Injectable()
 export class LeftSideBarSharedService {
 
-  collapse = new BehaviorSubject<boolean>(false);
+  collapse;
+
+  constructor(private window: Window) {
+    this.collapse = new BehaviorSubject<boolean>(this.getDefaultValue(window));
+  }
+
+  getDefaultValue(window: Window): boolean {
+    return getWindowSize(window) === ScreenSize.XS;
+  }
 
   isCollapsed(): boolean {
     return this.collapse.getValue();
