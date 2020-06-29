@@ -10,7 +10,12 @@ export class LeftSideBarSharedService {
   collapse;
 
   constructor(private window: Window) {
-    this.collapse = new BehaviorSubject<boolean>(this.getDefaultValue(window));
+    this.collapse = new BehaviorSubject<boolean>(false);
+    if (this.getDefaultValue(window)) {
+      /* Workaround because when left sidebar is hidden, it can't load title translation
+         So we use setTimeout for waiting the DOM and services to load */
+      setTimeout(() => this.toggleCollapseValue(), 1);
+    }
   }
 
   getDefaultValue(window: Window): boolean {

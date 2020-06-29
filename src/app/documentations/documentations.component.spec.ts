@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { ConfigService } from '../config.service';
 import { DocumentationsService } from './documentations.service';
 import { Store } from '@ngrx/store';
+import * as ScreenFuncs from '../../utils/global-helper';
 
 @Pipe({name: 'html'})
 class StubHtmlPipe implements PipeTransform {
@@ -33,7 +34,8 @@ describe('DocumentationsComponent', () => {
       providers: [
         mockService(Store, ['select']),
         mockService(ConfigService, ['getConfiguration']),
-        mockService(DocumentationsService, ['getDocumentation'])
+        mockService(DocumentationsService, ['getDocumentation']),
+        { provide: Window, useValue: window }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -47,6 +49,8 @@ describe('DocumentationsComponent', () => {
     spyOn(store, 'select').and.returnValue(of(documentation));
     spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
     spyOn(configService, 'getConfiguration').and.returnValue({displayFirstDocInsteadOfToc: false});
+
+    spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
 
     fixture = TestBed.createComponent(DocumentationsComponent);
     component = fixture.componentInstance;
@@ -81,6 +85,19 @@ describe('DocumentationsComponent', () => {
         component.documentation.articles = [mock(Article, {id: 1})];
         expect(component.showLinksbar()).toBeTruthy();
       });
+    });
+  });
+
+  describe('handle responsive', () => {
+    it('should collapse if screen is too small (mobile)', () => {
+      spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
+      const doc = new DocumentationsComponent(null, null, null, window);
+      expect(doc.showSidebar).not.toBeTruthy();
+    });
+    it('should not collapse if screen is big enough', () => {
+      spyOn(ScreenFuncs, 'isMobile').and.returnValue(false);
+      const doc = new DocumentationsComponent(null, null, null, window);
+      expect(doc.showSidebar).toBeTruthy();
     });
   });
 });
