@@ -10,7 +10,7 @@ import { ConfigService } from '../config.service';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentation } from '../ngrx/selectors/help-selectors';
-import { unsubscribe } from '../../utils/global-helper';
+import {isMobile, unsubscribe} from '../../utils/global-helper';
 
 @Component({
   selector: 'app-documentations',
@@ -21,12 +21,14 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   sub: Subscription;
   documentation: Doc;
   glossaryId: number;
-  showSidebar = true;
+  showSidebar: boolean;
 
   displayFirstDocInsteadOfToc;
   constructor(private readonly store: Store<AppState>,
               private readonly configService: ConfigService,
-              private readonly docService: DocumentationsService) {
+              private readonly docService: DocumentationsService,
+              private readonly window: Window) {
+    this.showSidebar = !isMobile(window, true);
   }
 
   ngOnInit(): void {

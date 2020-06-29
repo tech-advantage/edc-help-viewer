@@ -29,7 +29,7 @@ describe('HeaderComponent', () => {
         mockService(HelpService, ['getTitle']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(Store, ['select']),
-        mockService(LeftSideBarSharedService, ['toggleCollapseValue'])
+        mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed'])
       ],
     })
       .compileComponents();
@@ -60,6 +60,27 @@ describe('HeaderComponent', () => {
       spyOn(component, 'toggleCollapseSideBar').and.returnValue(of(true));
       component.toggleCollapseSideBar();
       expect(component.toggleCollapseSideBar).toHaveBeenCalled();
+    });
+  });
+
+  describe('initial value of left side bar collapse', () => {
+    beforeEach(() => jasmine.clock().install());
+    afterEach(() => jasmine.clock().uninstall());
+
+    it('should start collapsed if default value is true', () => {
+      spyOn(LeftSideBarSharedService.prototype, 'getDefaultValue').and.returnValue(true);
+      const leftBar = new LeftSideBarSharedService(window);
+      jasmine.clock().tick(5);
+      expect(leftBar.getDefaultValue(window)).toBeTruthy();
+      expect(leftBar.isCollapsed()).toBeTruthy();
+    });
+
+    it('should not start collapsed if default value is false', () => {
+      spyOn(LeftSideBarSharedService.prototype, 'getDefaultValue').and.returnValue(false);
+      const leftBar = new LeftSideBarSharedService(window);
+      jasmine.clock().tick(5);
+      expect(leftBar.getDefaultValue(window)).not.toBeTruthy();
+      expect(leftBar.isCollapsed()).not.toBeTruthy();
     });
   });
 });

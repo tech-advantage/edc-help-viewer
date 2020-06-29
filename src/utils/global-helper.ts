@@ -55,3 +55,36 @@ export function getNestedMatches(list: any, nestedProp: string, matchProp: strin
 export function isEmpty(arrayToCheck: any): boolean {
   return !arrayToCheck || !arrayToCheck.length;
 }
+
+export enum ScreenSize {
+  XS,
+  SM,
+  MD,
+  LG,
+  XL
+}
+
+export function isMobile(window: Window, matchTablet?: boolean) {
+  const size = getWindowSize(window);
+  return size === ScreenSize.XS || size === ScreenSize.SM || (matchTablet ? size === ScreenSize.MD : false);
+}
+
+/**
+ * Get a ScreenSize (same as CSS BootStrap breakpoints) in order to provide
+ * a friendly way to know the screen size
+ *
+ * @param window The window object in which we get the width
+ */
+export function getWindowSize(window: Window): ScreenSize {
+  let windowSize = ScreenSize.XS;
+  if (window.innerWidth >= 1200) {
+    windowSize = ScreenSize.XL;
+  } else if (window.innerWidth >= 992) {
+    windowSize = ScreenSize.LG;
+  } else if (window.innerWidth >= 768) {
+    windowSize = ScreenSize.MD;
+  } else if (window.innerWidth >= 576) {
+    windowSize = ScreenSize.SM;
+  }
+  return windowSize;
+}
