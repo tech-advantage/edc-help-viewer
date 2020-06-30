@@ -4,6 +4,7 @@ import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HelpService } from '../help/help.service';
 import { Title } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 import { ConfigService } from '../config.service';
 import { LeftSideBarSharedService } from '../left-sidebar/left-sidebar-shared.service';
 import { environment } from 'environments/environment';
@@ -30,7 +31,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private readonly helpService: HelpService,
     private readonly configService: ConfigService,
     private readonly store: Store<AppState>,
-    private readonly sideBarSharedService: LeftSideBarSharedService
+    private readonly sideBarSharedService: LeftSideBarSharedService,
+    private readonly location: Location,
+    readonly window: Window
   ) {
   }
 
@@ -66,5 +69,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleCollapseSideBar(): void {
     this.sideBarSharedService.toggleCollapseValue();
+  }
+
+  historyBack() {
+    this.location.back();
+  }
+
+  historyForward() {
+    this.location.forward();
   }
 }

@@ -6,11 +6,15 @@
           <i class="burger-icon fa fa-bars"></i>
         </div>
         <div class="navbar-brand">
-          <img [src]="logoUrl">
+          <img alt="EDC Logo" [src]="logoUrl">
         </div>
         <span class="navbar-text">{{title}}</span>
       </div>
       <p class="navbar-version" *ngIf="version">V {{version}}</p>
+      <p class="navbar-history">
+        <i class="fa fa-angle-left left" aria-hidden="true" (click)="historyBack()"></i>
+        <i class="fa fa-angle-right right" aria-hidden="true" (click)="historyForward()"></i>
+      </p>
     </div>
   </div>
 </header>
