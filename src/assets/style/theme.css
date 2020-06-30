@@ -46,3 +46,44 @@
 .edc-info-content .theme.edc-info-title {
   color: rgb(60, 141, 188);
 }
+
+/* Glossary bar : Header resizer */
+.glossary-resizer {
+  border-top: 1px rgb(189, 189, 189) solid;
+}
+
+/* Glossary bar : Header background */
+.glossary-header, .glossary-resizer{
+  background-color: rgb(238, 238, 238);
+}
+
+/* Glossary bar: Header title */
+.glossary-header {
+  color: rgb(115, 115, 115);
+  border-bottom: 2px rgb(189, 189, 189) solid;
+}
+
+/* Glossary bar: Header close button */
+.close-button {
+  color: rgb(115, 115, 115);
+}
+
+/* Glossary bar: Content background */
+.glossary-content {
+  background-color: rgb(238, 238, 238);
+}
+
+/* Glossary bar: Content title */
+.glossary-content .title{
+  color: inherit;
+}
+
+/* Glossary bar: Content description */
+.glossary-content .document-content{
+  color: inherit;
+}
+
+/* Glossary bar: Full container */
+.glossary-container {
+  border-left: 1px rgb(189, 189, 189) solid;
+}
