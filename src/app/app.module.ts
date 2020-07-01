@@ -74,7 +74,8 @@ import { HomeResolve } from './home/home.resolve';
     LeftSideBarSharedService,
     LeftSidebarService,
     HomeResolve,
-    { provide: Window, useValue: window }
+    { provide: Window, useValue: window },
+    Location
   ],
   bootstrap: [ AppComponent ]
 })
