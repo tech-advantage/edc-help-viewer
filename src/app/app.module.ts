@@ -28,6 +28,7 @@ import { reducerProvider, reducerToken } from './ngrx/reducers/app-reducers';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpLoaderFactory } from '../global/config/translate-loader';
 import { HomeResolve } from './home/home.resolve';
+import {Location} from '@angular/common';
 
 @NgModule({
   declarations: [

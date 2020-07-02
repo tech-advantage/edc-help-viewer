@@ -10,6 +10,7 @@ import { LeftSideBarSharedService } from '../left-sidebar/left-sidebar-shared.se
 import { Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -29,7 +30,10 @@ describe('HeaderComponent', () => {
         mockService(HelpService, ['getTitle']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(Store, ['select']),
-        mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed'])
+        mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed']),
+        Location,
+        { provide: LocationStrategy, useClass: PathLocationStrategy },
+        { provide: Window, useValue: window }
       ],
     })
       .compileComponents();

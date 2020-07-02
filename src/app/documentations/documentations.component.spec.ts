@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { ConfigService } from '../config.service';
 import { DocumentationsService } from './documentations.service';
 import { Store } from '@ngrx/store';
+import {Location} from '@angular/common';
 import * as ScreenFuncs from '../../utils/global-helper';
 
 @Pipe({name: 'html'})
@@ -35,7 +36,8 @@ describe('DocumentationsComponent', () => {
         mockService(Store, ['select']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(DocumentationsService, ['getDocumentation']),
-        { provide: Window, useValue: window }
+        { provide: Window, useValue: window },
+        Location
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
