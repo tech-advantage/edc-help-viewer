@@ -11,6 +11,7 @@ import { DocumentationsService } from './documentations.service';
 import { Store } from '@ngrx/store';
 import {Location} from '@angular/common';
 import * as ScreenFuncs from '../../utils/global-helper';
+import {WindowRefService} from '../window-ref.service';
 
 @Pipe({name: 'html'})
 class StubHtmlPipe implements PipeTransform {
@@ -23,6 +24,7 @@ describe('DocumentationsComponent', () => {
   let store: Store<any>;
   let configService: ConfigService;
   let documentationsService: DocumentationsService;
+  let windowRefService: WindowRefService;
   const documentation = mock(Doc, {id: 1, content: 'content'});
 
 
@@ -36,7 +38,7 @@ describe('DocumentationsComponent', () => {
         mockService(Store, ['select']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(DocumentationsService, ['getDocumentation']),
-        { provide: Window, useValue: window },
+        WindowRefService,
         Location
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -48,6 +50,7 @@ describe('DocumentationsComponent', () => {
     configService = TestBed.get(ConfigService);
     store = TestBed.get(Store);
     documentationsService = TestBed.get(DocumentationsService);
+    windowRefService = TestBed.get(WindowRefService);
     spyOn(store, 'select').and.returnValue(of(documentation));
     spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
     spyOn(configService, 'getConfiguration').and.returnValue({displayFirstDocInsteadOfToc: false});
@@ -93,12 +96,13 @@ describe('DocumentationsComponent', () => {
   describe('handle responsive', () => {
     it('should collapse if screen is too small (mobile)', () => {
       spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
-      const doc = new DocumentationsComponent(null, null, null, window);
+      const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).not.toBeTruthy();
     });
+
     it('should not collapse if screen is big enough', () => {
       spyOn(ScreenFuncs, 'isMobile').and.returnValue(false);
-      const doc = new DocumentationsComponent(null, null, null, window);
+      const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).toBeTruthy();
     });
   });
