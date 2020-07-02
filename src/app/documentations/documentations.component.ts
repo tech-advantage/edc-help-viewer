@@ -11,6 +11,7 @@ import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentation } from '../ngrx/selectors/help-selectors';
 import {isMobile, unsubscribe} from '../../utils/global-helper';
+import { WindowRefService } from '../window-ref.service';
 
 @Component({
   selector: 'app-documentations',
@@ -27,8 +28,8 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   constructor(private readonly store: Store<AppState>,
               private readonly configService: ConfigService,
               private readonly docService: DocumentationsService,
-              private readonly window: Window) {
-    this.showSidebar = !isMobile(window, true);
+              private windowRef: WindowRefService) {
+    this.showSidebar = !isMobile(windowRef.nativeWindow, true);
   }
 
   ngOnInit(): void {

@@ -32,8 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private readonly configService: ConfigService,
     private readonly store: Store<AppState>,
     private readonly sideBarSharedService: LeftSideBarSharedService,
-    private readonly location: Location,
-    readonly window: Window
+    private readonly location: Location
   ) {
   }
 
