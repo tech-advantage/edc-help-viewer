@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, Input, HostListener } from '@angular/c
 import { DocumentationsService } from '../documentations.service';
 import { DocumentationTransfer, Documentation } from 'edc-client-js';
 import { LeftSideBarSharedService } from 'app/left-sidebar/left-sidebar-shared.service';
+import {WindowRefService} from '../../window-ref.service';
 
 @Component({
   selector: 'app-glossary-bar',
@@ -40,7 +41,8 @@ export class GlossaryBarComponent {
 
   constructor(
     private readonly documentationsService: DocumentationsService,
-    private readonly sideBarSharedService: LeftSideBarSharedService
+    private readonly sideBarSharedService: LeftSideBarSharedService,
+    private readonly windowRef: WindowRefService
   ) {}
 
   initGlossary(id: number) {
@@ -62,7 +64,7 @@ export class GlossaryBarComponent {
   }
 
   getHeight(pointY: number): number {
-    return window.innerHeight - pointY - this.headerHeight;
+    return this.windowRef.nativeWindow.innerHeight - pointY - this.headerHeight;
   }
 
   isSideBarCollapsed(): boolean {
