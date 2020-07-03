@@ -1,7 +1,7 @@
 import { Subscription, EMPTY, combineLatest } from 'rxjs';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import { HelpService } from '../help/help.service';
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
@@ -57,6 +57,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     unsubscribe(this.subs);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.sideBarSharedService.handleResponsive(event.target);
   }
 
   setTitle(title: string): void {
