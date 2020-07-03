@@ -4,16 +4,18 @@ import { documentationsRoutes } from './documentations/documentations.routes';
 import { InfoPageComponent } from './info/info-page.component';
 import { infoRoutes } from './info/info.routes';
 import { homeRoutes } from './home/home.routes';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      ... documentationsRoutes,
-      ... infoRoutes,
-      ... homeRoutes,
-      { path: '',   redirectTo: '/home', pathMatch: 'full' },
-      { path: '**',
+      ...documentationsRoutes,
+      ...infoRoutes,
+      ...homeRoutes,
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      {
+        path: '**',
         component: InfoPageComponent,
       }
     ]
@@ -23,7 +25,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 export class AppRoutingModule {
 }

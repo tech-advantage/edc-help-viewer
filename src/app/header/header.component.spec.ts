@@ -10,6 +10,8 @@ import { LeftSideBarSharedService } from '../left-sidebar/left-sidebar-shared.se
 import { Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {WindowRefService} from '../window-ref.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -17,6 +19,7 @@ describe('HeaderComponent', () => {
   let helpService: HelpService;
   let titleService: Title;
   let configService: ConfigService;
+  let windowRefService: WindowRefService;
   let store: Store<any>;
 
   const title = 'foo';
@@ -29,7 +32,10 @@ describe('HeaderComponent', () => {
         mockService(HelpService, ['getTitle']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(Store, ['select']),
-        mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed'])
+        mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed']),
+        Location,
+        { provide: LocationStrategy, useClass: PathLocationStrategy },
+        WindowRefService
       ],
     })
       .compileComponents();
@@ -39,6 +45,7 @@ describe('HeaderComponent', () => {
     helpService = TestBed.get(HelpService);
     titleService = TestBed.get(Title);
     configService = TestBed.get(ConfigService);
+    windowRefService = TestBed.get(WindowRefService);
     store = TestBed.get(Store);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(titleService, 'setTitle');
@@ -69,7 +76,7 @@ describe('HeaderComponent', () => {
 
     it('should start collapsed if default value is true', () => {
       spyOn(LeftSideBarSharedService.prototype, 'getDefaultValue').and.returnValue(true);
-      const leftBar = new LeftSideBarSharedService(window);
+      const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
       expect(leftBar.getDefaultValue(window)).toBeTruthy();
       expect(leftBar.isCollapsed()).toBeTruthy();
@@ -77,7 +84,7 @@ describe('HeaderComponent', () => {
 
     it('should not start collapsed if default value is false', () => {
       spyOn(LeftSideBarSharedService.prototype, 'getDefaultValue').and.returnValue(false);
-      const leftBar = new LeftSideBarSharedService(window);
+      const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
       expect(leftBar.getDefaultValue(window)).not.toBeTruthy();
       expect(leftBar.isCollapsed()).not.toBeTruthy();

@@ -28,6 +28,7 @@ import { reducerProvider, reducerToken } from './ngrx/reducers/app-reducers';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpLoaderFactory } from '../global/config/translate-loader';
 import { HomeResolve } from './home/home.resolve';
+import { WindowRefService } from './window-ref.service';
 
 @NgModule({
   declarations: [
@@ -74,8 +75,7 @@ import { HomeResolve } from './home/home.resolve';
     LeftSideBarSharedService,
     LeftSidebarService,
     HomeResolve,
-    { provide: Window, useValue: window },
-    Location
+    WindowRefService
   ],
   bootstrap: [ AppComponent ]
 })

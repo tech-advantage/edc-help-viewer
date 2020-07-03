@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {getWindowSize, ScreenSize} from '../../utils/global-helper';
+import { WindowRefService } from '../window-ref.service';
 
 
 @Injectable()
@@ -9,9 +10,9 @@ export class LeftSideBarSharedService {
 
   collapse;
 
-  constructor(private window: Window) {
+  constructor(private windowRef: WindowRefService) {
     this.collapse = new BehaviorSubject<boolean>(false);
-    if (this.getDefaultValue(window)) {
+    if (this.getDefaultValue(windowRef.nativeWindow)) {
       /* Workaround because when left sidebar is hidden, it can't load title translation
          So we use setTimeout for waiting the DOM and services to load */
       setTimeout(() => this.toggleCollapseValue(), 1);
