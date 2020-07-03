@@ -1,17 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By, Title } from '@angular/platform-browser';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {Title} from '@angular/platform-browser';
 
-import { HeaderComponent } from './header.component';
-import { mockService } from '../../utils/test-helpers';
-import { HelpService } from '../help/help.service';
-import { ConfigService } from '../config.service';
-import { LeftSideBarSharedService } from '../left-sidebar/left-sidebar-shared.service';
-import { Store } from '@ngrx/store';
+import {HeaderComponent} from './header.component';
+import {mockService} from '../../utils/test-helpers';
+import {HelpService} from '../help/help.service';
+import {ConfigService} from '../config.service';
+import {LeftSideBarSharedService} from '../left-sidebar/left-sidebar-shared.service';
+import {Store} from '@ngrx/store';
 
-import { of } from 'rxjs';
+import {of} from 'rxjs';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {WindowRefService} from '../window-ref.service';
+import * as ScreenFuncs from '../../utils/global-helper';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -74,19 +75,17 @@ describe('HeaderComponent', () => {
     beforeEach(() => jasmine.clock().install());
     afterEach(() => jasmine.clock().uninstall());
 
-    it('should start collapsed if default value is true', () => {
-      spyOn(LeftSideBarSharedService.prototype, 'getDefaultValue').and.returnValue(true);
+    it('should start collapsed if window is too small', () => {
+      spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.XS);
       const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
-      expect(leftBar.getDefaultValue(window)).toBeTruthy();
       expect(leftBar.isCollapsed()).toBeTruthy();
     });
 
     it('should not start collapsed if default value is false', () => {
-      spyOn(LeftSideBarSharedService.prototype, 'getDefaultValue').and.returnValue(false);
+      spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
       const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
-      expect(leftBar.getDefaultValue(window)).not.toBeTruthy();
       expect(leftBar.isCollapsed()).not.toBeTruthy();
     });
   });
