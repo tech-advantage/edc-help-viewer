@@ -1,17 +1,17 @@
-import { isEmpty } from 'lodash';
+import {isEmpty} from 'lodash';
 
-import { EMPTY, Observable, of, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {EMPTY, Observable, of, Subscription} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import { Doc } from 'app/documentations/documentation';
-import { DocumentationsService } from './documentations.service';
-import { ConfigService } from '../config.service';
-import { AppState } from '../app.state';
-import { Store } from '@ngrx/store';
-import { selectDocumentation } from '../ngrx/selectors/help-selectors';
-import {getWindowSize, isMobile, ScreenSize, unsubscribe} from '../../utils/global-helper';
-import { WindowRefService } from '../window-ref.service';
+import {Doc} from 'app/documentations/documentation';
+import {DocumentationsService} from './documentations.service';
+import {ConfigService} from '../config.service';
+import {AppState} from '../app.state';
+import {Store} from '@ngrx/store';
+import {selectDocumentation} from '../ngrx/selectors/help-selectors';
+import {isMobile, unsubscribe} from '../../utils/global-helper';
+import {WindowRefService} from '../window-ref.service';
 
 @Component({
   selector: 'app-documentations',
