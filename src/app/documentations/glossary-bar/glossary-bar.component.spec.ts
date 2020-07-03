@@ -7,6 +7,7 @@ import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { LeftSideBarSharedService } from '../../left-sidebar/left-sidebar-shared.service';
 
 import { of } from 'rxjs';
+import {WindowRefService} from '../../window-ref.service';
 
 @Pipe({name: 'html'})
 class MockHtmlPipe implements PipeTransform {
@@ -29,7 +30,8 @@ describe('GlossaryBarComponent ', () => {
       ],
       providers: [
         mockService(DocumentationsService, [ 'getDocumentation' ]),
-        mockService(LeftSideBarSharedService, ['isCollapsed', 'getGlossaryContainerClasses'])
+        mockService(LeftSideBarSharedService, ['isCollapsed', 'getGlossaryContainerClasses']),
+        WindowRefService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })

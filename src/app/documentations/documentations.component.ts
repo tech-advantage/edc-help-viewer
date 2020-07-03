@@ -1,17 +1,17 @@
-import { isEmpty } from 'lodash';
+import {isEmpty} from 'lodash';
 
-import { EMPTY, Observable, of, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {EMPTY, Observable, of, Subscription} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Doc } from 'app/documentations/documentation';
-import { DocumentationsService } from './documentations.service';
-import { ConfigService } from '../config.service';
-import { AppState } from '../app.state';
-import { Store } from '@ngrx/store';
-import { selectDocumentation } from '../ngrx/selectors/help-selectors';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Doc} from 'app/documentations/documentation';
+import {DocumentationsService} from './documentations.service';
+import {ConfigService} from '../config.service';
+import {AppState} from '../app.state';
+import {Store} from '@ngrx/store';
+import {selectDocumentation} from '../ngrx/selectors/help-selectors';
 import {isMobile, unsubscribe} from '../../utils/global-helper';
-import { WindowRefService } from '../window-ref.service';
+import {WindowRefService} from '../window-ref.service';
 
 @Component({
   selector: 'app-documentations',
@@ -28,8 +28,17 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   constructor(private readonly store: Store<AppState>,
               private readonly configService: ConfigService,
               private readonly docService: DocumentationsService,
-              private windowRef: WindowRefService) {
-    this.showSidebar = !isMobile(windowRef.nativeWindow, true);
+              private readonly windowRefService: WindowRefService) {
+    this.handleResponsive(windowRefService.nativeWindow);
+  }
+
+  handleResponsive(window: Window): void {
+    this.showSidebar = !isMobile(window, true);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.handleResponsive(event.target);
   }
 
   ngOnInit(): void {

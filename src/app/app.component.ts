@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ConfigService } from './config.service';
-import { LeftSideBarSharedService } from './left-sidebar/left-sidebar-shared.service';
-import { unsubscribe } from 'utils/global-helper';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {ConfigService} from './config.service';
+import {LeftSideBarSharedService} from './left-sidebar/left-sidebar-shared.service';
+import {unsubscribe} from 'utils/global-helper';
 
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
