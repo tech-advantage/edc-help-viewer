@@ -8,19 +8,27 @@ import {WindowRefService} from '../window-ref.service';
 export class LeftSideBarSharedService {
 
   collapse;
+  overlayMode;
 
   constructor(private windowRef: WindowRefService) {
     this.collapse = new BehaviorSubject<boolean>(false);
+    this.overlayMode = new BehaviorSubject<boolean>(false);
     // Workaround to let the translation service load
     setTimeout(() => this.handleResponsive(windowRef.nativeWindow), 1);
   }
 
   handleResponsive(window: Window): void {
-    this.setCollapseValue(isMobile(window, true));
+    const mobileMode = isMobile(window, true);
+    this.overlayMode = mobileMode;
+    this.setCollapseValue(mobileMode);
   }
 
   isCollapsed(): boolean {
     return this.collapse.getValue();
+  }
+
+  isInOverlayMode(): boolean {
+    return this.overlayMode;
   }
 
   /**

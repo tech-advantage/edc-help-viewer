@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   constructor(private readonly configService: ConfigService,
-              private readonly sideBarSharedService: LeftSideBarSharedService,
+              readonly sideBarSharedService: LeftSideBarSharedService,
               private readonly sanitizer: DomSanitizer) {
   }
 
