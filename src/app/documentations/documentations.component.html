@@ -7,7 +7,7 @@
     </app-documentation-content>
     <app-tree *ngIf="documentation?.topics" [documentations]="documentation?.topics"></app-tree>
   </div>
-  <div *ngIf="showLinksbar()" class="panel" [ngClass]="{'show': showSidebar, 'overlay': overlayMode}">
+  <div *ngIf="showLinksbar()" class="panel" [ngClass]="{'show': showSidebar, 'overlay-full-height': overlayMode && configService.getConfiguration().fullHeightRightSidebarOnMobile, 'overlay-partial-height': overlayMode && !configService.getConfiguration().fullHeightRightSidebarOnMobile}">
     <app-links [linkable]="documentation" *ngIf="showSidebar && showLinksbar()"></app-links>
     <div class="panel-toggle" (click)="togglePanel()" [ngClass]="showSidebar ? 'right':'left'">
       <i class="arrow"></i>

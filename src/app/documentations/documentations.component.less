@@ -57,7 +57,14 @@
           display: none;
         }
 
-        &.overlay {
+        &.overlay-full-height {
+          position: absolute;
+          right: 0;
+          background-color: inherit;
+          height: calc(100% - 75px);
+        }
+
+        &.overlay-partial-height {
           position: absolute;
           right: 0;
           background-color: inherit;

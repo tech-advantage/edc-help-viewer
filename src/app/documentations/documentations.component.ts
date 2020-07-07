@@ -27,7 +27,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
 
   displayFirstDocInsteadOfToc;
   constructor(private readonly store: Store<AppState>,
-              private readonly configService: ConfigService,
+              readonly configService: ConfigService,
               private readonly docService: DocumentationsService,
               private readonly windowRefService: WindowRefService) {
     this.handleResponsive(windowRefService.nativeWindow);
