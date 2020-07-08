@@ -3,7 +3,7 @@ import {isEmpty} from 'lodash';
 import {EMPTY, Observable, of, Subscription} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Doc} from 'app/documentations/documentation';
 import {DocumentationsService} from './documentations.service';
 import {ConfigService} from '../config.service';
@@ -19,6 +19,26 @@ import {WindowRefService} from '../window-ref.service';
   styleUrls: ['./documentations.component.less']
 })
 export class DocumentationsComponent implements OnInit, OnDestroy {
+  constructor(private readonly store: Store<AppState>,
+              readonly configService: ConfigService,
+              private readonly docService: DocumentationsService,
+              private readonly windowRefService: WindowRefService,
+              private renderer: Renderer2) {
+    this.handleResponsive(windowRefService.nativeWindow);
+    /* Handle close on click outside when overlayMode is enabled */
+    this.renderer.listen('window', 'click', ( e: Event) => {
+      /**
+       * Only run when toggleButton is not clicked
+       * If we don't check this, all clicks (even on the toggle button) gets into this
+       * section which in the result we might never see the menu open!
+       * And the menu itself is checked here, and it's where we check just outside of
+       * the menu and button the condition abbove must close the menu
+       */
+      if (this.overlayMode && this.showSidebar && this.linksBar && !this.linksBar.nativeElement.contains(e.target)) {
+        this.setPanel(false);
+      }
+    });
+  }
   sub: Subscription;
   documentation: Doc;
   glossaryId: number;
@@ -26,12 +46,9 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   overlayMode: boolean;
 
   displayFirstDocInsteadOfToc;
-  constructor(private readonly store: Store<AppState>,
-              readonly configService: ConfigService,
-              private readonly docService: DocumentationsService,
-              private readonly windowRefService: WindowRefService) {
-    this.handleResponsive(windowRefService.nativeWindow);
-  }
+
+  @ViewChild('linksBar', {read: ElementRef, static: false})
+  linksBar: ElementRef;
 
   handleResponsive(window: Window): void {
     const mobileMode = isMobile(window, false);
@@ -66,8 +83,12 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
     this.glossaryId = event;
   }
 
+  setPanel(newVal: boolean) {
+    this.showSidebar = newVal;
+  }
+
   togglePanel() {
-    this.showSidebar = !this.showSidebar;
+    this.setPanel(!this.showSidebar);
   }
 
   getFirstDoc(documentation: Doc): Observable<Doc> {

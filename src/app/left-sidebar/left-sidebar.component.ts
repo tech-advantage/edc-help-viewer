@@ -1,21 +1,21 @@
-import { from, Observable, of, Subscription, EMPTY } from 'rxjs';
-import { catchError, delay, filter, first as rxFirst, flatMap, map as rxMap, switchMap, tap, toArray } from 'rxjs/operators';
+import {EMPTY, from, Observable, of, Subscription} from 'rxjs';
+import {catchError, delay, filter, first as rxFirst, flatMap, map as rxMap, switchMap, tap, toArray} from 'rxjs/operators';
 
-import { find, first, forEach, get, isEmpty, isEqual, isNil, last, map, some, toString } from 'lodash';
+import {find, first, forEach, get, isEmpty, isEqual, isNil, last, map, some, toString} from 'lodash';
 
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { InformationMap } from 'edc-client-js';
-import { unsubscribe } from '../../utils/global-helper';
-import { SearchDocResult } from 'app/left-sidebar/search-doc/search-doc-result';
-import { HelpInformationMap } from 'global/classes/help-information-map';
-import { HelpDocumentation } from 'global/classes/help-documentation';
-import { LeftSidebarService } from 'app/left-sidebar/left-sidebar.service';
-import { Doc } from 'app/documentations/documentation';
-import { ConfigService } from '../config.service';
-import { NavigationEnd, Router } from '@angular/router';
-import { AppState, DocState } from '../app.state';
-import { selectDocState } from '../ngrx/selectors/help-selectors';
-import { Store } from '@ngrx/store';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {InformationMap} from 'edc-client-js';
+import {unsubscribe} from '../../utils/global-helper';
+import {SearchDocResult} from 'app/left-sidebar/search-doc/search-doc-result';
+import {HelpInformationMap} from 'global/classes/help-information-map';
+import {HelpDocumentation} from 'global/classes/help-documentation';
+import {LeftSidebarService} from 'app/left-sidebar/left-sidebar.service';
+import {Doc} from 'app/documentations/documentation';
+import {ConfigService} from '../config.service';
+import {NavigationEnd, Router} from '@angular/router';
+import {AppState, DocState} from '../app.state';
+import {selectDocState} from '../ngrx/selectors/help-selectors';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-left-sidebar',

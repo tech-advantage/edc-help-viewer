@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {ConfigService} from './config.service';
 import {LeftSideBarSharedService} from './left-sidebar/left-sidebar-shared.service';
@@ -18,9 +18,28 @@ export class AppComponent implements OnInit, OnDestroy {
   overlayMode = false;
   subs: Subscription[] = [];
 
+  @ViewChild('leftSidebar', {read: ElementRef, static: false})
+  leftSidebar: ElementRef;
+
   constructor(private readonly configService: ConfigService,
               readonly sideBarSharedService: LeftSideBarSharedService,
-              private readonly sanitizer: DomSanitizer) {
+              private readonly sanitizer: DomSanitizer,
+              private readonly renderer: Renderer2) {
+    /* Handle close on click outside when overlayMode is enabled */
+    this.renderer.listen('window', 'click', ( e: Event) => {
+      /**
+       * Only run when toggleButton is not clicked
+       * If we don't check this, all clicks (even on the toggle button) gets into this
+       * section which in the result we might never see the menu open!
+       * And the menu itself is checked here, and it's where we check just outside of
+       * the menu and button the condition abbove must close the menu
+       */
+
+      if (this.leftSidebar && sideBarSharedService.isInOverlayMode() && !sideBarSharedService.isCollapsed() &&
+        !this.leftSidebar.nativeElement.contains(e.target) && !sideBarSharedService.panelToggleElem.nativeElement.contains(e.target)) {
+        sideBarSharedService.setCollapseValue(true);
+      }
+    });
   }
 
   ngOnInit() {
