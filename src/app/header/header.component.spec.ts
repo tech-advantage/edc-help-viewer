@@ -76,7 +76,7 @@ describe('HeaderComponent', () => {
     afterEach(() => jasmine.clock().uninstall());
 
     it('should start collapsed if window is too small', () => {
-      spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.XS);
+      spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
       const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
       expect(leftBar.isCollapsed()).toBeTruthy();

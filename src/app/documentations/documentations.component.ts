@@ -23,17 +23,20 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   documentation: Doc;
   glossaryId: number;
   showSidebar: boolean;
+  overlayMode: boolean;
 
   displayFirstDocInsteadOfToc;
   constructor(private readonly store: Store<AppState>,
-              private readonly configService: ConfigService,
+              readonly configService: ConfigService,
               private readonly docService: DocumentationsService,
               private readonly windowRefService: WindowRefService) {
     this.handleResponsive(windowRefService.nativeWindow);
   }
 
   handleResponsive(window: Window): void {
-    this.showSidebar = !isMobile(window, true);
+    const mobileMode = isMobile(window, false);
+    this.overlayMode = mobileMode;
+    this.showSidebar = !mobileMode;
   }
 
   @HostListener('window:resize', ['$event'])

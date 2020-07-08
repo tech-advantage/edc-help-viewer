@@ -1,21 +1,26 @@
 import {Injectable} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-import {getWindowSize, ScreenSize} from '../../utils/global-helper';
+import {isMobile} from '../../utils/global-helper';
 import {WindowRefService} from '../window-ref.service';
 
 @Injectable()
 export class LeftSideBarSharedService {
 
   collapse;
+  overlayMode;
 
   constructor(private windowRef: WindowRefService) {
     this.collapse = new BehaviorSubject<boolean>(false);
+    this.overlayMode = new BehaviorSubject<boolean>(false);
+    // Workaround to let the translation service load
     setTimeout(() => this.handleResponsive(windowRef.nativeWindow), 1);
   }
 
   handleResponsive(window: Window): void {
-    this.setCollapseValue(getWindowSize(window) === ScreenSize.XS);
+    const mobileMode = isMobile(window, true);
+    this.setOverlayMode(mobileMode);
+    this.setCollapseValue(mobileMode);
   }
 
   isCollapsed(): boolean {
@@ -33,5 +38,9 @@ export class LeftSideBarSharedService {
 
   setCollapseValue(newVal: boolean) {
     this.collapse.next(newVal);
+  }
+
+  setOverlayMode(newVal: boolean) {
+    this.overlayMode.next(newVal);
   }
 }

@@ -13,4 +13,5 @@ export class EdcConfiguration {
   useHttpdServer: boolean;
   collapseTocAsDefault: boolean;
   displayFirstDocInsteadOfToc: boolean;
+  fullHeightRightSidebarOnMobile: boolean;
 }

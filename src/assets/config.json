@@ -9,5 +9,6 @@
   },
   "useHttpdServer": false,
   "collapseTocAsDefault": true,
-  "displayFirstDocInsteadOfToc": true
+  "displayFirstDocInsteadOfToc": true,
+  "fullHeightRightSidebarOnMobile": true
 }
