@@ -1,5 +1,7 @@
 @import "../../global/style/global.less";
 
+@mobile-max-width: 550px;
+
 :host {
   .navbar {
     height: 50px;
@@ -36,7 +38,7 @@
           margin-right: 10px;
         }
 
-        @media only screen and (max-width: 485px) {
+        @media only screen and (max-width: @mobile-max-width) {
           .navbar-history{
             position: absolute;
             font-size: 20pt;
@@ -76,10 +78,31 @@
           height: 36px;
         }
       }
+
+      @media only screen and (max-width: @mobile-max-width) {
+        .navbar-brand {
+          width: 75px;
+          margin-right: 5px;
+          margin-left: 40px;
+
+          > img {
+            height: 28px;
+          }
+        }
+      }
+
       .navbar-text {
         font-weight: 700 !important;
         font-size: 18px;
         line-height: 20px;
+      }
+
+      @media only screen and (max-width: @mobile-max-width) {
+        .navbar-text {
+          padding-right: 40px;
+          font-size: 15px;
+          line-height: 18px;
+        }
       }
     }
     .burger-icon {
