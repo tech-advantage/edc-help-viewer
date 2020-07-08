@@ -23,7 +23,7 @@ describe('AppComponent', () => {
       providers: [
         mockService(HelpService, ['getResource']),
         mockService(ConfigService, ['getConfiguration']),
-        mockService(LeftSideBarSharedService, [], 'collapse')
+        mockService(LeftSideBarSharedService, [], ['collapse', 'overlayMode'])
       ],
       declarations: [
         AppComponent

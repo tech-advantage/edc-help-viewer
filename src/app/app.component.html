@@ -3,7 +3,7 @@
 <app-header class="theme"></app-header>
 
 <div class="app-content">
-  <app-left-sidebar *ngIf="!this.collapsed" class="theme" [ngClass]="{overlay: sideBarSharedService.isInOverlayMode()}"></app-left-sidebar>
+  <app-left-sidebar *ngIf="!this.collapsed" class="theme" [ngClass]="{overlay: this.overlayMode}"></app-left-sidebar>
 
   <div class="theme content">
     <router-outlet></router-outlet>

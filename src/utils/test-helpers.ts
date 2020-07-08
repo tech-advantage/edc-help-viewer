@@ -6,13 +6,16 @@ import { ActivatedRoute } from '@angular/router';
 
 import { BehaviorSubject, of } from 'rxjs';
 
-export function mockService(provide: any, methods?: string[], subject?: string): any {
+export function mockService(provide: any, methods?: string[], subject?: string | string[]): any {
   class MockService {
   }
 
   forEach(methods, method => MockService.prototype[method] = () => of({}));
   if (subject) {
-    MockService.prototype[subject] = new BehaviorSubject<any>(undefined);
+    if (typeof subject === 'string') {
+      subject = [subject];
+    }
+    subject.forEach(el => MockService.prototype[el] = new BehaviorSubject<any>(undefined));
   }
   return { provide: provide, useClass: MockService };
 }

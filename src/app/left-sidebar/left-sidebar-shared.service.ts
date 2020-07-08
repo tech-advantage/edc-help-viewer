@@ -19,16 +19,12 @@ export class LeftSideBarSharedService {
 
   handleResponsive(window: Window): void {
     const mobileMode = isMobile(window, true);
-    this.overlayMode = mobileMode;
+    this.setOverlayMode(mobileMode);
     this.setCollapseValue(mobileMode);
   }
 
   isCollapsed(): boolean {
     return this.collapse.getValue();
-  }
-
-  isInOverlayMode(): boolean {
-    return this.overlayMode;
   }
 
   /**
@@ -42,5 +38,9 @@ export class LeftSideBarSharedService {
 
   setCollapseValue(newVal: boolean) {
     this.collapse.next(newVal);
+  }
+
+  setOverlayMode(newVal: boolean) {
+    this.overlayMode.next(newVal);
   }
 }

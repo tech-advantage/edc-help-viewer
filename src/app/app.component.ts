@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   themeStylePath: SafeResourceUrl;
   collapsed = false;
+  overlayMode = false;
   subs: Subscription[] = [];
 
   constructor(private readonly configService: ConfigService,
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.updateFavicon();
     this.addThemeStyle();
     this.subs.push(this.sideBarSharedService.collapse.subscribe((collapse) => this.collapsed = collapse));
+    this.subs.push(this.sideBarSharedService.overlayMode.subscribe((overlayMode) => this.overlayMode = overlayMode));
   }
 
   ngOnDestroy() {
