@@ -23,6 +23,10 @@ export class LeftSideBarSharedService {
     this.setCollapseValue(mobileMode);
   }
 
+  isInOverlayMode(): boolean {
+    return this.overlayMode.getValue();
+  }
+
   isCollapsed(): boolean {
     return this.collapse.getValue();
   }

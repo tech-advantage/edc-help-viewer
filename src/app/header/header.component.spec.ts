@@ -80,6 +80,7 @@ describe('HeaderComponent', () => {
       const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
       expect(leftBar.isCollapsed()).toBeTruthy();
+      expect(leftBar.isInOverlayMode()).toBeTruthy();
     });
 
     it('should not start collapsed if default value is false', () => {
@@ -87,6 +88,7 @@ describe('HeaderComponent', () => {
       const leftBar = new LeftSideBarSharedService(windowRefService);
       jasmine.clock().tick(5);
       expect(leftBar.isCollapsed()).not.toBeTruthy();
+      expect(leftBar.isInOverlayMode()).not.toBeTruthy();
     });
   });
 });

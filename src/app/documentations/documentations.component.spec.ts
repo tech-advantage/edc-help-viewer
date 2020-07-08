@@ -98,12 +98,14 @@ describe('DocumentationsComponent', () => {
       spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).not.toBeTruthy();
+      expect(doc.overlayMode).toBeTruthy();
     });
 
     it('should not collapse if screen is big enough', () => {
       spyOn(ScreenFuncs, 'isMobile').and.returnValue(false);
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).toBeTruthy();
+      expect(doc.overlayMode).not.toBeTruthy();
     });
   });
 });
