@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {isMobile} from '../../utils/global-helper';
@@ -9,6 +9,7 @@ export class LeftSideBarSharedService {
 
   collapse;
   overlayMode;
+  panelToggleElem;
 
   constructor(private windowRef: WindowRefService) {
     this.collapse = new BehaviorSubject<boolean>(false);
@@ -21,6 +22,10 @@ export class LeftSideBarSharedService {
     const mobileMode = isMobile(window, true);
     this.setOverlayMode(mobileMode);
     this.setCollapseValue(mobileMode);
+  }
+
+  isInOverlayMode(): boolean {
+    return this.overlayMode.getValue();
   }
 
   isCollapsed(): boolean {

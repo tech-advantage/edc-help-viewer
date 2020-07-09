@@ -3,7 +3,7 @@ import {isEmpty} from 'lodash';
 import {EMPTY, Observable, of, Subscription} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Doc} from 'app/documentations/documentation';
 import {DocumentationsService} from './documentations.service';
 import {ConfigService} from '../config.service';
@@ -19,6 +19,12 @@ import {WindowRefService} from '../window-ref.service';
   styleUrls: ['./documentations.component.less']
 })
 export class DocumentationsComponent implements OnInit, OnDestroy {
+  constructor(private readonly store: Store<AppState>,
+              readonly configService: ConfigService,
+              private readonly docService: DocumentationsService,
+              private readonly windowRefService: WindowRefService) {
+    this.handleResponsive(windowRefService.nativeWindow);
+  }
   sub: Subscription;
   documentation: Doc;
   glossaryId: number;
@@ -26,17 +32,25 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   overlayMode: boolean;
 
   displayFirstDocInsteadOfToc;
-  constructor(private readonly store: Store<AppState>,
-              readonly configService: ConfigService,
-              private readonly docService: DocumentationsService,
-              private readonly windowRefService: WindowRefService) {
-    this.handleResponsive(windowRefService.nativeWindow);
-  }
+
+  @ViewChild('linksBar', {read: ElementRef, static: false})
+  linksBar: ElementRef;
 
   handleResponsive(window: Window): void {
     const mobileMode = isMobile(window, false);
     this.overlayMode = mobileMode;
     this.showSidebar = !mobileMode;
+  }
+
+  /* Handle close on click outside when overlayMode is enabled */
+  @HostListener('document:click', ['$event'])
+  onDocClick(e: Event) {
+    /**
+     * Only runs when in overlay mode and clicked element is in sidebar container
+     */
+    if (this.overlayMode && this.showSidebar && this.linksBar && !this.linksBar.nativeElement.contains(e.target)) {
+      this.setPanel(false);
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -66,8 +80,12 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
     this.glossaryId = event;
   }
 
+  setPanel(newVal: boolean) {
+    this.showSidebar = newVal;
+  }
+
   togglePanel() {
-    this.showSidebar = !this.showSidebar;
+    this.setPanel(!this.showSidebar);
   }
 
   getFirstDoc(documentation: Doc): Observable<Doc> {

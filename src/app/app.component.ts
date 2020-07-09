@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {ConfigService} from './config.service';
 import {LeftSideBarSharedService} from './left-sidebar/left-sidebar-shared.service';
@@ -18,9 +18,26 @@ export class AppComponent implements OnInit, OnDestroy {
   overlayMode = false;
   subs: Subscription[] = [];
 
+  @ViewChild('leftSidebar', {read: ElementRef, static: false})
+  leftSidebar: ElementRef;
+
   constructor(private readonly configService: ConfigService,
               readonly sideBarSharedService: LeftSideBarSharedService,
               private readonly sanitizer: DomSanitizer) {
+  }
+
+  /* Handle close on click outside when overlayMode is enabled */
+  @HostListener('document:click', ['$event'])
+  onDocClick(e: Event) {
+    /**
+     * Only runs when in overlay mode and clicked element is in sidebar container
+     */
+    if (this.leftSidebar && this.sideBarSharedService.isInOverlayMode() && !this.sideBarSharedService.isCollapsed() &&
+      !this.leftSidebar.nativeElement.contains(e.target) && this.sideBarSharedService.panelToggleElem &&
+      !this.sideBarSharedService.panelToggleElem.nativeElement.contains(e.target)) {
+
+      this.sideBarSharedService.setCollapseValue(true);
+    }
   }
 
   ngOnInit() {
