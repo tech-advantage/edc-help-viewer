@@ -46,11 +46,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocClick(e: Event) {
     /**
-     * Only run when toggleButton is not clicked
-     * If we don't check this, all clicks (even on the toggle button) gets into this
-     * section which in the result we might never see the menu open!
-     * And the menu itself is checked here, and it's where we check just outside of
-     * the menu and button the condition abbove must close the menu
+     * Only runs when in overlay mode and clicked element is in sidebar container
      */
     if (this.overlayMode && this.showSidebar && this.linksBar && !this.linksBar.nativeElement.contains(e.target)) {
       this.setPanel(false);
