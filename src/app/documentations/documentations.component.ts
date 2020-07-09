@@ -22,22 +22,8 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   constructor(private readonly store: Store<AppState>,
               readonly configService: ConfigService,
               private readonly docService: DocumentationsService,
-              private readonly windowRefService: WindowRefService,
-              private renderer: Renderer2) {
+              private readonly windowRefService: WindowRefService) {
     this.handleResponsive(windowRefService.nativeWindow);
-    /* Handle close on click outside when overlayMode is enabled */
-    this.renderer.listen('window', 'click', ( e: Event) => {
-      /**
-       * Only run when toggleButton is not clicked
-       * If we don't check this, all clicks (even on the toggle button) gets into this
-       * section which in the result we might never see the menu open!
-       * And the menu itself is checked here, and it's where we check just outside of
-       * the menu and button the condition abbove must close the menu
-       */
-      if (this.overlayMode && this.showSidebar && this.linksBar && !this.linksBar.nativeElement.contains(e.target)) {
-        this.setPanel(false);
-      }
-    });
   }
   sub: Subscription;
   documentation: Doc;
@@ -54,6 +40,21 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
     const mobileMode = isMobile(window, false);
     this.overlayMode = mobileMode;
     this.showSidebar = !mobileMode;
+  }
+
+  /* Handle close on click outside when overlayMode is enabled */
+  @HostListener('document:click', ['$event'])
+  onDocClick(e: Event) {
+    /**
+     * Only run when toggleButton is not clicked
+     * If we don't check this, all clicks (even on the toggle button) gets into this
+     * section which in the result we might never see the menu open!
+     * And the menu itself is checked here, and it's where we check just outside of
+     * the menu and button the condition abbove must close the menu
+     */
+    if (this.overlayMode && this.showSidebar && this.linksBar && !this.linksBar.nativeElement.contains(e.target)) {
+      this.setPanel(false);
+    }
   }
 
   @HostListener('window:resize', ['$event'])

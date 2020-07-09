@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { mock, mockService } from '../../utils/test-helpers';
 import { DocumentationsComponent } from 'app/documentations/documentations.component';
-import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
+import {NO_ERRORS_SCHEMA, Pipe, PipeTransform, Renderer2} from '@angular/core';
 import { Article, Link } from 'edc-client-js';
 import { Doc } from 'app/documentations/documentation';
 
@@ -39,7 +39,8 @@ describe('DocumentationsComponent', () => {
         mockService(ConfigService, ['getConfiguration']),
         mockService(DocumentationsService, ['getDocumentation']),
         WindowRefService,
-        Location
+        Location,
+        Renderer2
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -96,6 +97,7 @@ describe('DocumentationsComponent', () => {
   describe('handle responsive', () => {
     it('should collapse if screen is too small (mobile)', () => {
       spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
+
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).not.toBeTruthy();
       expect(doc.overlayMode).toBeTruthy();
@@ -103,6 +105,7 @@ describe('DocumentationsComponent', () => {
 
     it('should not collapse if screen is big enough', () => {
       spyOn(ScreenFuncs, 'isMobile').and.returnValue(false);
+
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).toBeTruthy();
       expect(doc.overlayMode).not.toBeTruthy();
