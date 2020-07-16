@@ -11,6 +11,12 @@ Current release is compatible with edc v3+
 
 ## Building the project
 
+Distribution files can be found in the github release section: [download](https://github.com/tech-advantage/edc-help-viewer/releases/download/v3.2.0/edc-help-viewer.3.2.0.zip).
+
+Please note that it comes with a **"/help/"** base href, so url after deployment should be **"yourBaseUrl/help/"**
+
+If you need to make your own build :
+
 Make sure you have [nodeJS](https://nodejs.org/en/) (version 10.9 or greater) available on your system.
 
 Install project dependencies:
@@ -28,7 +34,7 @@ $ npm run build -- --prod --base-href /help/
 
 Output files will be generated in the **"./dist"** folder, at the project root.
 
-You can then deploy the application : please verify the help viewer url matches the provided `base href` parameter.
+You can then deploy the application : again, please verify the help viewer url matches the provided `base href` parameter.
 If the base href is **"/help/"**, the application will expect to be running at the url: 
 
 **"yourBaseUrl/help/"**
