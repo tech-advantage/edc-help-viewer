@@ -1,16 +1,16 @@
+/**
+ *     -- HEADER & NAVBAR --
+ */
+
 /* Header : Burger menu background and icon colors */
 .navbar .sidebar-collapse {
   background: rgb(60, 141, 188);
   color: rgb(238, 238, 238);
 }
+
 /* Header : Title font color */
 .navbar .theme.navbar-inner .navbar-text {
   color: rgb(238, 238, 238);
-}
-
-/* Search : Search icon color */
-.search-container .icon-color {
-  color: rgb(60, 141, 188);
 }
 
 /* Header : Background and other font colors */
@@ -18,14 +18,41 @@
   background: rgb(60, 141, 188);
   color: rgb(238, 238, 238);
 }
+
+/**
+ *     -- LEFT SIDEBAR --
+ */
+
+/* Left sidebar: Background color */
+.left-sidebar {
+  background-color: rgb(255, 255, 255);
+}
+
+/* Search : Search icon foreground and background color */
+.search-container .icon-container {
+  color: rgb(60, 141, 188);
+  background-color: rgb(255, 255, 255);
+}
+
+/* Search : Search input and placeholder foreground and background color */
+.search-container .search-input,
+.search-container .search-input::placeholder,
+.search-container .search-input:-ms-input-placeholder,
+.search-container .search-input::-ms-input-placeholder {
+  color: #ffffff;
+  background-color: rgb(28, 22, 194);
+}
+
 /* Table of contents : bottom border color */
 .left-sidebar .theme.left-sidebar-title {
   border-bottom: 3px solid rgb(60, 141, 188);
 }
+
 /* Left menu : font color */
 .left-sidebar-content .theme.tree-item-header {
   color: rgb(51, 122, 183);
 }
+
 /* Links and articles header : background-color and text color */
 .context-links .list-group .theme.list-group-item.header {
   background-color: rgb(60, 141, 188);
@@ -37,15 +64,24 @@
   background-color: rgb(60,141,188);
   border-color: rgb(238, 238, 238);
 }
+
 /* Toggle button arrow color on hover */
 .theme.content .context .panel .panel-toggle:hover .arrow {
   border-color: white;
 }
 
+/**
+ *     -- INFO PAGES --
+ */
+
 /* title color for the info pages */
 .edc-info-content .theme.edc-info-title {
   color: rgb(60, 141, 188);
 }
+
+/**
+ *     -- GLOSSARY BAR --
+ */
 
 /* Glossary bar : Header resizer */
 .glossary-resizer {
