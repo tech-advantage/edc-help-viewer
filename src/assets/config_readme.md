@@ -16,5 +16,7 @@
 
 + **"displayFirstDocInsteadOfToc"**: Set this property as true if you want display the first Document when you click on a chapter.
 
++ **"fullHeightRightSidebarOnMobile"**: Set this property as true if you want display the right sidebar with a full height background instead of floating links box
+
 ##### Header logo size recommendations ("images.logo_header")
 For better display results, use a logo with a positive width/height ratio (ideally with a value between 2 and 2.5).
