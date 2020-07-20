@@ -62,12 +62,28 @@
   font-weight: 600;
 }
 
-/* Left menu: font color */
+/* Left menu section titles: Title foreground and background color when not collapsed */
+.left-sidebar-content .strategy-title:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+/* Left menu links: Font color */
 .left-sidebar-content .theme.tree-item-header {
   color: rgb(51, 122, 183);
 }
 
-/* Links and articles header: background-color and text color */
+/* Left menu links: Background color on hover */
+.left-sidebar-content .theme.tree-item-header:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+/* Left menu links: Font color and background color for active link */
+.left-sidebar-content .theme.tree-item-header.active-link {
+  background-color: rgb(160, 212, 104);
+  color: rgb(255, 255, 255);
+}
+
+/* Right menu links and articles header: background-color and text color */
 .context-links .list-group .theme.list-group-item.header {
   background-color: rgb(60, 141, 188);
   color: rgb(255, 255, 255);
