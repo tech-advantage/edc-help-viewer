@@ -13,7 +13,7 @@ export class ClickOutsideDirective {
   @Output() clickOutside = new EventEmitter<boolean>();
 
   @HostListener('document:click', ['$event.target'])
-  public onClick(clickedElement) {
+  public onClick(clickedElement: Element): void {
     const clickedInside = this.element.nativeElement.contains(clickedElement);
     if (!clickedInside) {
       this.clickOutside.emit(true);
@@ -21,7 +21,7 @@ export class ClickOutsideDirective {
   }
 
   @HostListener('document:keydown.escape')
-  onKeydownHandler() {
+  onKeydownHandler(): void {
     this.clickOutside.emit(true);
   }
 }

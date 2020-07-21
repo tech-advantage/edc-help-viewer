@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private readonly helpService: HelpService, private readonly translateService: TranslateService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initTitle();
   }
 
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((translatedTitle: string) => (this.title = translatedTitle));
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 }

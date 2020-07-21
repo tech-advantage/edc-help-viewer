@@ -4,7 +4,6 @@ import { Observable, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HelpService } from 'app/help/help.service';
 import { HelpInformationMap } from 'global/classes/help-information-map';
-import { Doc } from 'app/documentations/documentation';
 import { InformationMap, Toc } from 'edc-client-js';
 import { SearchDocResult } from 'app/left-sidebar/search-doc/search-doc-result';
 
@@ -39,7 +38,8 @@ export class LeftSidebarService {
   /**
    * Create the help information maps for the left side bar component from the edc-client-js toc
    *
-   * @param {Doc} doc the currently active documentation
+   * @param exportId
+   * @param langCode
    * @return {Observable<HelpInformationMap[]>}
    */
   initToc(exportId?: string, langCode?: string): Observable<HelpInformationMap[]> {
@@ -55,6 +55,7 @@ export class LeftSidebarService {
    * Rebuild Information maps tree objects from the toc sent by edc-client-js
    *
    * @param {} toc the table of content of current open export
+   * @param langCode
    * @return {HelpInformationMap[]}
    */
   buildHelpInformationMaps(toc: Toc, langCode?: string): HelpInformationMap[] {

@@ -8,6 +8,7 @@ describe('Anchor pipe test', () => {
   let location: PathLocationStrategy;
 
   class MockLocationStrategy {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     path() {}
   }
 
@@ -28,7 +29,7 @@ describe('Anchor pipe test', () => {
       // Then : the "a" tag referencing anchor link has been modified; not the other "a" tags.
       const parser = new DOMParser();
       const htmlDoc = parser.parseFromString(result, 'text/html');
-      const aTags: any = htmlDoc.body.getElementsByTagName('a');
+      const aTags: HTMLCollectionOf<HTMLAnchorElement> = htmlDoc.body.getElementsByTagName('a');
       expect(aTags.item(0).toString()).toEqual(`${fakePath}#END`);
       expect(aTags.item(1).toString()).toEqual('http://external-link.com/');
       expect(aTags.item(2).toString()).toEqual('');

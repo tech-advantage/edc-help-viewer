@@ -63,7 +63,7 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
         delay(300)
       )
       .subscribe((val: NavigationEnd) => {
-        const childDocID = last(val.urlAfterRedirects.split('/'));
+        const childDocID = parseInt(last(val.urlAfterRedirects.split('/')));
         from(this.informationMapList)
           .pipe(
             flatMap((informationMap) => from(informationMap.topics)),
@@ -255,7 +255,7 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
     });
   }
 
-  hasChild(docs: HelpDocumentation[], childDocID): boolean {
+  hasChild(docs: HelpDocumentation[], childDocID: number): boolean {
     let found = false;
     if (docs && docs.length) {
       found = some(docs, (doc) => isEqual(doc.id, childDocID));

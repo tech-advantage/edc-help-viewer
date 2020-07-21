@@ -1,13 +1,13 @@
 import { EdcInfo } from './edc-info';
 
 export enum InfoTypes {
-  default = <any>'default',
-  notFound = <any>'notFound',
+  default = 'default',
+  notFound = 'notFound',
 }
 
 enum InfoIcons {
-  default = <any>'fa-exclamation-triangle',
-  notFound = <any>' fa-question',
+  default = 'fa-exclamation-triangle',
+  notFound = 'fa-question',
 }
 
 export function InfoPageFactory(type: string): EdcInfo {

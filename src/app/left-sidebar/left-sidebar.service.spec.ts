@@ -140,44 +140,41 @@ describe('LeftSidebarService test', () => {
     });
 
     function buildFakeInformationMaps(): InformationMap[] {
-      let doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8: Documentation;
-      let docs1, docs2, docs3: Documentation[];
-
-      doc1 = {
+      const doc1: Documentation = mock(Documentation, {
         id: 1,
         topics: [],
-      };
-      doc2 = mock(Documentation, {
+      });
+      const doc2: Documentation = mock(Documentation, {
         id: 2,
         topics: [doc1],
       });
-      doc3 = mock(Documentation, {
+      const doc3: Documentation = mock(Documentation, {
         id: 3,
         topics: [],
       });
-      doc4 = mock(Documentation, {
+      const doc4: Documentation = mock(Documentation, {
         id: 4,
         topics: [],
       });
-      doc5 = mock(Documentation, {
+      const doc5: Documentation = mock(Documentation, {
         id: 5,
         topics: [doc4],
       });
-      doc6 = mock(Documentation, {
+      const doc6: Documentation = mock(Documentation, {
         id: 6,
         topics: [doc5],
       });
-      doc7 = mock(Documentation, {
+      const doc7: Documentation = mock(Documentation, {
         id: 7,
         topics: [doc2],
       });
-      doc8 = mock(Documentation, {
+      const doc8: Documentation = mock(Documentation, {
         id: 8,
       });
 
-      docs1 = [mock(Documentation, { topics: [doc3, doc6] })];
-      docs2 = [mock(Documentation, { topics: [doc7] })];
-      docs3 = [mock(Documentation, { topics: [doc8] })];
+      const docs1: Documentation[] = [mock(Documentation, { topics: [doc3, doc6] })];
+      const docs2: Documentation[] = [mock(Documentation, { topics: [doc7] })];
+      const docs3: Documentation[] = [mock(Documentation, { topics: [doc8] })];
 
       return [
         mock(InformationMap, {

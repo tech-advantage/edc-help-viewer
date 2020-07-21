@@ -15,13 +15,14 @@ import { WindowRefService } from '../window-ref.service';
 
 @Pipe({ name: 'html' })
 class StubHtmlPipe implements PipeTransform {
-  transform(value: any, ...args: any[]) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  transform(value: unknown, ...args: unknown[]): void {}
 }
 
 describe('DocumentationsComponent', () => {
   let component: DocumentationsComponent;
   let fixture: ComponentFixture<DocumentationsComponent>;
-  let store: Store<any>;
+  let store: Store<unknown>;
   let configService: ConfigService;
   let documentationsService: DocumentationsService;
   let windowRefService: WindowRefService;

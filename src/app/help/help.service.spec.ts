@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { HelpService } from './help.service';
-import { EdcClient, ExportInfo } from 'edc-client-js';
+import { ExportInfo } from 'edc-client-js';
 import { mockService, mock } from '../../utils/test-helpers';
 import { ConfigService } from '../config.service';
 

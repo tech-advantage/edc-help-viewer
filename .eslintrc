@@ -4,10 +4,10 @@
     "node": true
   },
   "extends": [
+    "prettier/standard",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "angular"
+    "plugin:prettier/recommended"
   ],
   "globals": {},
   "parser": "@typescript-eslint/parser",

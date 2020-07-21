@@ -11,7 +11,7 @@ import { HelpActions } from 'app/ngrx/actions/help.actions';
 import { Doc } from 'app/documentations/documentation';
 
 @Injectable()
-export class ContextResolve implements Resolve<any> {
+export class ContextResolve implements Resolve<unknown> {
   constructor(
     private readonly router: Router,
     private readonly contextService: ContextService,

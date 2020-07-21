@@ -11,7 +11,7 @@ import { LANG_PARAM, PLUGIN_PARAM } from '../context/context.constants';
 import { Doc } from './documentation';
 
 @Injectable()
-export class DocumentationsResolve implements Resolve<any> {
+export class DocumentationsResolve implements Resolve<unknown> {
   constructor(
     private readonly router: Router,
     private readonly documentationsService: DocumentationsService,

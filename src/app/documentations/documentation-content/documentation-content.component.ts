@@ -27,7 +27,7 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
   @Input() documentation: Doc;
   @Output() showGlossary = new EventEmitter<number>();
 
-  @ViewChild('lightbox', { static: true }) lightbox: any;
+  @ViewChild('lightbox', { static: true }) lightbox: unknown;
 
   constructor(
     private readonly configService: ConfigService,
@@ -36,18 +36,18 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
     private readonly eleRef: ElementRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.configService.getConfiguration().documentationStylePath
     );
   }
 
-  onImgDBClick(event) {
-    this.imgUrl = event.target.currentSrc;
+  onImgDBClick(event: MouseEvent): void {
+    this.imgUrl = (event.target as HTMLImageElement).currentSrc;
     this.modalService.show(this.lightbox, { class: 'lightbox modal-lg' });
   }
 
-  glossaryClicked(event) {
+  glossaryClicked(event: number): void {
     this.showGlossary.emit(event);
   }
 

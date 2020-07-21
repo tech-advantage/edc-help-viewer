@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { get, chain, filter, forEach } from 'lodash';
+import { chain } from 'lodash';
 import { PathLocationStrategy } from '@angular/common';
 
 @Pipe({

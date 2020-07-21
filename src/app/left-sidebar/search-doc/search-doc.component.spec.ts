@@ -11,7 +11,6 @@ import { of } from 'rxjs';
 
 describe('SearchDoc component test', () => {
   let searchDocService: SearchDocService;
-  let translateService: TranslateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,11 +25,10 @@ describe('SearchDoc component test', () => {
 
   beforeEach(() => {
     searchDocService = TestBed.get(SearchDocService);
-    translateService = TestBed.get(TranslateService);
   });
 
   const populateComponent = (compInstance) => {
-    const docs = [
+    compInstance.documentations = [
       mock(SearchDocResult, {
         id: 1,
         informationMapId: 57,
@@ -48,7 +46,6 @@ describe('SearchDoc component test', () => {
         informationMapId: 60,
       }),
     ];
-    compInstance.documentations = docs;
 
     compInstance.searchCtrl = new FormControl('');
     return compInstance;

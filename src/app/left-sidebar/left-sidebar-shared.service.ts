@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 import { isMobile } from '../../utils/global-helper';
@@ -36,15 +36,15 @@ export class LeftSideBarSharedService {
    * true => false
    * false => true
    */
-  toggleCollapseValue() {
+  toggleCollapseValue(): void {
     this.setCollapseValue(!this.collapse.getValue());
   }
 
-  setCollapseValue(newVal: boolean) {
+  setCollapseValue(newVal: boolean): void {
     this.collapse.next(newVal);
   }
 
-  setOverlayMode(newVal: boolean) {
+  setOverlayMode(newVal: boolean): void {
     this.overlayMode.next(newVal);
   }
 }

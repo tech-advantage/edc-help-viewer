@@ -17,20 +17,21 @@ export class GlossaryOnclickDirective implements AfterViewInit {
 
   @Output() glossaryClicked = new EventEmitter<number>();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   el: any; // elementRef.nativeElement type is 'any'
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
     this.el = elementRef.nativeElement;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // retrieve all spans with data-glossary attributes
     const glossaryElements = this.el.querySelectorAll('span[data-glossary]');
     // change their onclick function
     this.addOnclickFunction(glossaryElements);
   }
 
-  addOnclickFunction(glossaryElements: HTMLSpanElement[]) {
+  addOnclickFunction(glossaryElements: HTMLSpanElement[]): void {
     forEach(glossaryElements, (element: HTMLSpanElement) => {
       // for each glossaryElement, on clicking, emit the glossaryId to open the glossary
       this.renderer.listen(element, 'click', () => {

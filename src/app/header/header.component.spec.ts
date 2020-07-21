@@ -21,7 +21,6 @@ describe('HeaderComponent', () => {
   let titleService: Title;
   let configService: ConfigService;
   let windowRefService: WindowRefService;
-  let store: Store<any>;
 
   const title = 'foo';
 
@@ -46,7 +45,6 @@ describe('HeaderComponent', () => {
     titleService = TestBed.get(Title);
     configService = TestBed.get(ConfigService);
     windowRefService = TestBed.get(WindowRefService);
-    store = TestBed.get(Store);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(titleService, 'setTitle');
     spyOn(configService, 'getConfiguration').and.returnValue({ images: { logo_header: 'myLogoUrl' } });

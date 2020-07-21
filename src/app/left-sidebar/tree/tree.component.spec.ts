@@ -1,10 +1,8 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TreeComponent } from './tree.component';
 import { mock } from '../../../utils/test-helpers';
-import { Documentation } from 'edc-client-js';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HelpDocumentation } from '../../../global/classes/help-documentation';
 

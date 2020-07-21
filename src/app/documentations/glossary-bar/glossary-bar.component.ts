@@ -35,7 +35,7 @@ export class GlossaryBarComponent {
 
   // disable resizing on mouseUp event
   @HostListener('document:mouseup', ['$event'])
-  onMouseUp(event: MouseEvent): void {
+  onMouseUp(): void {
     this.resizing = false;
   }
 
@@ -45,7 +45,7 @@ export class GlossaryBarComponent {
     private readonly windowRef: WindowRefService
   ) {}
 
-  initGlossary(id: number) {
+  initGlossary(id: number): void {
     if (id && this._glossaryId !== id) {
       this._glossaryId = id;
       this.documentationsService
@@ -54,11 +54,11 @@ export class GlossaryBarComponent {
     }
   }
 
-  closeGlossary() {
+  closeGlossary(): void {
     this.showGlossary.emit(false);
   }
 
-  resizeGlossary(event: MouseEvent) {
+  resizeGlossary(event: MouseEvent): void {
     this.resizing = true;
     event.preventDefault();
     event.stopPropagation();

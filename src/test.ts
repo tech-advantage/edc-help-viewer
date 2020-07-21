@@ -10,7 +10,9 @@ import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let __karma__: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let require: any;
 
 // Prevent Karma from running prematurely.

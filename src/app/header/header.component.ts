@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.version = environment.version;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.sideBarSharedService.panelToggleElem = this.panelToggle;
   }
 
@@ -66,8 +66,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.sideBarSharedService.handleResponsive(event.target);
+  onResize(event: Event): void {
+    this.sideBarSharedService.handleResponsive(event.target as Window);
   }
 
   setTitle(title: string): void {
@@ -81,11 +81,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sideBarSharedService.toggleCollapseValue();
   }
 
-  historyBack() {
+  historyBack(): void {
     this.location.back();
   }
 
-  historyForward() {
+  historyForward(): void {
     this.location.forward();
   }
 }

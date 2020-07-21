@@ -11,6 +11,7 @@ import { WindowRefService } from '../../window-ref.service';
 
 @Pipe({ name: 'html' })
 class MockHtmlPipe implements PipeTransform {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   transform(): void {}
 }
 

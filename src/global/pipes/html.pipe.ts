@@ -33,8 +33,8 @@ export class HtmlPipe implements PipeTransform {
    * @param image the given image
    * @param docUrl the url of the current doc to use for image url rebasing
    */
-  changeImgSrc(image: HTMLImageElement, docUrl: string) {
-    const attr = find(image.attributes, (attribute: any) => attribute.name === 'src');
+  changeImgSrc(image: HTMLImageElement, docUrl: string): void {
+    const attr = find(image.attributes, (attribute: Attr) => attribute.name === 'src');
     if (attr && isString(attr.value) && !this.isSrcAbsolute(attr.value)) {
       // set the original source path to onerror function as a fallback if modified source path was not valid
       image.setAttribute('onerror', onSrcError(attr.value));
@@ -60,7 +60,7 @@ export class HtmlPipe implements PipeTransform {
    * @param docUrl: documentation url
    * @return {string} the rebased image url
    */
-  getImgUrl(imgSrc: string, docUrl: string) {
+  getImgUrl(imgSrc: string, docUrl: string): string {
     const splitUrl = docUrl.split('/');
     splitUrl.pop();
     const baseUrl = splitUrl.join('/');

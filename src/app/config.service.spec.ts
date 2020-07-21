@@ -20,7 +20,7 @@ describe('ConfigService', () => {
     http = TestBed.get(HttpClient);
   });
 
-  function getFakeConfig(httpServerValue: string | boolean): any {
+  function getFakeConfig(httpServerValue: string | boolean): unknown {
     return {
       docPath: '/doc',
       stylePath: '/help/assets/style/custom.css',

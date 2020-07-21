@@ -19,7 +19,7 @@ export class LinksComponent implements OnInit {
     this.params = this.route.snapshot.params;
   }
 
-  getArticleLink(index): string {
+  getArticleLink(index: number): string {
     let url = `/context/`;
     if (this.params[PLUGIN_PARAM]) {
       url += `${this.params[PLUGIN_PARAM]}/`;
@@ -32,7 +32,7 @@ export class LinksComponent implements OnInit {
     return url;
   }
 
-  getLinkLink(link: Link) {
+  getLinkLink(link: Link): string {
     return `/doc/${link.id}`;
   }
 }

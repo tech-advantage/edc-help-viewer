@@ -10,11 +10,10 @@ import { ConfigService } from '../../app/config.service';
 describe('Html pipe test', () => {
   let htmlPipe: HtmlPipe;
   let configService: ConfigService;
-  let domSanitizer: DomSanitizer;
 
   let docUrl: string;
   let docPath: string;
-  let image: any;
+  let image: HTMLImageElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,7 +31,6 @@ describe('Html pipe test', () => {
   });
 
   beforeEach(() => {
-    domSanitizer = TestBed.get(DomSanitizer);
     docUrl = 'html/en/1/23/4.html';
     docPath = '/doc/';
   });
@@ -40,15 +38,14 @@ describe('Html pipe test', () => {
   describe('transform', () => {
     let doc: Doc;
     let htmlDoc: Document;
-    let images: HTMLCollectionOf<HTMLImageElement>;
     beforeEach(() => {
       doc = mock(Doc, {
         url: 'html/en/1/23/12.html',
         content: '<html><body><div><img src="img/lighthouse.jpg" style="height:150px" /></div></body></html>',
       });
       const parser = new DOMParser();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       htmlDoc = parser.parseFromString(doc.content, 'text/html');
-      images = htmlDoc.getElementsByTagName('img');
     });
 
     it('should test transform', () => {
@@ -66,7 +63,7 @@ describe('Html pipe test', () => {
     });
 
     it('should return the rebased image url', () => {
-      const imgSrc = find(image.attributes, (attribute: any) => attribute.name === 'src');
+      const imgSrc = find(image.attributes, (attribute: Attr) => attribute.name === 'src');
       expect(imgSrc.value).toEqual(`img/lighthouse.jpg`);
 
       const result = htmlPipe.getImgUrl(imgSrc.value, docUrl);
@@ -89,10 +86,10 @@ describe('Html pipe test', () => {
       htmlPipe.changeImgSrc(image, docUrl);
 
       // then src attribute should have been set with the doc path
-      const srcAttr = find(image.attributes, (attribute: any) => attribute.name === 'src');
+      const srcAttr = find(image.attributes, (attribute: Attr) => attribute.name === 'src');
       expect(srcAttr.value).toEqual(`${docPath}html/en/1/23/2/3/img.jpg`);
       // and onerror should have been set with the originalSrc value
-      const onErrorAttr = find(image.attributes, (attribute: any) => attribute.name === 'onerror');
+      const onErrorAttr = find(image.attributes, (attribute: Attr) => attribute.name === 'onerror');
       expect(onErrorAttr.value).toEqual(onSrcError(originalSrc));
     });
 
@@ -105,8 +102,8 @@ describe('Html pipe test', () => {
       htmlPipe.changeImgSrc(image, docUrl);
 
       // then src attribute should not have been changed and onerror attribute should be falsy
-      const onErrorAttr = find(image.attributes, (attribute: any) => attribute.name === 'onerror');
-      const srcAttr = find(image.attributes, (attribute: any) => attribute.name === 'src');
+      const onErrorAttr = find(image.attributes, (attribute: Attr) => attribute.name === 'onerror');
+      const srcAttr = find(image.attributes, (attribute: Attr) => attribute.name === 'src');
 
       expect(srcAttr.value).toEqual(originalSrc);
       expect(onErrorAttr).toBeFalsy();

@@ -14,6 +14,11 @@
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm run test"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular-devkit/build-angular": "~0.803.28",
@@ -47,16 +52,14 @@
     "@ngrx/store-devtools": "8.6.0",
     "@types/jasmine": "2.8.8",
     "@types/lodash": "4.14.149",
-    "@types/node": "10.12.6",
+    "@types/node": "^10.12.6",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/eslint-plugin-tslint": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "codelyzer": "^5.0.1",
     "eslint": "^7.5.0",
-    "eslint-config-angular": "^0.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-angular": "^4.0.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",

@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from './config.service';
 import { LeftSideBarSharedService } from './left-sidebar/left-sidebar-shared.service';
 import { unsubscribe } from 'utils/global-helper';
 
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly configService: ConfigService,
     readonly sideBarSharedService: LeftSideBarSharedService,
     private readonly sanitizer: DomSanitizer,
-    private readonly document: Document
+    @Inject(DOCUMENT) private readonly document: Document
   ) {}
 
   /* Handle close on click outside when overlayMode is enabled */

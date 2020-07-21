@@ -1,7 +1,7 @@
 import { AppState, DocState } from '../../app.state';
 import { createSelector } from '@ngrx/store';
 
-export const selectDocState = (state: AppState) => state.app;
+export const selectDocState = (state: AppState): DocState => state.app;
 
 export const selectDocumentation = createSelector(selectDocState, (state: DocState) => state && state.documentation);
 export const selectDocumentationLanguage = createSelector(

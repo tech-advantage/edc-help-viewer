@@ -1,7 +1,7 @@
 import { from, Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { DocumentationTransfer, EdcClient, Helper, InformationMap, ExportInfo } from 'edc-client-js';
+import { DocumentationTransfer, EdcClient, ExportInfo, Helper, InformationMap, Toc } from 'edc-client-js';
 import { ConfigService } from '../config.service';
 
 import { SYS_LANG } from '../../global/config/language-config';
@@ -38,8 +38,8 @@ export class HelpService {
     return from(this.edcClient.getInformationMapFromDocId(id));
   }
 
-  getToc(pluginId?: string) {
-    return this.edcClient.getToc(pluginId);
+  getToc(pluginId?: string): Promise<Toc> {
+    return Promise.resolve(this.edcClient.getToc(pluginId));
   }
 
   getI18nUrl(): string {

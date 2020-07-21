@@ -50,7 +50,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
     return this.documentations.length > this.resultsNumber;
   }
 
-  showMore($event): void {
+  showMore($event: Event): void {
     this.resultsNumber += 10;
     $event.preventDefault();
     $event.stopPropagation();
@@ -59,7 +59,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
   /**
    * Open the dropdown on input focus, only if something has already been typed.
    */
-  onFocus() {
+  onFocus(): void {
     if (this.searchCtrl.value.length) {
       // Have to use setTimeout otherwise 'DropdownOutsideClickDirective' close the dropdown.
       this.populateDocumentations(this.searchCtrl.value);
@@ -112,7 +112,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
     }
   }
 
-  getPlaceholder() {
+  getPlaceholder(): unknown {
     return this.translateService.instant('global.search.placeholder');
   }
 }

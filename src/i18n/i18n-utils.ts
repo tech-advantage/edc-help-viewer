@@ -1,4 +1,5 @@
 import { chain, flatMap, isObject, split, toString } from 'lodash';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
 
 export class I18NUtils {
@@ -8,7 +9,8 @@ export class I18NUtils {
    * @param prefixe leave default value.
    * @returns {TResult[]} the array of json keys.
    */
-  static flatten(data, prefixe = '') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
+  static flatten(data: any, prefixe = ''): unknown[] {
     return flatMap(data, (val, key) => {
       const newPrefixe = prefixe ? `${prefixe}.${key}` : toString(key);
       if (!isObject(val)) {
@@ -23,7 +25,7 @@ export class I18NUtils {
    * Returns an array of all i18n JSON file names.
    * @returns i18n filenames.
    */
-  static getI18nFiles(): any {
+  static getI18nFiles(): unknown {
     return chain(window.__json__)
       .pickBy((file, path) => path.indexOf('i18n') > -1)
       .reduce((memo, file, path) => {

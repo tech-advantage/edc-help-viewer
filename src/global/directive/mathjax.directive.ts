@@ -3,7 +3,7 @@ import { Doc } from '../../app/documentations/documentation';
 
 declare const MathJax: {
   Hub: {
-    Queue: (param: Object[]) => void;
+    Queue: (param: unknown[]) => void;
   };
 };
 
@@ -19,11 +19,11 @@ export class MathjaxDirective implements OnInit {
 
   constructor(private element: ElementRef) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     MathJax.Hub.Queue(['Typeset', MathJax.Hub, this.element.nativeElement]);
   }
 
-  applyMathJax() {
+  applyMathJax(): void {
     setTimeout(() => MathJax.Hub.Queue(['Typeset', MathJax.Hub, this.element.nativeElement]));
   }
 }

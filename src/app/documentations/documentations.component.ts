@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import { EMPTY, Observable, of, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Doc } from 'app/documentations/documentation';
 import { DocumentationsService } from './documentations.service';
 import { ConfigService } from '../config.service';
@@ -47,7 +47,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
 
   /* Handle close on click outside when overlayMode is enabled */
   @HostListener('document:click', ['$event'])
-  onDocClick(e: Event) {
+  onDocClick(e: Event): void {
     /**
      * Only runs when in overlay mode and clicked element is in sidebar container
      */
@@ -57,8 +57,8 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.handleResponsive(event.target);
+  onResize(event: Event): void {
+    this.handleResponsive(event.target as Window);
   }
 
   ngOnInit(): void {
@@ -80,15 +80,15 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
     return this.documentation && (!isEmpty(this.documentation.links) || !isEmpty(this.documentation.articles));
   }
 
-  showGlossary(event): void {
+  showGlossary(event: number): void {
     this.glossaryId = event;
   }
 
-  setPanel(newVal: boolean) {
+  setPanel(newVal: boolean): void {
     this.showSidebar = newVal;
   }
 
-  togglePanel() {
+  togglePanel(): void {
     this.setPanel(!this.showSidebar);
   }
 

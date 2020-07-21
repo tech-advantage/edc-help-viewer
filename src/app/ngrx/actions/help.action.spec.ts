@@ -6,7 +6,7 @@ import { Doc } from '../../documentations/documentation';
 
 describe('help actions', () => {
   let helpActions: HelpActions;
-  let store: Store<any>;
+  let store: Store<unknown>;
 
   const documentation = mock(Doc, { id: 1 });
 

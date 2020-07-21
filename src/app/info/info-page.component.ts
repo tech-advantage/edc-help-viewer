@@ -9,7 +9,7 @@ import { ConfigService } from '../config.service';
   template: `
     <div class="edc-info-container">
       <div class="edc-info-header">
-        <img class="edc-info-logo" [src]="logoUrl" />
+        <img class="edc-info-logo" [src]="logoUrl" alt="Logo" />
       </div>
       <div class="edc-info-content">
         <div class="theme edc-info-title" [innerHTML]="edcInfo.title | translate"></div>
@@ -29,7 +29,7 @@ export class InfoPageComponent implements OnInit {
 
   constructor(private configService: ConfigService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const infoType = InfoTypes.notFound || InfoTypes.default;
     this.edcInfo = InfoPageFactory(infoType.toString());
     this.logoUrl = this.configService.getConfiguration().images.logo_info;

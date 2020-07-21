@@ -24,7 +24,7 @@ describe('LeftSidebarComponent', () => {
   let leftSidebarService: LeftSidebarService;
   let configService: ConfigService;
   let router: Router;
-  let store: Store<any>;
+  let store: Store<unknown>;
 
   let rawInfoMap: InformationMap;
   let info1, info2: HelpInformationMap;

@@ -12,8 +12,6 @@ export class TreeComponent implements OnInit {
   @Input() depth: number;
   @Input() searchResultIds: number[];
 
-  constructor() {}
-
   ngOnInit(): void {
     this.depth = this.depth || 0;
   }
