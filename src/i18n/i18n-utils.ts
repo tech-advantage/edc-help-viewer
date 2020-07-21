@@ -25,7 +25,9 @@ export class I18NUtils {
    * Returns an array of all i18n JSON file names.
    * @returns i18n filenames.
    */
-  static getI18nFiles(): unknown {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static getI18nFiles(): any {
     return chain(window.__json__)
       .pickBy((file, path) => path.indexOf('i18n') > -1)
       .reduce((memo, file, path) => {

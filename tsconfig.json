@@ -8,7 +8,6 @@
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
-    "strict": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
