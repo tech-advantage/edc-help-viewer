@@ -10,7 +10,9 @@
 
 + **"images"**: Paths for favicon and other logo images.
 
-+ **"libsUrl"**: URL of libs (CDN by default, but you can use your own installation)
++ **"libsUrl"**: URL of libs (Own installation by default, but you can use the CDN)
+  
+  For Mathjax : [MathJax CDN](https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML)
 
 + **"useHttpdServer"**: Set this property as true if you're using edc-help-ng along with edc-httpd project (https://github.com/tech-advantage/edc-httpd-java). edc-httpd serves the documentation while exposing an enhanced search web-service.
 

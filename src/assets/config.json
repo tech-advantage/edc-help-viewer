@@ -8,7 +8,7 @@
     "logo_info": "assets/images/logo_edc_info.png"
   },
   "libsUrl": {
-    "mathjax": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+    "mathjax": "./MathJax/MathJax.js?config=TeX-MML-AM_CHTML"
   },
   "useHttpdServer": false,
   "collapseTocAsDefault": true,
