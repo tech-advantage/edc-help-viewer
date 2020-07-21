@@ -33,7 +33,7 @@ import 'core-js/es7/reflect';
  **/
 
 /* Obs: 'web-animations-js' requires a polyfill for JavaFx webView engine and some safari versions,
- added in lib/polyfills/polyfills.js */
+ added in libs/polyfills/polyfills.js */
 import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 

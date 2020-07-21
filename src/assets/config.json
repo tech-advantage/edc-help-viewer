@@ -7,6 +7,9 @@
     "logo_header": "assets/images/logo_edc_header.png",
     "logo_info": "assets/images/logo_edc_info.png"
   },
+  "libsUrl": {
+    "mathjax": "./MathJax/MathJax.js?config=TeX-MML-AM_CHTML"
+  },
   "useHttpdServer": false,
   "collapseTocAsDefault": true,
   "displayFirstDocInsteadOfToc": true,

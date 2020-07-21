@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadLibs();
     this.updateFavicon();
     this.addThemeStyle();
     this.subs.push(this.sideBarSharedService.collapse.subscribe((collapse) => this.collapsed = collapse));
@@ -66,5 +67,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   addThemeStyle() {
     this.themeStylePath = this.sanitizer.bypassSecurityTrustResourceUrl(this.configService.getConfiguration().themeStylePath);
+  }
+
+  loadLibs() {
+    const libs = this.configService.getConfiguration().libsUrl;
+    for (const lib in libs) {
+      if (libs.hasOwnProperty(lib)) {
+        const node = document.createElement('script'); // creates the script tag
+        node.src = libs[lib]; // sets the source (insert url in between quotes)
+        node.type = 'text/javascript'; // set the script type
+        node.async = true; // makes script run asynchronously
+        document.getElementsByTagName('head')[0].appendChild(node);
+      }
+    }
   }
 }

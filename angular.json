@@ -19,7 +19,8 @@
             "assets": [
               "src/assets",
               "src/i18n",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              { "glob": "**/*", "input": "node_modules/mathjax", "output": "/MathJax/" }
             ],
             "styles": [
               "src/styles.less"
@@ -77,7 +78,8 @@
             "assets": [
               "src/assets",
               "src/i18n",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              { "glob": "**/*", "input": "node_modules/mathjax", "output": "/MathJax/" }
             ]
           }
         },
