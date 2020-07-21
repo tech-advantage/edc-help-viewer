@@ -10,6 +10,9 @@ export class EdcConfiguration {
     logo_info: string,
     favicon: string
   };
+  libsUrl: {
+    mathjax: string
+  };
   useHttpdServer: boolean;
   collapseTocAsDefault: boolean;
   displayFirstDocInsteadOfToc: boolean;
