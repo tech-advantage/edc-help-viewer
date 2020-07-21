@@ -19,7 +19,8 @@
             "assets": [
               "src/assets",
               "src/i18n",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/MathJax.js"
             ],
             "styles": [
               "src/styles.less"
