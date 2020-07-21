@@ -6,12 +6,11 @@ import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector   : 'app-home',
+  selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls  : ['./home.component.less']
+  styleUrls: ['./home.component.less'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-
   titleKey = 'global.home.title';
   title: string;
   sub: Subscription;
@@ -23,9 +22,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   initTitle(): void {
-    this.sub = this.helpService.getTitle()
-      .pipe(switchMap((title: string) => this.translateService.get(this.titleKey, {name: title})))
-      .subscribe((translatedTitle: string) => this.title = translatedTitle);
+    this.sub = this.helpService
+      .getTitle()
+      .pipe(switchMap((title: string) => this.translateService.get(this.titleKey, { name: title })))
+      .subscribe((translatedTitle: string) => (this.title = translatedTitle));
   }
 
   ngOnDestroy() {

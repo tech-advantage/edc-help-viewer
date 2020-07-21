@@ -2,7 +2,7 @@ import { EdcInfo } from './edc-info';
 
 export enum InfoTypes {
   default = <any>'default',
-  notFound = <any>'notFound'
+  notFound = <any>'notFound',
 }
 
 enum InfoIcons {
@@ -11,10 +11,10 @@ enum InfoIcons {
 }
 
 export function InfoPageFactory(type: string): EdcInfo {
-  const iconCss: string = InfoIcons[type] || InfoIcons['default'];
+  const iconCss: string = InfoIcons[type] || InfoIcons.default;
   return {
     title: `info.${type}.title`,
     subtitle: `info.${type}.subtitle`,
-    iconCss: iconCss
+    iconCss: iconCss,
   };
 }

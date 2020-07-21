@@ -1,30 +1,33 @@
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 
-import {EMPTY, Observable, of, Subscription} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import { EMPTY, Observable, of, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
-import {Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Doc} from 'app/documentations/documentation';
-import {DocumentationsService} from './documentations.service';
-import {ConfigService} from '../config.service';
-import {AppState} from '../app.state';
-import {Store} from '@ngrx/store';
-import {selectDocumentation} from '../ngrx/selectors/help-selectors';
-import {isMobile, unsubscribe} from '../../utils/global-helper';
-import {WindowRefService} from '../window-ref.service';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Doc } from 'app/documentations/documentation';
+import { DocumentationsService } from './documentations.service';
+import { ConfigService } from '../config.service';
+import { AppState } from '../app.state';
+import { Store } from '@ngrx/store';
+import { selectDocumentation } from '../ngrx/selectors/help-selectors';
+import { isMobile, unsubscribe } from '../../utils/global-helper';
+import { WindowRefService } from '../window-ref.service';
 
 @Component({
   selector: 'app-documentations',
   templateUrl: './documentations.component.html',
-  styleUrls: ['./documentations.component.less']
+  styleUrls: ['./documentations.component.less'],
 })
 export class DocumentationsComponent implements OnInit, OnDestroy {
-  constructor(private readonly store: Store<AppState>,
-              readonly configService: ConfigService,
-              private readonly docService: DocumentationsService,
-              private readonly windowRefService: WindowRefService) {
+  constructor(
+    private readonly store: Store<AppState>,
+    readonly configService: ConfigService,
+    private readonly docService: DocumentationsService,
+    private readonly windowRefService: WindowRefService
+  ) {
     this.handleResponsive(windowRefService.nativeWindow);
   }
+
   sub: Subscription;
   documentation: Doc;
   glossaryId: number;
@@ -33,7 +36,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
 
   displayFirstDocInsteadOfToc;
 
-  @ViewChild('linksBar', {read: ElementRef, static: false})
+  @ViewChild('linksBar', { read: ElementRef, static: false })
   linksBar: ElementRef;
 
   handleResponsive(window: Window): void {
@@ -60,12 +63,13 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.displayFirstDocInsteadOfToc = this.configService.getConfiguration().displayFirstDocInsteadOfToc;
-    this.sub = this.store.select(selectDocumentation).pipe(
-      switchMap(doc => this.getFirstDoc(doc))
-    ).subscribe((documentation: Doc) => {
-      // Since html pipe is pure, need to create new doc object to trigger content refresh
-      this.documentation = Object.assign(new Doc(), documentation);
-    });
+    this.sub = this.store
+      .select(selectDocumentation)
+      .pipe(switchMap((doc) => this.getFirstDoc(doc)))
+      .subscribe((documentation: Doc) => {
+        // Since html pipe is pure, need to create new doc object to trigger content refresh
+        this.documentation = Object.assign(new Doc(), documentation);
+      });
   }
 
   ngOnDestroy(): void {
@@ -99,12 +103,12 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
     if (firstDoc.content) {
       return of(firstDoc);
     }
-    return this.docService.getDocumentation(firstDoc.id).pipe(
-      map(res => res ? Object.assign(new Doc(), res.doc) : null)
-    );
+    return this.docService
+      .getDocumentation(firstDoc.id)
+      .pipe(map((res) => (res ? Object.assign(new Doc(), res.doc) : null)));
   }
 
   private findFirstDoc(doc) {
-    return (doc.topics && doc.topics.length) ? this.findFirstDoc(doc.topics[0]) : doc;
+    return doc.topics && doc.topics.length ? this.findFirstDoc(doc.topics[0]) : doc;
   }
 }

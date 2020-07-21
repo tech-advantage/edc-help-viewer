@@ -2,12 +2,12 @@ import { Component, Output, EventEmitter, Input, HostListener } from '@angular/c
 import { DocumentationsService } from '../documentations.service';
 import { DocumentationTransfer, Documentation } from 'edc-client-js';
 import { LeftSideBarSharedService } from 'app/left-sidebar/left-sidebar-shared.service';
-import {WindowRefService} from '../../window-ref.service';
+import { WindowRefService } from '../../window-ref.service';
 
 @Component({
   selector: 'app-glossary-bar',
   templateUrl: 'glossary-bar.component.html',
-  styleUrls: ['glossary-bar.less']
+  styleUrls: ['glossary-bar.less'],
 })
 export class GlossaryBarComponent {
   height: number; // css height value
@@ -48,8 +48,9 @@ export class GlossaryBarComponent {
   initGlossary(id: number) {
     if (id && this._glossaryId !== id) {
       this._glossaryId = id;
-      this.documentationsService.getDocumentation(id)
-        .subscribe((docTransfer: DocumentationTransfer) => this.glossary = docTransfer.doc);
+      this.documentationsService
+        .getDocumentation(id)
+        .subscribe((docTransfer: DocumentationTransfer) => (this.glossary = docTransfer.doc));
     }
   }
 

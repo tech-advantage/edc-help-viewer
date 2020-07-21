@@ -4,14 +4,13 @@ import { Doc } from '../../app/documentations/documentation';
 declare const MathJax: {
   Hub: {
     Queue: (param: Object[]) => void;
-  }
+  };
 };
 
 @Directive({
-  selector: '[mathJax]'
+  selector: '[mathJax]',
 })
 export class MathjaxDirective implements OnInit {
-
   @Input('mathJax') set onDocumentationChange(doc: Doc) {
     if (doc) {
       this.applyMathJax();

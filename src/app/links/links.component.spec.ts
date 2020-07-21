@@ -14,25 +14,18 @@ describe('Links Component', () => {
     route = mockService(ActivatedRoute);
     route.useClass.prototype.snapshot = {
       params: {
-        index: 1
-      }
+        index: 1,
+      },
     };
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        LinksComponent
-      ],
-      providers: [
-        route
-      ],
-      imports: [
-        RouterModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+      declarations: [LinksComponent],
+      providers: [route],
+      imports: [RouterModule],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -46,7 +39,7 @@ describe('Links Component', () => {
     it('should create', () => {
       expect(component).toBeTruthy();
       expect(component.linkable).toBeTruthy();
-      expect(component.params).toEqual({index: 1});
+      expect(component.params).toEqual({ index: 1 });
     });
   });
 
@@ -55,14 +48,14 @@ describe('Links Component', () => {
       component.params = {
         key: 'foo',
         subKey: 'bar',
-        lang: 'baz'
+        lang: 'baz',
       };
 
       expect(component.getArticleLink(1)).toBe('/context/foo/bar/baz/1');
     });
 
     it('should get link url', () => {
-      const link = mock(Link, {id: 1});
+      const link = mock(Link, { id: 1 });
 
       expect(component.getLinkLink(link)).toBe('/doc/1');
     });

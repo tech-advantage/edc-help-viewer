@@ -7,17 +7,18 @@ import { SYS_LANG, LOCAL_I18N } from './language-config';
 import { HelpService } from '../../app/help/help.service';
 
 export class TranslateLoader {
-
-  constructor(private readonly http: HttpClient,
-              private readonly helpService: HelpService,
-              private readonly defaultLanguage = SYS_LANG,
-              private readonly prefix = '',
-              private readonly suffix = '.json') {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly helpService: HelpService,
+    private readonly defaultLanguage = SYS_LANG,
+    private readonly prefix = '',
+    private readonly suffix = '.json'
+  ) {}
 
   getTranslation(lang: string = SYS_LANG): Observable<any> {
     const langToUse = this.helpService.isLanguageCodePresent(lang) ? lang : this.defaultLanguage;
     return this.http.get(`${this.prefix}/${langToUse}${this.suffix}`).pipe(
-      map(file => this.mergeI18nFiles(file, lang)),
+      map((file) => this.mergeI18nFiles(file, lang)),
       catchError(() => of(this.getLocalI18nFile(lang)))
     );
   }
@@ -43,9 +44,7 @@ export class TranslateLoader {
    */
   getLocalI18nFile(lang: string, defaultLanguage: string = this.defaultLanguage): any {
     // LOCAL_I18N object contains the local i18n json files, defined in the project
-    return (lang && LOCAL_I18N[lang]) ||
-      (defaultLanguage && LOCAL_I18N[defaultLanguage]) ||
-      LOCAL_I18N[SYS_LANG];
+    return (lang && LOCAL_I18N[lang]) || (defaultLanguage && LOCAL_I18N[defaultLanguage]) || LOCAL_I18N[SYS_LANG];
   }
 }
 

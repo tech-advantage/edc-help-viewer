@@ -6,5 +6,5 @@ export const SYS_LANG = 'en';
 // Default i18n content, from the local files
 export const LOCAL_I18N = {
   en,
-  fr
+  fr,
 };

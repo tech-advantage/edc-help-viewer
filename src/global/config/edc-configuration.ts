@@ -6,13 +6,15 @@ export class EdcConfiguration {
   documentationStylePath: string;
   themeStylePath: string;
   images: {
-    logo_header: string,
-    logo_info: string,
-    favicon: string
+    logo_header: string;
+    logo_info: string;
+    favicon: string;
   };
+
   libsUrl: {
-    mathjax: string
+    mathjax: string;
   };
+
   useHttpdServer: boolean;
   collapseTocAsDefault: boolean;
   displayFirstDocInsteadOfToc: boolean;

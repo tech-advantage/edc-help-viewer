@@ -5,10 +5,9 @@ import { onSrcError } from '../../utils/html-helper';
 import { ConfigService } from '../../app/config.service';
 
 @Pipe({
-  name: 'html'
+  name: 'html',
 })
 export class HtmlPipe implements PipeTransform {
-
   constructor(private readonly configService: ConfigService) {}
 
   transform(documentation: Doc): string {
@@ -50,14 +49,9 @@ export class HtmlPipe implements PipeTransform {
    * @return {boolean} : return true if image source path is absolute, false if not
    */
   isSrcAbsolute(src: string): boolean {
-    const protocols = [
-      'http:',
-      'https:',
-      'data:',
-      'ftp:'
-    ];
+    const protocols = ['http:', 'https:', 'data:', 'ftp:'];
     const cleanedSrc = src.trim().toLowerCase();
-    return some(protocols, prefix => cleanedSrc.startsWith(prefix));
+    return some(protocols, (prefix) => cleanedSrc.startsWith(prefix));
   }
 
   /**

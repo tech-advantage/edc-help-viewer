@@ -8,7 +8,6 @@ import { onSrcError } from '../../utils/html-helper';
 import { ConfigService } from '../../app/config.service';
 
 describe('Html pipe test', () => {
-
   let htmlPipe: HtmlPipe;
   let configService: ConfigService;
   let domSanitizer: DomSanitizer;
@@ -23,13 +22,13 @@ describe('Html pipe test', () => {
         HtmlPipe,
         DomSanitizer,
         mockService(ConfigService, ['getConfiguration']),
-        { provide: onSrcError, useValue: () => '' }
-      ]
+        { provide: onSrcError, useValue: () => '' },
+      ],
     });
 
     htmlPipe = TestBed.get(HtmlPipe);
     configService = TestBed.get(ConfigService);
-    spyOn(configService, 'getConfiguration').and.returnValue({docPath: '/doc'});
+    spyOn(configService, 'getConfiguration').and.returnValue({ docPath: '/doc' });
   });
 
   beforeEach(() => {
@@ -39,14 +38,13 @@ describe('Html pipe test', () => {
   });
 
   describe('transform', () => {
-
     let doc: Doc;
     let htmlDoc: Document;
     let images: HTMLCollectionOf<HTMLImageElement>;
     beforeEach(() => {
       doc = mock(Doc, {
         url: 'html/en/1/23/12.html',
-        content: '<html><body><div><img src="img/lighthouse.jpg" style="height:150px" /></div></body></html>'
+        content: '<html><body><div><img src="img/lighthouse.jpg" style="height:150px" /></div></body></html>',
       });
       const parser = new DOMParser();
       htmlDoc = parser.parseFromString(doc.content, 'text/html');
@@ -62,7 +60,6 @@ describe('Html pipe test', () => {
   });
 
   describe('getImgUrl', () => {
-
     beforeEach(() => {
       image = document.createElement('img');
       image.setAttribute('src', 'img/lighthouse.jpg');
@@ -75,18 +72,15 @@ describe('Html pipe test', () => {
       const result = htmlPipe.getImgUrl(imgSrc.value, docUrl);
 
       expect(result).toEqual(`/doc/html/en/1/23/img/lighthouse.jpg`);
-
     });
   });
 
   describe('changeImgSrc', () => {
-
     beforeEach(() => {
       image = document.createElement('img');
     });
 
     it('should set the correct image url and save original source value in onerror attribute', () => {
-
       // given the original source path
       const originalSrc = '2/3/img.jpg';
       image.setAttribute('src', originalSrc);
@@ -102,8 +96,7 @@ describe('Html pipe test', () => {
       expect(onErrorAttr.value).toEqual(onSrcError(originalSrc));
     });
 
-    it('should not change image source if it s an absolute path' , () => {
-
+    it('should not change image source if it s an absolute path', () => {
       // given the original source path
       const originalSrc = 'http://www.abc.com/2/3/img.jpg';
       image.setAttribute('src', originalSrc);
@@ -121,9 +114,7 @@ describe('Html pipe test', () => {
   });
 
   describe('test isSrcAbsolute', () => {
-
     it('should return true if image source path is absolute', () => {
-
       const imageSrc = '     hTTps://www.site.com/12/myImage.gif   ';
 
       const result = htmlPipe.isSrcAbsolute(imageSrc);
@@ -132,7 +123,6 @@ describe('Html pipe test', () => {
     });
 
     it('should return false if image source path is relative', () => {
-
       const imageSrc = './12/myImage.gif';
 
       const result = htmlPipe.isSrcAbsolute(imageSrc);
@@ -140,5 +130,4 @@ describe('Html pipe test', () => {
       expect(result).toBeFalsy();
     });
   });
-
 });

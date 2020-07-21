@@ -8,10 +8,8 @@ import { ExportInfo } from 'edc-client-js';
 
 @Injectable()
 export class HomeResolve implements Resolve<any> {
+  constructor(private readonly helpService: HelpService, private readonly helpActions: HelpActions) {}
 
-  constructor(private readonly helpService: HelpService,
-              private readonly helpActions: HelpActions) {
-  }
   resolve(route: ActivatedRouteSnapshot): Observable<void> {
     // Initialize documentation state's export id and language
     this.helpService.getContent().subscribe((exportInfo: ExportInfo) => {

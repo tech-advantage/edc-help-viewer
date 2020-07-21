@@ -4,16 +4,7 @@ import { AnchorPipe } from 'global/pipes/anchor.pipe';
 import { SafePipe } from 'global/pipes/safe.pipe';
 
 @NgModule({
-  declarations: [
-    HtmlPipe,
-    AnchorPipe,
-    SafePipe
-  ],
-  exports     : [
-    HtmlPipe,
-    AnchorPipe,
-    SafePipe
-  ]
+  declarations: [HtmlPipe, AnchorPipe, SafePipe],
+  exports: [HtmlPipe, AnchorPipe, SafePipe],
 })
-export class SharedPipeHtmlModule {
-}
+export class SharedPipeHtmlModule {}

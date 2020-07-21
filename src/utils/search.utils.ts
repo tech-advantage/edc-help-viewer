@@ -4,7 +4,6 @@ import { lowerDeburr } from './global-helper';
  * Utility class for search/filter feature in Configuration components (Product & User management).
  */
 export class SearchUtils {
-
   /**
    * Simple search function (uses "lowerDeburr" for better accuracy : accents, case,... ).
    * @param source the source string we are searching something into.

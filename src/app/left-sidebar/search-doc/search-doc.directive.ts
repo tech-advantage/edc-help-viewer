@@ -5,26 +5,27 @@ import { findIndex, isNumber, toNumber } from 'lodash';
 const className = 'doc-selected';
 
 // The enum for arrow direction.
-enum Direction { UP, DOWN }
+enum Direction {
+  UP,
+  DOWN,
+}
 
 const DirectionKey = {
   38: Direction.UP,
-  40: Direction.DOWN
+  40: Direction.DOWN,
 };
 
 @Directive({
-  selector: '[keyboardSelect]'
+  selector: '[keyboardSelect]',
 })
 export class KeyboardSelectDirective {
-
   // Notify the validation of the selection.
   @Output() select = new EventEmitter<number>();
 
   // The current selected element.
   current: HTMLElement;
 
-  constructor(private readonly ul: ElementRef, private readonly rendered: Renderer2) {
-  }
+  constructor(private readonly ul: ElementRef, private readonly rendered: Renderer2) {}
 
   /**
    * On mouse over, override selection with the element with the hover.
@@ -62,7 +63,8 @@ export class KeyboardSelectDirective {
   @HostListener('document:keydown', ['$event'])
   onKeydownHandler($event: KeyboardEvent): void {
     const direction = this.getDirection($event.keyCode);
-    if (direction != null) { // ignore other keys of keyboard (only arrows up and down).
+    if (direction != null) {
+      // ignore other keys of keyboard (only arrows up and down).
       const elements: HTMLElement[] = this.ul.nativeElement.querySelectorAll('li');
       if (this.current) {
         this.moveToNextOrPrevious(elements, direction);
@@ -78,7 +80,7 @@ export class KeyboardSelectDirective {
    * @param direction the direction.
    */
   private moveToNextOrPrevious(elements: HTMLElement[], direction: Direction): void {
-    const currentIndex = findIndex(elements, el => el.id === this.current.id);
+    const currentIndex = findIndex(elements, (el) => el.id === this.current.id);
     const index = direction === Direction.DOWN ? currentIndex + 1 : currentIndex - 1;
     if (elements[index]) {
       this.clearSelection();

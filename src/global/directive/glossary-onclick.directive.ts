@@ -6,15 +6,15 @@ import { Doc } from '../../app/documentations/documentation';
  * sets their onclick function to all spans referencing glossary elements
  */
 @Directive({
-  selector: '[glossaryOnclick]'
+  selector: '[glossaryOnclick]',
 })
 export class GlossaryOnclickDirective implements AfterViewInit {
-
   @Input('glossaryOnclick') set onDocumentationChange(doc: Doc) {
     if (doc) {
       setTimeout(() => this.ngAfterViewInit());
     }
   }
+
   @Output() glossaryClicked = new EventEmitter<number>();
 
   el: any; // elementRef.nativeElement type is 'any'

@@ -14,17 +14,10 @@ describe('TreeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TreeComponent
-      ],
-      imports     : [
-        RouterTestingModule
-      ],
-      schemas     : [
-        NO_ERRORS_SCHEMA
-      ]
-    })
-      .compileComponents();
+      declarations: [TreeComponent],
+      imports: [RouterTestingModule],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -48,9 +41,7 @@ describe('TreeComponent', () => {
 
       it('should have the correct padding for depth 0 with topics', () => {
         component.depth = 0;
-        const doc = mock(HelpDocumentation, {topics : [
-          {foo: 'bar'}
-        ]});
+        const doc = mock(HelpDocumentation, { topics: [{ foo: 'bar' }] });
         expect(component.getPadding(doc)).toBe('10px');
       });
       it('should have the correct padding for depth 3 without topics', () => {
@@ -61,18 +52,14 @@ describe('TreeComponent', () => {
 
       it('should have the correct padding for depth 3 with topics', () => {
         component.depth = 3;
-        const doc = mock(HelpDocumentation, {topics : [
-          {foo: 'bar'}
-        ]});
+        const doc = mock(HelpDocumentation, { topics: [{ foo: 'bar' }] });
         expect(component.getPadding(doc)).toBe('55px');
       });
     });
 
     describe('has topics', () => {
       it('should have topics', () => {
-        const doc = mock(HelpDocumentation, {topics : [
-          {foo: 'bar'}
-        ]});
+        const doc = mock(HelpDocumentation, { topics: [{ foo: 'bar' }] });
         expect(component.hasTopics(doc)).toBeTruthy();
       });
       it('should not have topics', () => {
@@ -164,7 +151,5 @@ describe('TreeComponent', () => {
         expect(result).toBeTruthy();
       });
     });
-
   });
-
 });

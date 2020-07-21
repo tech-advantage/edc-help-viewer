@@ -13,7 +13,6 @@ import { TranslateConfig } from '../../../global/config/translate.config';
 
 @Injectable()
 export class SearchDocService {
-
   private readonly baseURL = '/httpd/api/search';
 
   constructor(
@@ -32,12 +31,14 @@ export class SearchDocService {
     if (!search || size(search) < 3) {
       return of([]);
     }
-    return this.configService.useHttpdServer() ? this.findFromServer(search) : this.findFromToc(search, informationMaps);
+    return this.configService.useHttpdServer()
+      ? this.findFromServer(search)
+      : this.findFromToc(search, informationMaps);
   }
 
   findFromServer(search: string): Observable<SearchDocResult[]> {
     const params: HttpParams = new HttpParams().set('query', search);
-    return this.http.get<SearchDocResult[]>(this.baseURL, {params});
+    return this.http.get<SearchDocResult[]>(this.baseURL, { params });
   }
 
   findFromToc(search: string, informationMaps: HelpInformationMap[]): Observable<SearchDocResult[]> {
@@ -46,24 +47,39 @@ export class SearchDocService {
     }
     const results: SearchDocResult[] = [];
 
-    forEach(informationMaps, (informationMap: HelpInformationMap) => this.populateResults(search, informationMap.topics, informationMap, results));
+    forEach(informationMaps, (informationMap: HelpInformationMap) =>
+      this.populateResults(search, informationMap.topics, informationMap, results)
+    );
     return of(results);
   }
 
-  populateResults(search: string, docs: HelpDocumentation[], infoMap: HelpInformationMap, results: SearchDocResult[]): void {
+  populateResults(
+    search: string,
+    docs: HelpDocumentation[],
+    infoMap: HelpInformationMap,
+    results: SearchDocResult[]
+  ): void {
     filter(docs, (doc: HelpDocumentation) => {
       this.populateResults(search, doc.topics, infoMap, results);
       return SearchUtils.filterString(doc.label, search);
-    }).forEach(doc => {
-        // Only doc add to results if documentation type is Chapter or Documentation - avoid information maps content
-        if (get(doc, 'type') === TypeDocumentation.CHAPTER || get(doc, 'type') === TypeDocumentation.DOCUMENT) {
-          results.push(this.createResult(doc, infoMap));
-        }
-      });
+    }).forEach((doc) => {
+      // Only doc add to results if documentation type is Chapter or Documentation - avoid information maps content
+      if (get(doc, 'type') === TypeDocumentation.CHAPTER || get(doc, 'type') === TypeDocumentation.DOCUMENT) {
+        results.push(this.createResult(doc, infoMap));
+      }
+    });
   }
 
   createResult(doc: HelpDocumentation, infoMap: HelpInformationMap): SearchDocResult {
     const languageCode = this.translateConfig.getCurrentLang();
-    return new SearchDocResult(doc.id, doc.label, infoMap.id, infoMap.label, languageCode, '', TypeDocumentation.DOCUMENT);
+    return new SearchDocResult(
+      doc.id,
+      doc.label,
+      infoMap.id,
+      infoMap.label,
+      languageCode,
+      '',
+      TypeDocumentation.DOCUMENT
+    );
   }
 }

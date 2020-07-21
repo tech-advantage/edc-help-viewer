@@ -13,10 +13,9 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-search-doc',
   templateUrl: './search-doc.component.html',
-  styleUrls: [ './search-doc.component.less' ]
+  styleUrls: ['./search-doc.component.less'],
 })
 export class SearchDocComponent implements OnInit, OnDestroy {
-
   // List of documentations matching search for the droplist
   documentations: SearchDocResult[] = [];
 
@@ -34,9 +33,10 @@ export class SearchDocComponent implements OnInit, OnDestroy {
   @Input() informationMaps: HelpInformationMap[];
   @Output() searchResultsChange = new EventEmitter<SearchDocResult[]>();
 
-  constructor(private readonly searchDocService: SearchDocService,
-              private readonly translateService: TranslateService) {
-  }
+  constructor(
+    private readonly searchDocService: SearchDocService,
+    private readonly translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.initSearchField();
@@ -63,7 +63,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
     if (this.searchCtrl.value.length) {
       // Have to use setTimeout otherwise 'DropdownOutsideClickDirective' close the dropdown.
       this.populateDocumentations(this.searchCtrl.value);
-      setTimeout(() => this.isOpen = true, 200);
+      setTimeout(() => (this.isOpen = true), 200);
     }
   }
 
@@ -79,10 +79,8 @@ export class SearchDocComponent implements OnInit, OnDestroy {
    */
   private initSearchField(): void {
     this.searchCtrl = new FormControl('');
-    this.subs.push(this.searchCtrl.valueChanges.pipe(
-      debounceTime(200),
-      distinctUntilChanged())
-      .subscribe(value => {
+    this.subs.push(
+      this.searchCtrl.valueChanges.pipe(debounceTime(200), distinctUntilChanged()).subscribe((value) => {
         this.isOpen = !!value;
         if (value.length >= 3) {
           this.isValid = true;
@@ -92,7 +90,8 @@ export class SearchDocComponent implements OnInit, OnDestroy {
           this.documentations = [];
           this.searchResultsChange.emit([]);
         }
-    }));
+      })
+    );
   }
 
   /**
@@ -103,11 +102,13 @@ export class SearchDocComponent implements OnInit, OnDestroy {
     this.resultsNumber = 10;
     if (this.isValid && search && search.length > 2) {
       this.isLoading = true;
-      this.subs.push(this.searchDocService.getDocumentationsByText(search, this.informationMaps).subscribe(docs => {
-        this.isLoading = false;
-        this.documentations = docs;
-        this.searchResultsChange.emit(docs);
-      }));
+      this.subs.push(
+        this.searchDocService.getDocumentationsByText(search, this.informationMaps).subscribe((docs) => {
+          this.isLoading = false;
+          this.documentations = docs;
+          this.searchResultsChange.emit(docs);
+        })
+      );
     }
   }
 

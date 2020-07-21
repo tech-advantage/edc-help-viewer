@@ -11,28 +11,10 @@ import { HighlightPipe } from '../../../global/pipes/highlight.pipe';
 import { KeyboardSelectDirective } from './search-doc.directive';
 
 @NgModule({
-  imports        : [
-    CommonModule,
-    RouterModule,
-    TranslateModule,
-    ReactiveFormsModule,
-    BsDropdownModule.forRoot()
-  ],
-  declarations   : [
-    SearchDocComponent,
-    ClickOutsideDirective,
-    HighlightPipe,
-    KeyboardSelectDirective
-  ],
-  bootstrap: [
-    SearchDocComponent
-  ],
-  providers      : [
-    SearchDocService
-  ],
-  exports: [
-    SearchDocComponent
-  ]
+  imports: [CommonModule, RouterModule, TranslateModule, ReactiveFormsModule, BsDropdownModule.forRoot()],
+  declarations: [SearchDocComponent, ClickOutsideDirective, HighlightPipe, KeyboardSelectDirective],
+  bootstrap: [SearchDocComponent],
+  providers: [SearchDocService],
+  exports: [SearchDocComponent],
 })
-export class SearchDocModule {
-}
+export class SearchDocModule {}

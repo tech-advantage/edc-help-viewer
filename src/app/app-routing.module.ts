@@ -17,15 +17,14 @@ const routes: Routes = [
       {
         path: '**',
         component: InfoPageComponent,
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
+  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

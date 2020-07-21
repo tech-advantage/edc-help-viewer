@@ -5,10 +5,9 @@ import { HelpDocumentation } from 'global/classes/help-documentation';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
-  styleUrls: [ './tree.component.less' ]
+  styleUrls: ['./tree.component.less'],
 })
 export class TreeComponent implements OnInit {
-
   @Input() documentations: HelpDocumentation[];
   @Input() depth: number;
   @Input() searchResultIds: number[];

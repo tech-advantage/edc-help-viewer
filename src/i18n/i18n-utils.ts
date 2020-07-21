@@ -1,8 +1,7 @@
-declare const window: any;
 import { chain, flatMap, isObject, split, toString } from 'lodash';
+declare const window: any;
 
 export class I18NUtils {
-
   /**
    * Returns an array of all keys in JSON file.
    * @param data the orgignal JSON file to flatten.

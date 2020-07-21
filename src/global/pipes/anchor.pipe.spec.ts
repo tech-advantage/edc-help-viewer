@@ -2,7 +2,6 @@ import { AnchorPipe } from './anchor.pipe';
 import { PathLocationStrategy } from '@angular/common';
 
 describe('Anchor pipe test', () => {
-
   const fakePath = 'http://test.com/';
 
   let anchorPipe: AnchorPipe;
@@ -18,9 +17,7 @@ describe('Anchor pipe test', () => {
     anchorPipe = new AnchorPipe(location);
   });
 
-
   describe('runtime', () => {
-
     it('should transform a href', () => {
       // Given : a page with several type of "a" tag.
       const htmlPage = `<div><a href=#END></a><a href='http://external-link.com/'></a><a></a></div>`;
@@ -37,5 +34,4 @@ describe('Anchor pipe test', () => {
       expect(aTags.item(2).toString()).toEqual('');
     });
   });
-
 });

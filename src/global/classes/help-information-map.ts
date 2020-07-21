@@ -3,7 +3,6 @@ import { InformationMap } from 'edc-client-js';
 import { HelpDocumentation } from './help-documentation';
 
 export class HelpInformationMap extends InformationMap {
-
   id: number;
   label: string;
   file: string;

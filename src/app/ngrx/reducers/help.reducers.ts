@@ -11,10 +11,10 @@ export const initialState: DocState = {
     url: null,
     content: null,
     links: null,
-    articles: null
+    articles: null,
   },
   exportId: null,
-  documentationLanguage: null
+  documentationLanguage: null,
 };
 
 export const appReducers = (state: DocState = initialState, action: HelpAction): DocState => {

@@ -11,6 +11,4 @@ export function getReducers() {
   };
 }
 
-export const reducerProvider = [
-  { provide: reducerToken, useFactory: getReducers }
-];
+export const reducerProvider = [{ provide: reducerToken, useFactory: getReducers }];

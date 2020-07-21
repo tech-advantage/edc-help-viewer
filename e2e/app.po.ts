@@ -1,11 +1,11 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, promise } from 'protractor';
 
 export class EdcHelpNg2Page {
-  navigateTo() {
+  navigateTo(): promise.Promise<unknown> {
     return browser.get('/');
   }
 
-  getParagraphText() {
+  getParagraphText(): promise.Promise<string> {
     return element(by.css('app-root h1')).getText();
   }
 }

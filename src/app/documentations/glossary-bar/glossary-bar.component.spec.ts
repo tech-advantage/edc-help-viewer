@@ -7,13 +7,11 @@ import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { LeftSideBarSharedService } from '../../left-sidebar/left-sidebar-shared.service';
 
 import { of } from 'rxjs';
-import {WindowRefService} from '../../window-ref.service';
+import { WindowRefService } from '../../window-ref.service';
 
-@Pipe({name: 'html'})
+@Pipe({ name: 'html' })
 class MockHtmlPipe implements PipeTransform {
-  transform(): void {
-    return;
-  }
+  transform(): void {}
 }
 
 describe('GlossaryBarComponent ', () => {
@@ -24,18 +22,14 @@ describe('GlossaryBarComponent ', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        GlossaryBarComponent,
-        MockHtmlPipe
-      ],
+      declarations: [GlossaryBarComponent, MockHtmlPipe],
       providers: [
-        mockService(DocumentationsService, [ 'getDocumentation' ]),
+        mockService(DocumentationsService, ['getDocumentation']),
         mockService(LeftSideBarSharedService, ['isCollapsed', 'getGlossaryContainerClasses']),
-        WindowRefService
+        WindowRefService,
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
-    })
-      .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -52,5 +46,4 @@ describe('GlossaryBarComponent ', () => {
     expect(component).toBeTruthy();
     expect(component._glossaryId).toEqual(1);
   }));
-
 });

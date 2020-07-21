@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   hmr: true,
   configFile: 'assets/config.json',
-  version: require('../../package.json').version
+  version: require('../../package.json').version,
 };

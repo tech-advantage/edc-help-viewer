@@ -7,25 +7,24 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 
 export function mockService(provide: any, methods?: string[], subject?: string | string[]): any {
-  class MockService {
-  }
+  class MockService {}
 
-  forEach(methods, method => MockService.prototype[method] = () => of({}));
+  forEach(methods, (method) => (MockService.prototype[method] = () => of({})));
   if (subject) {
     if (typeof subject === 'string') {
       subject = [subject];
     }
-    subject.forEach(el => MockService.prototype[el] = new BehaviorSubject<any>(undefined));
+    subject.forEach((el) => (MockService.prototype[el] = new BehaviorSubject<any>(undefined)));
   }
   return { provide: provide, useClass: MockService };
 }
 
 export function mockedService(provide: any, methods?: string[]): any {
-  forEach(methods, method => provide.prototype[method] = () => of({}));
+  forEach(methods, (method) => (provide.prototype[method] = () => of({})));
   return provide;
 }
 
-export function mock<T>(type: new(... args: any[]) => T, obj: any = {}): T {
+export function mock<T>(type: new (...args: any[]) => T, obj: any = {}): T {
   const entity: T = new type();
   assign(entity, obj);
   return entity;

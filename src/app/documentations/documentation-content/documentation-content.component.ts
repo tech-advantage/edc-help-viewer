@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { Doc } from 'app/documentations/documentation';
 import { ConfigService } from 'app/config.service';
@@ -18,10 +18,9 @@ import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-documentation-content',
-  templateUrl: './documentation-content.component.html'
+  templateUrl: './documentation-content.component.html',
 })
 export class DocumentationContentComponent implements OnInit, OnChanges {
-
   stylePath: SafeResourceUrl;
   imgUrl: string;
 
@@ -30,14 +29,17 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
 
   @ViewChild('lightbox', { static: true }) lightbox: any;
 
-  constructor(private readonly configService: ConfigService,
-              private readonly sanitizer: DomSanitizer,
-              private readonly modalService: BsModalService,
-              private readonly eleRef: ElementRef) {
-  }
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly sanitizer: DomSanitizer,
+    private readonly modalService: BsModalService,
+    private readonly eleRef: ElementRef
+  ) {}
 
   ngOnInit() {
-    this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(this.configService.getConfiguration().documentationStylePath);
+    this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.configService.getConfiguration().documentationStylePath
+    );
   }
 
   onImgDBClick(event) {
@@ -50,18 +52,17 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['documentation'] && changes['documentation'].currentValue) {
-      of(this.documentation).pipe(
-        delay(100)
-      ).subscribe(() => {
-        const elements = this.eleRef.nativeElement.querySelectorAll('img');
-        if (elements && elements.length) {
-          elements.forEach(element => {
-            element.addEventListener('dblclick', this.onImgDBClick.bind(this));
-          });
-        }
-      });
+    if (changes.documentation && changes.documentation.currentValue) {
+      of(this.documentation)
+        .pipe(delay(100))
+        .subscribe(() => {
+          const elements = this.eleRef.nativeElement.querySelectorAll('img');
+          if (elements && elements.length) {
+            elements.forEach((element) => {
+              element.addEventListener('dblclick', this.onImgDBClick.bind(this));
+            });
+          }
+        });
     }
   }
-
 }

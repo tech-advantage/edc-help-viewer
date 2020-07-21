@@ -8,7 +8,6 @@ import { SYS_LANG } from '../../global/config/language-config';
 
 @Injectable()
 export class HelpService {
-
   public edcClient: EdcClient;
 
   constructor(private readonly configService: ConfigService) {
@@ -54,5 +53,4 @@ export class HelpService {
   isLanguageCodePresent(lang: string): boolean {
     return this.edcClient.isLanguagePresent(lang);
   }
-
 }

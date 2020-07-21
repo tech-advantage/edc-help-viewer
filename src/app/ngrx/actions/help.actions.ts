@@ -11,9 +11,7 @@ import { ActionTypes } from './action-types';
 
 @Injectable()
 export class HelpActions {
-
-  constructor(private readonly store: Store<AppState>) {
-  }
+  constructor(private readonly store: Store<AppState>) {}
 
   updateDocState(docState: DocState): void {
     if (docState) {
@@ -25,8 +23,10 @@ export class HelpActions {
     if (documentation) {
       let currentDoc: Doc = null;
       // Take the current value (ngrx store returns a synchronous observable)
-      const sub = this.store.select(selectDocumentation).pipe(take(1))
-        .subscribe((doc: Doc) => currentDoc = doc);
+      const sub = this.store
+        .select(selectDocumentation)
+        .pipe(take(1))
+        .subscribe((doc: Doc) => (currentDoc = doc));
       if (currentDoc && !isEqual(currentDoc, documentation)) {
         this.store.dispatch(new DocumentationAction(documentation));
       }
@@ -38,8 +38,10 @@ export class HelpActions {
     if (newLang) {
       let currentLanguage = '';
       // Take the current value (ngrx store returns a synchronous observable)
-      const sub = this.store.select(selectDocumentationLanguage).pipe(take(1))
-        .subscribe((langCode: string) => currentLanguage = langCode);
+      const sub = this.store
+        .select(selectDocumentationLanguage)
+        .pipe(take(1))
+        .subscribe((langCode: string) => (currentLanguage = langCode));
       if (newLang !== currentLanguage) {
         this.store.dispatch(new DocumentationLanguageAction(newLang));
       }
@@ -51,8 +53,10 @@ export class HelpActions {
     if (newExportId) {
       let currentExportId = '';
       // Take the current value (ngrx store returns a synchronous observable)
-      const sub = this.store.select(selectExportId).pipe(take(1))
-        .subscribe((langCode: string) => currentExportId = langCode);
+      const sub = this.store
+        .select(selectExportId)
+        .pipe(take(1))
+        .subscribe((langCode: string) => (currentExportId = langCode));
       if (newExportId !== currentExportId) {
         this.store.dispatch(new ExportIdAction(newExportId));
       }
@@ -63,22 +67,22 @@ export class HelpActions {
 
 export class DocumentationStateAction implements ActionWithPayload<DocState> {
   readonly type = ActionTypes.UPDATE_DOC_STATE;
-  constructor(public payload: DocState) { }
+  constructor(public payload: DocState) {}
 }
 
 export class DocumentationAction implements ActionWithPayload<Doc> {
   readonly type = ActionTypes.UPDATE_DOCUMENTATION;
-  constructor(public payload: Doc) { }
+  constructor(public payload: Doc) {}
 }
 
 export class ExportIdAction implements ActionWithPayload<string> {
   readonly type = ActionTypes.SET_EXPORT_ID;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class DocumentationLanguageAction implements ActionWithPayload<string> {
   readonly type = ActionTypes.SET_DOCUMENTATION_LANGUAGE;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export type HelpAction = DocumentationStateAction | DocumentationAction | ExportIdAction | DocumentationLanguageAction;

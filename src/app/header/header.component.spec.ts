@@ -1,17 +1,17 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Title} from '@angular/platform-browser';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 
-import {HeaderComponent} from './header.component';
-import {mockService} from '../../utils/test-helpers';
-import {HelpService} from '../help/help.service';
-import {ConfigService} from '../config.service';
-import {LeftSideBarSharedService} from '../left-sidebar/left-sidebar-shared.service';
-import {Store} from '@ngrx/store';
+import { HeaderComponent } from './header.component';
+import { mockService } from '../../utils/test-helpers';
+import { HelpService } from '../help/help.service';
+import { ConfigService } from '../config.service';
+import { LeftSideBarSharedService } from '../left-sidebar/left-sidebar-shared.service';
+import { Store } from '@ngrx/store';
 
-import {of} from 'rxjs';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import {WindowRefService} from '../window-ref.service';
+import { of } from 'rxjs';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { WindowRefService } from '../window-ref.service';
 import * as ScreenFuncs from '../../utils/global-helper';
 
 describe('HeaderComponent', () => {
@@ -27,7 +27,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
+      declarations: [HeaderComponent],
       providers: [
         mockService(Title, ['setTitle']),
         mockService(HelpService, ['getTitle']),
@@ -36,10 +36,9 @@ describe('HeaderComponent', () => {
         mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed']),
         Location,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
-        WindowRefService
+        WindowRefService,
       ],
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -50,7 +49,7 @@ describe('HeaderComponent', () => {
     store = TestBed.get(Store);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(titleService, 'setTitle');
-    spyOn(configService, 'getConfiguration').and.returnValue({images: {logo_header: 'myLogoUrl'}});
+    spyOn(configService, 'getConfiguration').and.returnValue({ images: { logo_header: 'myLogoUrl' } });
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

@@ -20,7 +20,6 @@ export function trimAndLower(value: string): string {
   return trim(toLower(value));
 }
 
-
 /**
  * Unsubscribe a single or an array of subscriptions.
  * @param subs a subscription, or an array of subscriptions.
@@ -30,7 +29,7 @@ export function unsubscribe(subs: Subscription | Subscription[]) {
     return;
   }
   if (isArray(subs)) {
-    forEach(subs, sub => sub && !sub.closed ? sub.unsubscribe() : noop);
+    forEach(subs, (sub) => (sub && !sub.closed ? sub.unsubscribe() : noop));
   } else {
     subs.unsubscribe();
   }
@@ -61,7 +60,7 @@ export enum ScreenSize {
   SM,
   MD,
   LG,
-  XL
+  XL,
 }
 
 export function isMobile(window: Window, matchTablet?: boolean) {

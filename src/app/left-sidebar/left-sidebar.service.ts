@@ -10,9 +10,7 @@ import { SearchDocResult } from 'app/left-sidebar/search-doc/search-doc-result';
 
 @Injectable()
 export class LeftSidebarService {
-
-  constructor(private readonly helpService: HelpService) {
-  }
+  constructor(private readonly helpService: HelpService) {}
 
   getCurrentInformationMap(id: number): Observable<InformationMap> {
     return !isNil(id) ? this.helpService.getInformationMapFromDocId(id) : of(undefined);
@@ -30,10 +28,12 @@ export class LeftSidebarService {
       return 0;
     }
     const imId = informationMap.id;
-    return isNil(imId) ? 0 : chain(results)
-      .filter(result => toString(result.strategyId) === toString(imId))
-      .size()
-      .valueOf();
+    return isNil(imId)
+      ? 0
+      : chain(results)
+          .filter((result) => toString(result.strategyId) === toString(imId))
+          .size()
+          .valueOf();
   }
 
   /**
@@ -43,8 +43,12 @@ export class LeftSidebarService {
    * @return {Observable<HelpInformationMap[]>}
    */
   initToc(exportId?: string, langCode?: string): Observable<HelpInformationMap[]> {
-    return from(this.helpService.getToc(exportId)
-      .then((toc: Toc) => this.buildHelpInformationMaps(toc, langCode), () => new Array<HelpInformationMap>()));
+    return from(
+      this.helpService.getToc(exportId).then(
+        (toc: Toc) => this.buildHelpInformationMaps(toc, langCode),
+        () => new Array<HelpInformationMap>()
+      )
+    );
   }
 
   /**
@@ -55,8 +59,6 @@ export class LeftSidebarService {
    */
   buildHelpInformationMaps(toc: Toc, langCode?: string): HelpInformationMap[] {
     const infoMapsSrc: InformationMap[] = get(toc, 'toc') || [];
-    return infoMapsSrc
-      .map((iM: InformationMap) => new HelpInformationMap(iM, langCode));
+    return infoMapsSrc.map((iM: InformationMap) => new HelpInformationMap(iM, langCode));
   }
-
 }

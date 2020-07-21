@@ -8,14 +8,11 @@ describe('help actions', () => {
   let helpActions: HelpActions;
   let store: Store<any>;
 
-  const documentation = mock(Doc, {id: 1});
+  const documentation = mock(Doc, { id: 1 });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        HelpActions,
-        mockService(Store, ['dispatch', 'select'])
-      ]
+      providers: [HelpActions, mockService(Store, ['dispatch', 'select'])],
     });
 
     helpActions = TestBed.get(HelpActions);
@@ -30,6 +27,5 @@ describe('help actions', () => {
 
       expect(store.dispatch).toHaveBeenCalledWith(new DocumentationAction(documentation));
     });
-
   });
 });

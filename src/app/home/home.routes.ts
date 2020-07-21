@@ -4,10 +4,10 @@ import { HomeResolve } from './home.resolve';
 
 export const homeRoutes: Routes = [
   {
-    path     : 'home',
+    path: 'home',
     component: HomeComponent,
-    resolve  : {
-      documentation: HomeResolve
-    }
-  }
+    resolve: {
+      documentation: HomeResolve,
+    },
+  },
 ];
