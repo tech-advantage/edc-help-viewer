@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { Doc } from 'app/documentations/documentation';
 import { ConfigService } from 'app/config.service';
@@ -18,50 +18,51 @@ import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-documentation-content',
-  templateUrl: './documentation-content.component.html'
+  templateUrl: './documentation-content.component.html',
 })
 export class DocumentationContentComponent implements OnInit, OnChanges {
-
   stylePath: SafeResourceUrl;
   imgUrl: string;
 
   @Input() documentation: Doc;
   @Output() showGlossary = new EventEmitter<number>();
 
-  @ViewChild('lightbox', { static: true }) lightbox: any;
+  @ViewChild('lightbox', { static: true }) lightbox: unknown;
 
-  constructor(private readonly configService: ConfigService,
-              private readonly sanitizer: DomSanitizer,
-              private readonly modalService: BsModalService,
-              private readonly eleRef: ElementRef) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly sanitizer: DomSanitizer,
+    private readonly modalService: BsModalService,
+    private readonly eleRef: ElementRef
+  ) {}
+
+  ngOnInit(): void {
+    this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.configService.getConfiguration().documentationStylePath
+    );
   }
 
-  ngOnInit() {
-    this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(this.configService.getConfiguration().documentationStylePath);
-  }
-
-  onImgDBClick(event) {
-    this.imgUrl = event.target.currentSrc;
+  onImgDBClick(event: MouseEvent): void {
+    this.imgUrl = (event.target as HTMLImageElement).currentSrc;
     this.modalService.show(this.lightbox, { class: 'lightbox modal-lg' });
   }
 
-  glossaryClicked(event) {
+  glossaryClicked(event: number): void {
     this.showGlossary.emit(event);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['documentation'] && changes['documentation'].currentValue) {
-      of(this.documentation).pipe(
-        delay(100)
-      ).subscribe(() => {
-        const elements = this.eleRef.nativeElement.querySelectorAll('img');
-        if (elements && elements.length) {
-          elements.forEach(element => {
-            element.addEventListener('dblclick', this.onImgDBClick.bind(this));
-          });
-        }
-      });
+    if (changes.documentation && changes.documentation.currentValue) {
+      of(this.documentation)
+        .pipe(delay(100))
+        .subscribe(() => {
+          const elements = this.eleRef.nativeElement.querySelectorAll('img');
+          if (elements && elements.length) {
+            elements.forEach((element) => {
+              element.addEventListener('dblclick', this.onImgDBClick.bind(this));
+            });
+          }
+        });
     }
   }
-
 }

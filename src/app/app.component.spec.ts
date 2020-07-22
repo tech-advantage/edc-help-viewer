@@ -9,35 +9,28 @@ import { mockService } from '../utils/test-helpers';
 import { ConfigService } from './config.service';
 import { LeftSideBarSharedService } from './left-sidebar/left-sidebar-shared.service';
 
-
 describe('AppComponent', () => {
-  let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let configService: ConfigService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
         mockService(HelpService, ['getResource']),
         mockService(ConfigService, ['getConfiguration']),
-        mockService(LeftSideBarSharedService, [], ['collapse', 'overlayMode'])
+        mockService(LeftSideBarSharedService, [], ['collapse', 'overlayMode']),
       ],
-      declarations: [
-        AppComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [AppComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     });
     TestBed.compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
     configService = TestBed.get(ConfigService);
-    spyOn(configService, 'getConfiguration').and.returnValue({images: {favicon: 'myFaviconUrl'}});
+    spyOn(configService, 'getConfiguration').and.returnValue({ images: { favicon: 'myFaviconUrl' } });
     fixture.detectChanges();
   });
 

@@ -5,17 +5,15 @@ import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angu
  * Waiting for release of ngx-bootstrap@2.0.0-beta-9 : https://github.com/valor-software/ngx-bootstrap/issues/2635
  */
 @Directive({
-  selector: '[clickOutside]'
+  selector: '[clickOutside]',
 })
 export class ClickOutsideDirective {
-
-  constructor(private readonly element: ElementRef) {
-  }
+  constructor(private readonly element: ElementRef) {}
 
   @Output() clickOutside = new EventEmitter<boolean>();
 
   @HostListener('document:click', ['$event.target'])
-  public onClick(clickedElement) {
+  public onClick(clickedElement: Element): void {
     const clickedInside = this.element.nativeElement.contains(clickedElement);
     if (!clickedInside) {
       this.clickOutside.emit(true);
@@ -23,7 +21,7 @@ export class ClickOutsideDirective {
   }
 
   @HostListener('document:keydown.escape')
-  onKeydownHandler() {
+  onKeydownHandler(): void {
     this.clickOutside.emit(true);
   }
 }

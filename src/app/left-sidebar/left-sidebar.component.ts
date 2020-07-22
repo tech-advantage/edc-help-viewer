@@ -1,29 +1,38 @@
-import {EMPTY, from, Observable, of, Subscription} from 'rxjs';
-import {catchError, delay, filter, first as rxFirst, flatMap, map as rxMap, switchMap, tap, toArray} from 'rxjs/operators';
+import { EMPTY, from, Observable, of, Subscription } from 'rxjs';
+import {
+  catchError,
+  delay,
+  filter,
+  first as rxFirst,
+  flatMap,
+  map as rxMap,
+  switchMap,
+  tap,
+  toArray,
+} from 'rxjs/operators';
 
-import {find, first, forEach, get, isEmpty, isEqual, isNil, last, map, some, toString} from 'lodash';
+import { find, first, forEach, get, isEmpty, isEqual, isNil, last, map, some, toString } from 'lodash';
 
-import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
-import {InformationMap} from 'edc-client-js';
-import {unsubscribe} from '../../utils/global-helper';
-import {SearchDocResult} from 'app/left-sidebar/search-doc/search-doc-result';
-import {HelpInformationMap} from 'global/classes/help-information-map';
-import {HelpDocumentation} from 'global/classes/help-documentation';
-import {LeftSidebarService} from 'app/left-sidebar/left-sidebar.service';
-import {Doc} from 'app/documentations/documentation';
-import {ConfigService} from '../config.service';
-import {NavigationEnd, Router} from '@angular/router';
-import {AppState, DocState} from '../app.state';
-import {selectDocState} from '../ngrx/selectors/help-selectors';
-import {Store} from '@ngrx/store';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { InformationMap } from 'edc-client-js';
+import { unsubscribe } from '../../utils/global-helper';
+import { SearchDocResult } from 'app/left-sidebar/search-doc/search-doc-result';
+import { HelpInformationMap } from 'global/classes/help-information-map';
+import { HelpDocumentation } from 'global/classes/help-documentation';
+import { LeftSidebarService } from 'app/left-sidebar/left-sidebar.service';
+import { Doc } from 'app/documentations/documentation';
+import { ConfigService } from '../config.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { AppState, DocState } from '../app.state';
+import { selectDocState } from '../ngrx/selectors/help-selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-left-sidebar',
   templateUrl: './left-sidebar.component.html',
-  styleUrls: ['./left-sidebar.component.less']
+  styleUrls: ['./left-sidebar.component.less'],
 })
 export class LeftSidebarComponent implements OnInit, OnDestroy {
-
   subs: Subscription[] = [];
   informationMapList: HelpInformationMap[] = [];
   opened: HelpInformationMap;
@@ -37,30 +46,35 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
 
   private collapseTocAsDefault: boolean;
 
-  constructor(private readonly element: ElementRef,
-              private readonly configService: ConfigService,
-              private readonly router: Router,
-              private readonly store: Store<AppState>,
-              private readonly leftSidebarService: LeftSidebarService) {
-  }
+  constructor(
+    private readonly element: ElementRef,
+    private readonly configService: ConfigService,
+    private readonly router: Router,
+    private readonly store: Store<AppState>,
+    private readonly leftSidebarService: LeftSidebarService
+  ) {}
 
   ngOnInit(): void {
     this.subs.push(this.onDocumentationChanged());
     this.collapseTocAsDefault = this.configService.getConfiguration().collapseTocAsDefault;
     this.router.events
-      .pipe(filter(value => value instanceof NavigationEnd), delay(300))
+      .pipe(
+        filter((value) => value instanceof NavigationEnd),
+        delay(300)
+      )
       .subscribe((val: NavigationEnd) => {
         const childDocID = last(val.urlAfterRedirects.split('/'));
         from(this.informationMapList)
           .pipe(
-            flatMap(informationMap => from(informationMap.topics)),
-            filter(doc => isEqual(doc.id, childDocID) || this.hasChild(doc.topics, childDocID)),
+            flatMap((informationMap) => from(informationMap.topics)),
+            filter((doc) => isEqual(doc.id, childDocID) || this.hasChild(doc.topics, childDocID)),
             rxFirst(),
             catchError(() => EMPTY)
-          ).subscribe(rootDoc => {
-          rootDoc.$isCollapsed = false;
-          this.scrollToDoc();
-        });
+          )
+          .subscribe((rootDoc) => {
+            rootDoc.$isCollapsed = false;
+            this.scrollToDoc();
+          });
       });
   }
 
@@ -76,14 +90,17 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
    */
   onDocumentationChanged(): Subscription {
     // Listen to changes on current documentation
-    return this.store.select(selectDocState).pipe(
-      filter(Boolean),
-      tap((docState: DocState) => this.lang = docState && docState.documentationLanguage),
-      rxMap((docState: DocState) => this.updateCurrentDoc(docState)), // Save the currentDoc
-      switchMap((exportId: string) => this.initInformationMaps(exportId)), // Initialize informationMaps from current Doc
-      // Get current information map from current documentation
-      switchMap(() => this.leftSidebarService.getCurrentInformationMap(get(this.currentDoc, 'id') as number)),
-      tap(() => this.scrollToDoc())) // Center the view of the tree on the current Doc
+    return this.store
+      .select(selectDocState)
+      .pipe(
+        filter(Boolean),
+        tap((docState: DocState) => (this.lang = docState && docState.documentationLanguage)),
+        rxMap((docState: DocState) => this.updateCurrentDoc(docState)), // Save the currentDoc
+        switchMap((exportId: string) => this.initInformationMaps(exportId)), // Initialize informationMaps from current Doc
+        // Get current information map from current documentation
+        switchMap(() => this.leftSidebarService.getCurrentInformationMap(get(this.currentDoc, 'id') as number)),
+        tap(() => this.scrollToDoc())
+      ) // Center the view of the tree on the current Doc
       .subscribe((informationMap: InformationMap) => this.updateOpenInformationMap(informationMap)); // Save the open information map
   }
 
@@ -113,8 +130,9 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
     if (isNil(this.currentImId) || toString(informationMapId) !== toString(this.currentImId) || this.hasExportChanged) {
       this.currentImId = informationMapId + '';
       // If no documentation is currently selected, toggle the first information map, else find and open doc information map
-      this.opened = isNil(this.currentDoc) ? first(this.informationMapList) :
-        find(this.informationMapList, im => toString(this.currentImId) === toString(im.id));
+      this.opened = isNil(this.currentDoc)
+        ? first(this.informationMapList)
+        : find(this.informationMapList, (im) => toString(this.currentImId) === toString(im.id));
       this.refreshSearchStatuses();
     }
   }
@@ -140,18 +158,17 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
     let informationMapsObs = of(this.informationMapList);
     if (isEmpty(this.informationMapList) || this.hasExportChanged) {
       // If initializing or documentation export has changed, define information maps from new toc
-      informationMapsObs = this.leftSidebarService.initToc(exportId, this.lang)
-        .pipe(
-          flatMap(infoMaps => from(infoMaps)),
-          tap(infoMap => {
-            const rootDocumentation: HelpDocumentation[] = infoMap.topics;
-            if (rootDocumentation && rootDocumentation.length) {
-              rootDocumentation.forEach((doc: HelpDocumentation) => doc.$isCollapsed = this.collapseTocAsDefault);
-            }
-          }),
-          toArray(),
-          tap(infoMaps => this.informationMapList = infoMaps)
-        );
+      informationMapsObs = this.leftSidebarService.initToc(exportId, this.lang).pipe(
+        flatMap((infoMaps) => from(infoMaps)),
+        tap((infoMap) => {
+          const rootDocumentation: HelpDocumentation[] = infoMap.topics;
+          if (rootDocumentation && rootDocumentation.length) {
+            rootDocumentation.forEach((doc: HelpDocumentation) => (doc.$isCollapsed = this.collapseTocAsDefault));
+          }
+        }),
+        toArray(),
+        tap((infoMaps) => (this.informationMapList = infoMaps))
+      );
     }
     return informationMapsObs;
   }
@@ -178,7 +195,7 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
 
   onSearch(results: SearchDocResult[]): void {
     this.searchResults = results;
-    this.searchResultIds = map(results, result => result.id);
+    this.searchResultIds = map(results, (result) => result.id);
     this.updateResultNumber();
     this.refreshSearchStatuses();
   }
@@ -201,8 +218,11 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
    *
    */
   updateResultNumber(): void {
-    forEach(this.informationMapList,
-      (infoMap: HelpInformationMap) => infoMap.$resultsCount = this.leftSidebarService.countResult(infoMap, this.searchResults));
+    forEach(
+      this.informationMapList,
+      (infoMap: HelpInformationMap) =>
+        (infoMap.$resultsCount = this.leftSidebarService.countResult(infoMap, this.searchResults))
+    );
   }
 
   /**
@@ -211,11 +231,12 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
    * @param {HelpDocumentation[]} docs the documentations contained in the information map
    */
   handleSearchMatchingDocs(docs: HelpDocumentation[]): void {
-    forEach(docs, doc => {
+    forEach(docs, (doc) => {
       // Recursively process doc's children
       this.handleSearchMatchingDocs(doc.topics);
       // Set matchesSearch property value
-      doc.$matchesSearch = isEmpty(this.searchResultIds) || some(this.searchResultIds, id => toString(id) === toString(doc.id));
+      doc.$matchesSearch =
+        isEmpty(this.searchResultIds) || some(this.searchResultIds, (id) => toString(id) === toString(doc.id));
     });
   }
 
@@ -225,21 +246,22 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
    * @param {HelpDocumentation[]} docs the documentations contained in the information map
    */
   handleParentMatchingDocs(docs: HelpDocumentation[]): void {
-    forEach(docs, doc => {
+    forEach(docs, (doc) => {
       // Recursively process doc's children
       this.handleParentMatchingDocs(doc.topics);
       // Set parent search property value
-      doc.$isParentSearch = isEmpty(this.searchResultIds) || some(doc.topics, child => child.$matchesSearch || child.$isParentSearch);
+      doc.$isParentSearch =
+        isEmpty(this.searchResultIds) || some(doc.topics, (child) => child.$matchesSearch || child.$isParentSearch);
     });
   }
 
-  hasChild(docs: HelpDocumentation[], childDocID): boolean {
+  hasChild(docs: HelpDocumentation[], childDocID: string): boolean {
     let found = false;
     if (docs && docs.length) {
-      found = some(docs, doc => isEqual(doc.id, childDocID));
+      found = some(docs, (doc) => isEqual(doc.id, childDocID));
       if (!found) {
         const array = [];
-        forEach(docs, doc => array.push(...doc.topics));
+        forEach(docs, (doc) => array.push(...doc.topics));
         found = this.hasChild(array, childDocID);
       }
     }

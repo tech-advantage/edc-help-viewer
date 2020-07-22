@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContextService {
-
   constructor(private helpService: HelpService) {}
 
   getArticle(key: string, subKey: string, pluginId: string, lang: string): Observable<Helper> {

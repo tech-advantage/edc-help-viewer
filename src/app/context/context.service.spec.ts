@@ -9,10 +9,7 @@ describe('ContextService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ContextService,
-        mockService(HelpService, ['getContextHelp'])
-      ]
+      providers: [ContextService, mockService(HelpService, ['getContextHelp'])],
     });
   });
 
@@ -28,5 +25,4 @@ describe('ContextService', () => {
       expect(helpService.getContextHelp).toHaveBeenCalledWith('key', 'subKey', 'pluginId', 'en');
     });
   });
-
 });

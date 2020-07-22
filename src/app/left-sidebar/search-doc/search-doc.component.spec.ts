@@ -10,48 +10,42 @@ import { SearchDocResult } from './search-doc-result';
 import { of } from 'rxjs';
 
 describe('SearchDoc component test', () => {
-
   let searchDocService: SearchDocService;
-  let translateService: TranslateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchDocComponent, mockPipe('highlight'), mockPipe('translate') ],
+      declarations: [SearchDocComponent, mockPipe('highlight'), mockPipe('translate')],
       providers: [
-        mockService(SearchDocService, [ 'getDocumentationsByText' ]),
-        mockService(TranslateService, [ 'instant' ])
+        mockService(SearchDocService, ['getDocumentationsByText']),
+        mockService(TranslateService, ['instant']),
       ],
-      schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
   beforeEach(() => {
     searchDocService = TestBed.get(SearchDocService);
-    translateService = TestBed.get(TranslateService);
   });
 
   const populateComponent = (compInstance) => {
-    const docs = [
+    compInstance.documentations = [
       mock(SearchDocResult, {
         id: 1,
-        informationMapId: 57
+        informationMapId: 57,
       }),
       mock(SearchDocResult, {
         id: 2,
-        informationMapId: 58
+        informationMapId: 58,
       }),
       mock(SearchDocResult, {
         id: 3,
-        informationMapId: 59
+        informationMapId: 59,
       }),
       mock(SearchDocResult, {
         id: 4,
-        informationMapId: 60
-      })
+        informationMapId: 60,
+      }),
     ];
-    compInstance.documentations = docs;
 
     compInstance.searchCtrl = new FormControl('');
     return compInstance;
@@ -111,7 +105,6 @@ describe('SearchDoc component test', () => {
         expect(componentInstance.documentations.length).toEqual(0);
       }, 200);
     }));
-
   });
 
   describe('runtime', () => {
@@ -122,7 +115,6 @@ describe('SearchDoc component test', () => {
     });
 
     describe('onFocus', () => {
-
       beforeEach(() => {
         spyOn(componentInstance, 'populateDocumentations');
       });
@@ -154,20 +146,18 @@ describe('SearchDoc component test', () => {
         expect(componentInstance.populateDocumentations).toHaveBeenCalledWith('ab');
         setTimeout(() => expect(componentInstance.isOpen).toBeTruthy(), 200);
       }));
-
     });
 
     describe('populateDocumentations', () => {
-
       const docs = [
         mock(SearchDocResult, {
           id: 87,
-          informationMapId: 9874
+          informationMapId: 9874,
         }),
         mock(SearchDocResult, {
           id: 799,
-          informationMapId: 591
-        })
+          informationMapId: 591,
+        }),
       ];
 
       beforeEach(() => {
@@ -211,7 +201,6 @@ describe('SearchDoc component test', () => {
         expect(componentInstance.documentations).toEqual(docs);
         expect(componentInstance.isLoading).toBeFalsy();
       }));
-
     });
   });
 });

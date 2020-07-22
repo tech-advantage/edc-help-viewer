@@ -2,13 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
-  name: 'safe'
+  name: 'safe',
 })
 export class SafePipe implements PipeTransform {
-
-  constructor(protected sanitizer: DomSanitizer) {
-
-  }
+  constructor(protected sanitizer: DomSanitizer) {}
 
   public transform(value: string, type: string): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {
     switch (type) {
@@ -26,5 +23,4 @@ export class SafePipe implements PipeTransform {
         throw new Error(`Unable to bypass security for invalid type: ${type}`);
     }
   }
-
 }

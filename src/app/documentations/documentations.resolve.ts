@@ -11,12 +11,12 @@ import { LANG_PARAM, PLUGIN_PARAM } from '../context/context.constants';
 import { Doc } from './documentation';
 
 @Injectable()
-export class DocumentationsResolve implements Resolve<any> {
-
-  constructor(private readonly router: Router,
-              private readonly documentationsService: DocumentationsService,
-              private readonly helpActions: HelpActions) {
-  }
+export class DocumentationsResolve implements Resolve<unknown> {
+  constructor(
+    private readonly router: Router,
+    private readonly documentationsService: DocumentationsService,
+    private readonly helpActions: HelpActions
+  ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<DocumentationTransfer> {
     const params: Params = route.params;
@@ -42,6 +42,7 @@ export class DocumentationsResolve implements Resolve<any> {
       catchError(() => {
         this.router.navigate(['info']);
         return of(null);
-      }));
+      })
+    );
   }
 }

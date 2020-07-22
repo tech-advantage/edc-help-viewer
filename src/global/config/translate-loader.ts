@@ -7,17 +7,18 @@ import { SYS_LANG, LOCAL_I18N } from './language-config';
 import { HelpService } from '../../app/help/help.service';
 
 export class TranslateLoader {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly helpService: HelpService,
+    private readonly defaultLanguage = SYS_LANG,
+    private readonly prefix = '',
+    private readonly suffix = '.json'
+  ) {}
 
-  constructor(private readonly http: HttpClient,
-              private readonly helpService: HelpService,
-              private readonly defaultLanguage = SYS_LANG,
-              private readonly prefix = '',
-              private readonly suffix = '.json') {}
-
-  getTranslation(lang: string = SYS_LANG): Observable<any> {
+  getTranslation(lang: string = SYS_LANG): Observable<unknown> {
     const langToUse = this.helpService.isLanguageCodePresent(lang) ? lang : this.defaultLanguage;
     return this.http.get(`${this.prefix}/${langToUse}${this.suffix}`).pipe(
-      map(file => this.mergeI18nFiles(file, lang)),
+      map((file) => this.mergeI18nFiles(file, lang)),
       catchError(() => of(this.getLocalI18nFile(lang)))
     );
   }
@@ -29,7 +30,7 @@ export class TranslateLoader {
    * @param file the file from the export, whose values will override the local ones
    * @param lang the requested language code
    */
-  mergeI18nFiles(file, lang: string): any {
+  mergeI18nFiles(file: unknown, lang: string): unknown {
     const localFile = this.getLocalI18nFile(lang);
     return merge(localFile, file);
   }
@@ -41,16 +42,14 @@ export class TranslateLoader {
    * @param lang the lang code
    * @param defaultLanguage default lang code
    */
-  getLocalI18nFile(lang: string, defaultLanguage: string = this.defaultLanguage): any {
+  getLocalI18nFile(lang: string, defaultLanguage: string = this.defaultLanguage): unknown {
     // LOCAL_I18N object contains the local i18n json files, defined in the project
-    return (lang && LOCAL_I18N[lang]) ||
-      (defaultLanguage && LOCAL_I18N[defaultLanguage]) ||
-      LOCAL_I18N[SYS_LANG];
+    return (lang && LOCAL_I18N[lang]) || (defaultLanguage && LOCAL_I18N[defaultLanguage]) || LOCAL_I18N[SYS_LANG];
   }
 }
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient, helpService: HelpService) {
+export function HttpLoaderFactory(http: HttpClient, helpService: HelpService): TranslateLoader {
   const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
   const i18nUrl = helpService.getI18nUrl();
   return new TranslateLoader(http, helpService, defaultLanguage, i18nUrl);

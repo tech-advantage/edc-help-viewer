@@ -6,11 +6,9 @@ import { DocumentationTransfer } from 'edc-client-js';
 
 @Injectable()
 export class DocumentationsService {
-
   constructor(private helpService: HelpService) {}
 
   getDocumentation(docId: number, langCode?: string, pluginId?: string): Observable<DocumentationTransfer> {
     return this.helpService.getDocumentation(docId, langCode, pluginId);
   }
-
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { TreeModule } from 'app/left-sidebar/tree/tree.module';
@@ -17,26 +16,14 @@ import { GlossaryOnclickDirective } from '../../global/directive/glossary-onclic
 import { GlossaryBarComponent } from './glossary-bar/glossary-bar.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TranslateModule,
-    RouterModule,
-    SharedPipeHtmlModule,
-    LinksModule,
-    TreeModule
-  ],
-  providers   : [
-    DocumentationsService,
-    DocumentationsResolve,
-    ContextService,
-    ContextResolve
-  ],
+  imports: [CommonModule, TranslateModule, RouterModule, SharedPipeHtmlModule, LinksModule, TreeModule],
+  providers: [DocumentationsService, DocumentationsResolve, ContextService, ContextResolve],
   declarations: [
     DocumentationsComponent,
     DocumentationContentComponent,
     MathjaxDirective,
     GlossaryOnclickDirective,
-    GlossaryBarComponent
-  ]
+    GlossaryBarComponent,
+  ],
 })
-export class DocumentationsModule { }
+export class DocumentationsModule {}

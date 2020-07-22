@@ -24,7 +24,7 @@ describe('LeftSidebarComponent', () => {
   let leftSidebarService: LeftSidebarService;
   let configService: ConfigService;
   let router: Router;
-  let store: Store<any>;
+  let store: Store<unknown>;
 
   let rawInfoMap: InformationMap;
   let info1, info2: HelpInformationMap;
@@ -37,11 +37,10 @@ describe('LeftSidebarComponent', () => {
         mockService(LeftSidebarService, ['getCurrentDoc', 'initToc', 'getCurrentInformationMap', 'countResult']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(Router, [], 'events'),
-        mockService(Store, ['select'])
+        mockService(Store, ['select']),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -57,11 +56,11 @@ describe('LeftSidebarComponent', () => {
     info2 = mock(HelpInformationMap, { id: 7, topics: [] });
     assign(router.events, of());
     docState = {
-      documentation: mock(Doc, {id: 14, topics: [info1, info2]}),
+      documentation: mock(Doc, { id: 14, topics: [info1, info2] }),
       documentationLanguage: 'it',
-      exportId: 'myExportId'
+      exportId: 'myExportId',
     };
-    spyOn(configService, 'getConfiguration').and.returnValue({collapseTocAsDefault: true});
+    spyOn(configService, 'getConfiguration').and.returnValue({ collapseTocAsDefault: true });
     spyOn(store, 'select').and.returnValue(of(docState));
     spyOn(leftSidebarService, 'initToc').and.returnValue(of([info1, info2]));
     spyOn(leftSidebarService, 'getCurrentInformationMap').and.returnValue(of(rawInfoMap));
@@ -91,30 +90,43 @@ describe('LeftSidebarComponent', () => {
     });
 
     describe('handleSearchMatchingDocs', () => {
-
       let doc1, doc2, doc3, doc4, doc5, doc6, doc7: HelpDocumentation;
       let docs: HelpDocumentation[];
       beforeEach(() => {
         doc1 = {
-          id: 1, topics: [], type: TypeDocumentation.DOCUMENT
+          id: 1,
+          topics: [],
+          type: TypeDocumentation.DOCUMENT,
         };
         doc2 = mock(HelpDocumentation, {
-          id: 2, topics: [doc1], type: TypeDocumentation.DOCUMENT
+          id: 2,
+          topics: [doc1],
+          type: TypeDocumentation.DOCUMENT,
         });
         doc3 = mock(HelpDocumentation, {
-          id: 3, topics: [], type: TypeDocumentation.DOCUMENT
+          id: 3,
+          topics: [],
+          type: TypeDocumentation.DOCUMENT,
         });
         doc4 = mock(HelpDocumentation, {
-          id: 4, topics: [], type: TypeDocumentation.DOCUMENT
+          id: 4,
+          topics: [],
+          type: TypeDocumentation.DOCUMENT,
         });
         doc5 = mock(HelpDocumentation, {
-          id: 5, topics: [doc4], type: TypeDocumentation.DOCUMENT
+          id: 5,
+          topics: [doc4],
+          type: TypeDocumentation.DOCUMENT,
         });
         doc6 = mock(HelpDocumentation, {
-          id: 6, topics: [doc5], type: TypeDocumentation.DOCUMENT
+          id: 6,
+          topics: [doc5],
+          type: TypeDocumentation.DOCUMENT,
         });
         doc7 = mock(HelpDocumentation, {
-          id: 7, topics: [doc2], type: TypeDocumentation.CHAPTER
+          id: 7,
+          topics: [doc2],
+          type: TypeDocumentation.CHAPTER,
         });
         docs = [doc3, doc6, doc7];
       });
@@ -126,7 +138,6 @@ describe('LeftSidebarComponent', () => {
 
         expect(getNestedMatches(docs, 'topics', '$matchesSearch')).toEqual([doc2]);
       });
-
     });
   });
 });

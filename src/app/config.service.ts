@@ -7,16 +7,14 @@ import { EdcConfiguration } from '../global/config/edc-configuration';
 export class ConfigService {
   private config: EdcConfiguration;
 
-  constructor(private readonly http: HttpClient) {
-  }
+  constructor(private readonly http: HttpClient) {}
 
-  load(url: string) {
+  load(url: string): Promise<unknown> {
     return new Promise((resolve) => {
-      this.http.get(url)
-        .subscribe((config: EdcConfiguration) => {
-          this.config = config;
-          resolve();
-        });
+      this.http.get(url).subscribe((config: EdcConfiguration) => {
+        this.config = config;
+        resolve();
+      });
     });
   }
 
@@ -34,5 +32,4 @@ export class ConfigService {
     const value = get(this.config, 'useHttpdServer');
     return isBoolean(value) ? value : value === 'true';
   }
-
 }

@@ -11,12 +11,12 @@ import { HelpActions } from 'app/ngrx/actions/help.actions';
 import { Doc } from 'app/documentations/documentation';
 
 @Injectable()
-export class ContextResolve implements Resolve<any> {
-
-  constructor(private readonly router: Router,
-              private readonly contextService: ContextService,
-              private readonly helpActions: HelpActions) {
-  }
+export class ContextResolve implements Resolve<unknown> {
+  constructor(
+    private readonly router: Router,
+    private readonly contextService: ContextService,
+    private readonly helpActions: HelpActions
+  ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<void> {
     const params: Params = route.params;
@@ -39,7 +39,7 @@ export class ContextResolve implements Resolve<any> {
           id: undefined,
           label: res.label,
           articles: res.articles,
-          links: res.links
+          links: res.links,
         });
         this.helpActions.setExportId(res.exportId);
         this.helpActions.setDocumentationLanguage(res.language);
@@ -50,6 +50,5 @@ export class ContextResolve implements Resolve<any> {
         return EMPTY;
       })
     );
-
   }
 }

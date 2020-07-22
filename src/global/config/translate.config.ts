@@ -9,20 +9,22 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class TranslateConfig {
-
   constructor(
     private readonly translate: TranslateService,
     private readonly helpService: HelpService,
     private readonly store: Store<AppState>
   ) {
     translate.use(SYS_LANG);
-    store.select(selectDocumentationLanguage).pipe(
-      tap((lang: string) => {
-        if (lang) {
-          this.setCurrentLang(lang);
-        }
-      })
-    ).subscribe();
+    store
+      .select(selectDocumentationLanguage)
+      .pipe(
+        tap((lang: string) => {
+          if (lang) {
+            this.setCurrentLang(lang);
+          }
+        })
+      )
+      .subscribe();
   }
 
   getCurrentLang(): string {

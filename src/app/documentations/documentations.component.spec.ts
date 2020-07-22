@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { mock, mockService } from '../../utils/test-helpers';
 import { DocumentationsComponent } from 'app/documentations/documentations.component';
-import {NO_ERRORS_SCHEMA, Pipe, PipeTransform, Renderer2} from '@angular/core';
+import { NO_ERRORS_SCHEMA, Pipe, PipeTransform, Renderer2 } from '@angular/core';
 import { Article, Link } from 'edc-client-js';
 import { Doc } from 'app/documentations/documentation';
 
@@ -9,42 +9,38 @@ import { of } from 'rxjs';
 import { ConfigService } from '../config.service';
 import { DocumentationsService } from './documentations.service';
 import { Store } from '@ngrx/store';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import * as ScreenFuncs from '../../utils/global-helper';
-import {WindowRefService} from '../window-ref.service';
+import { WindowRefService } from '../window-ref.service';
 
-@Pipe({name: 'html'})
+@Pipe({ name: 'html' })
 class StubHtmlPipe implements PipeTransform {
-  transform(value: any, ...args: any[]) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  transform(value: unknown, ...args: unknown[]): void {}
 }
 
 describe('DocumentationsComponent', () => {
   let component: DocumentationsComponent;
   let fixture: ComponentFixture<DocumentationsComponent>;
-  let store: Store<any>;
+  let store: Store<unknown>;
   let configService: ConfigService;
   let documentationsService: DocumentationsService;
   let windowRefService: WindowRefService;
-  const documentation = mock(Doc, {id: 1, content: 'content'});
-
+  const documentation = mock(Doc, { id: 1, content: 'content' });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DocumentationsComponent,
-        StubHtmlPipe
-      ],
+      declarations: [DocumentationsComponent, StubHtmlPipe],
       providers: [
         mockService(Store, ['select']),
         mockService(ConfigService, ['getConfiguration']),
         mockService(DocumentationsService, ['getDocumentation']),
         WindowRefService,
         Location,
-        Renderer2
+        Renderer2,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -54,7 +50,7 @@ describe('DocumentationsComponent', () => {
     windowRefService = TestBed.get(WindowRefService);
     spyOn(store, 'select').and.returnValue(of(documentation));
     spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
-    spyOn(configService, 'getConfiguration').and.returnValue({displayFirstDocInsteadOfToc: false});
+    spyOn(configService, 'getConfiguration').and.returnValue({ displayFirstDocInsteadOfToc: false });
 
     spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
 
@@ -77,18 +73,18 @@ describe('DocumentationsComponent', () => {
       });
 
       it('should show link bar if links are not empty', () => {
-        component.documentation.links = [mock(Link, {id: 1})];
+        component.documentation.links = [mock(Link, { id: 1 })];
         expect(component.showLinksbar()).toBeTruthy();
       });
 
       it('should show link bar if articles are not empty', () => {
-        component.documentation.articles = [mock(Article, {id: 1})];
+        component.documentation.articles = [mock(Article, { id: 1 })];
         expect(component.showLinksbar()).toBeTruthy();
       });
 
       it('should show link bar if links and articles are not empty', () => {
-        component.documentation.links = [mock(Link, {id: 1})];
-        component.documentation.articles = [mock(Article, {id: 1})];
+        component.documentation.links = [mock(Link, { id: 1 })];
+        component.documentation.articles = [mock(Article, { id: 1 })];
         expect(component.showLinksbar()).toBeTruthy();
       });
     });

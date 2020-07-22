@@ -1,4 +1,4 @@
 export enum TypeDocumentation {
   DOCUMENT = 'DOCUMENT',
-  CHAPTER = 'CHAPTER'
+  CHAPTER = 'CHAPTER',
 }

@@ -5,12 +5,10 @@ import { appReducers } from './help.reducers';
 
 export const reducerToken = new InjectionToken<ActionReducerMap<AppState>>('Reducers');
 
-export function getReducers() {
+export function getReducers(): unknown {
   return {
     app: appReducers,
   };
 }
 
-export const reducerProvider = [
-  { provide: reducerToken, useFactory: getReducers }
-];
+export const reducerProvider = [{ provide: reducerToken, useFactory: getReducers }];

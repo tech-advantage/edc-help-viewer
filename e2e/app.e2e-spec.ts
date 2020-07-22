@@ -1,6 +1,6 @@
 import { EdcHelpNg2Page } from './app.po';
 
-describe('edc-help-ng2 App', function() {
+describe('edc-help-ng2 App', function () {
   let page: EdcHelpNg2Page;
 
   beforeEach(() => {

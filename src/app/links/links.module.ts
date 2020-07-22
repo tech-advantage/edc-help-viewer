@@ -5,17 +5,8 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    TranslateModule
-  ],
-  declarations: [
-    LinksComponent
-  ],
-  exports: [
-    LinksComponent
-  ]
+  imports: [CommonModule, RouterModule, TranslateModule],
+  declarations: [LinksComponent],
+  exports: [LinksComponent],
 })
-export class LinksModule {
-}
+export class LinksModule {}

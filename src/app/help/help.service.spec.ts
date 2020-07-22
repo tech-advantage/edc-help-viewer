@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { HelpService } from './help.service';
-import { EdcClient, ExportInfo } from 'edc-client-js';
+import { ExportInfo } from 'edc-client-js';
 import { mockService, mock } from '../../utils/test-helpers';
 import { ConfigService } from '../config.service';
 
@@ -10,10 +10,7 @@ describe('HelpService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        HelpService,
-        mockService(ConfigService, ['getConfiguration'])
-      ]
+      providers: [HelpService, mockService(ConfigService, ['getConfiguration'])],
     });
 
     helpService = TestBed.get(HelpService);
@@ -21,7 +18,7 @@ describe('HelpService', () => {
   });
 
   beforeEach(() => {
-    spyOn(configService, 'getConfiguration').and.returnValue({docPath: '/doc'});
+    spyOn(configService, 'getConfiguration').and.returnValue({ docPath: '/doc' });
   });
 
   it('should init with pluginId as undefined', () => {
@@ -41,12 +38,13 @@ describe('HelpService', () => {
     }));
 
     it('should get current content', async(() => {
-      spyOn(helpService.edcClient, 'getContent').and.returnValue(Promise.resolve(mock(ExportInfo, {pluginId: 'myExportId', currentLanguage: 'fr'})));
+      spyOn(helpService.edcClient, 'getContent').and.returnValue(
+        Promise.resolve(mock(ExportInfo, { pluginId: 'myExportId', currentLanguage: 'fr' }))
+      );
       helpService.getContent().subscribe((exportInfo: ExportInfo) => {
         expect(exportInfo.pluginId).toEqual('myExportId');
         expect(exportInfo.currentLanguage).toEqual('fr');
       });
     }));
   });
-
 });

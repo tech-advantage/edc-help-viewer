@@ -17,16 +17,10 @@ describe('Home Component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        HomeComponent
-      ],
-      providers: [
-        mockService(HelpService, ['getTitle']),
-        mockService(TranslateService, ['get'])
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+      declarations: [HomeComponent],
+      providers: [mockService(HelpService, ['getTitle']), mockService(TranslateService, ['get'])],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

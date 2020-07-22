@@ -1,12 +1,11 @@
-import {ElementRef, Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs';
-import {isMobile} from '../../utils/global-helper';
-import {WindowRefService} from '../window-ref.service';
+import { BehaviorSubject } from 'rxjs';
+import { isMobile } from '../../utils/global-helper';
+import { WindowRefService } from '../window-ref.service';
 
 @Injectable()
 export class LeftSideBarSharedService {
-
   collapse;
   overlayMode;
   panelToggleElem;
@@ -33,19 +32,19 @@ export class LeftSideBarSharedService {
   }
 
   /**
-  * Change the value of collapse.
-  * true => false
-  * false => true
-  */
-  toggleCollapseValue() {
+   * Change the value of collapse.
+   * true => false
+   * false => true
+   */
+  toggleCollapseValue(): void {
     this.setCollapseValue(!this.collapse.getValue());
   }
 
-  setCollapseValue(newVal: boolean) {
+  setCollapseValue(newVal: boolean): void {
     this.collapse.next(newVal);
   }
 
-  setOverlayMode(newVal: boolean) {
+  setOverlayMode(newVal: boolean): void {
     this.overlayMode.next(newVal);
   }
 }

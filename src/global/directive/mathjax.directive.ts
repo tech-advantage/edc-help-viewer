@@ -3,15 +3,14 @@ import { Doc } from '../../app/documentations/documentation';
 
 declare const MathJax: {
   Hub: {
-    Queue: (param: Object[]) => void;
-  }
+    Queue: (param: unknown[]) => void;
+  };
 };
 
 @Directive({
-  selector: '[mathJax]'
+  selector: '[mathJax]',
 })
 export class MathjaxDirective implements OnInit {
-
   @Input('mathJax') set onDocumentationChange(doc: Doc) {
     if (doc) {
       this.applyMathJax();
@@ -20,11 +19,11 @@ export class MathjaxDirective implements OnInit {
 
   constructor(private element: ElementRef) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     MathJax.Hub.Queue(['Typeset', MathJax.Hub, this.element.nativeElement]);
   }
 
-  applyMathJax() {
+  applyMathJax(): void {
     setTimeout(() => MathJax.Hub.Queue(['Typeset', MathJax.Hub, this.element.nativeElement]));
   }
 }

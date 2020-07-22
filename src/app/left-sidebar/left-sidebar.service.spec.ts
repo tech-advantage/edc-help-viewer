@@ -7,16 +7,14 @@ import { HelpService } from 'app/help/help.service';
 import { Documentation, InformationMap, Toc } from 'edc-client-js';
 
 describe('LeftSidebarService test', () => {
-
   let leftSidebarService: LeftSidebarService;
   let helpService: HelpService;
 
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      LeftSidebarService,
-      mockService(HelpService, ['getToc'])
-    ]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      providers: [LeftSidebarService, mockService(HelpService, ['getToc'])],
+    })
+  );
 
   beforeEach(() => {
     leftSidebarService = TestBed.get(LeftSidebarService);
@@ -24,9 +22,7 @@ describe('LeftSidebarService test', () => {
   });
 
   describe('runtime', () => {
-
     describe('countResult', () => {
-
       let informationMap: HelpInformationMap;
       let results: SearchDocResult[];
 
@@ -36,7 +32,7 @@ describe('LeftSidebarService test', () => {
           mock(SearchDocResult, { strategyId: 1 }),
           mock(SearchDocResult, { strategyId: 2 }),
           mock(SearchDocResult, { strategyId: '2' }),
-          mock(SearchDocResult, { strategyId: 2 })
+          mock(SearchDocResult, { strategyId: 2 }),
         ];
       });
 
@@ -78,11 +74,9 @@ describe('LeftSidebarService test', () => {
 
         expect(resultsNumber).toEqual(0);
       });
-
     });
 
     describe('buildHelpInformationMaps', () => {
-
       let informationMaps: InformationMap[];
       let toc: Toc;
 
@@ -92,7 +86,6 @@ describe('LeftSidebarService test', () => {
       });
 
       it('should build and return the Help information maps in french', () => {
-
         const result = leftSidebarService.buildHelpInformationMaps(toc, 'fr');
 
         expect(result).toBeDefined();
@@ -113,11 +106,9 @@ describe('LeftSidebarService test', () => {
         expect(result).toBeDefined();
         expect(result.length).toEqual(0);
       });
-
     });
 
     describe('initToc', () => {
-
       let toc: Toc;
 
       beforeEach(() => {
@@ -136,7 +127,6 @@ describe('LeftSidebarService test', () => {
           expect(leftSidebarService.buildHelpInformationMaps).toHaveBeenCalledTimes(1);
           expect(leftSidebarService.buildHelpInformationMaps).toHaveBeenCalledWith(toc, undefined);
         });
-
       });
       it('should return an empty array if couldn"t retrieve the toc', () => {
         spyOn(helpService, 'getToc').and.returnValue(Promise.reject(''));
@@ -147,50 +137,65 @@ describe('LeftSidebarService test', () => {
           expect(ims).toEqual(new Array<HelpInformationMap>());
         });
       });
-
     });
 
     function buildFakeInformationMaps(): InformationMap[] {
+      const doc1: Documentation = mock(Documentation, {
+        id: 1,
+        topics: [],
+      });
+      const doc2: Documentation = mock(Documentation, {
+        id: 2,
+        topics: [doc1],
+      });
+      const doc3: Documentation = mock(Documentation, {
+        id: 3,
+        topics: [],
+      });
+      const doc4: Documentation = mock(Documentation, {
+        id: 4,
+        topics: [],
+      });
+      const doc5: Documentation = mock(Documentation, {
+        id: 5,
+        topics: [doc4],
+      });
+      const doc6: Documentation = mock(Documentation, {
+        id: 6,
+        topics: [doc5],
+      });
+      const doc7: Documentation = mock(Documentation, {
+        id: 7,
+        topics: [doc2],
+      });
+      const doc8: Documentation = mock(Documentation, {
+        id: 8,
+      });
 
-      let doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8: Documentation;
-      let docs1, docs2, docs3: Documentation[];
-
-      doc1 = {
-        id: 1, topics: []
-      };
-      doc2 = mock(Documentation, {
-        id: 2, topics: [doc1]
-      });
-      doc3 = mock(Documentation, {
-        id: 3, topics: []
-      });
-      doc4 = mock(Documentation, {
-        id: 4, topics: []
-      });
-      doc5 = mock(Documentation, {
-        id: 5, topics: [doc4]
-      });
-      doc6 = mock(Documentation, {
-        id: 6, topics: [doc5]
-      });
-      doc7 = mock(Documentation, {
-        id: 7, topics: [doc2]
-      });
-      doc8 = mock(Documentation, {
-        id: 8
-      });
-
-      docs1 = [mock(Documentation, { topics: [doc3, doc6] })];
-      docs2 = [mock(Documentation, { topics: [doc7] })];
-      docs3 = [mock(Documentation, { topics: [doc8] })];
+      const docs1: Documentation[] = [mock(Documentation, { topics: [doc3, doc6] })];
+      const docs2: Documentation[] = [mock(Documentation, { topics: [doc7] })];
+      const docs3: Documentation[] = [mock(Documentation, { topics: [doc8] })];
 
       return [
-        mock(InformationMap, { id: 41, topics: docs1, en: {label: 'English InformationMap1 label'} , fr: {label: 'French InformationMap1 label'} }),
-        mock(InformationMap, { id: 48, topics: docs2, en: {label: 'English InformationMap2 label' }, fr: {label: 'French InformationMap2 label' } } ),
-        mock(InformationMap, { id: 49, topics: docs3, en: {label: 'English InformationMap3 label' }, fr: {label: 'French InformationMap3 label' } } )
+        mock(InformationMap, {
+          id: 41,
+          topics: docs1,
+          en: { label: 'English InformationMap1 label' },
+          fr: { label: 'French InformationMap1 label' },
+        }),
+        mock(InformationMap, {
+          id: 48,
+          topics: docs2,
+          en: { label: 'English InformationMap2 label' },
+          fr: { label: 'French InformationMap2 label' },
+        }),
+        mock(InformationMap, {
+          id: 49,
+          topics: docs3,
+          en: { label: 'English InformationMap3 label' },
+          fr: { label: 'French InformationMap3 label' },
+        }),
       ];
     }
-
   });
-
 });

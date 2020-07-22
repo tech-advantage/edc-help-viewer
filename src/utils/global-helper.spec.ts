@@ -1,20 +1,16 @@
 import * as Helper from './global-helper';
-import {getWindowSize, ScreenSize} from './global-helper';
+import { getWindowSize, ScreenSize } from './global-helper';
 
-import {Subscription} from 'rxjs';
-import {async, TestBed} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { async, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('Glocal helper test', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: Window, useValue: window }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+      providers: [{ provide: Window, useValue: window }],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   describe('lowerDeburr', () => {
@@ -44,7 +40,6 @@ describe('Glocal helper test', () => {
     });
 
     it('should unsubscribe from all subscriptions', () => {
-
       expect(subscription1.closed).toBeFalsy();
       expect(subscription2.closed).toBeFalsy();
 
@@ -55,7 +50,6 @@ describe('Glocal helper test', () => {
     });
 
     it('should unsubscribe if only one subscription', () => {
-
       expect(subscription1.closed).toBeFalsy();
 
       Helper.unsubscribe(subscription1);
@@ -94,5 +88,4 @@ describe('Glocal helper test', () => {
       expect(getWindowSize(window)).toBe(ScreenSize.XL);
     });
   });
-
 });

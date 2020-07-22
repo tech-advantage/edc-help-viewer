@@ -20,23 +20,22 @@ export function trimAndLower(value: string): string {
   return trim(toLower(value));
 }
 
-
 /**
  * Unsubscribe a single or an array of subscriptions.
  * @param subs a subscription, or an array of subscriptions.
  */
-export function unsubscribe(subs: Subscription | Subscription[]) {
+export function unsubscribe(subs: Subscription | Subscription[]): void {
   if (isUndefined(subs)) {
     return;
   }
   if (isArray(subs)) {
-    forEach(subs, sub => sub && !sub.closed ? sub.unsubscribe() : noop);
+    forEach(subs, (sub) => (sub && !sub.closed ? sub.unsubscribe() : noop));
   } else {
     subs.unsubscribe();
   }
 }
 
-export function getNestedMatches(list: any, nestedProp: string, matchProp: string): any {
+export function getNestedMatches(list: unknown[], nestedProp: string, matchProp: string): unknown {
   const results = [];
   const listToCheck = cloneDeep(list);
   do {
@@ -52,7 +51,7 @@ export function getNestedMatches(list: any, nestedProp: string, matchProp: strin
   return results;
 }
 
-export function isEmpty(arrayToCheck: any): boolean {
+export function isEmpty(arrayToCheck: unknown[]): boolean {
   return !arrayToCheck || !arrayToCheck.length;
 }
 
@@ -61,10 +60,10 @@ export enum ScreenSize {
   SM,
   MD,
   LG,
-  XL
+  XL,
 }
 
-export function isMobile(window: Window, matchTablet?: boolean) {
+export function isMobile(window: Window, matchTablet?: boolean): boolean {
   const size = getWindowSize(window);
   return size === ScreenSize.XS || size === ScreenSize.SM || (matchTablet ? size === ScreenSize.MD : false);
 }
