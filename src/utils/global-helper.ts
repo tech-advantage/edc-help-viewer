@@ -35,7 +35,7 @@ export function unsubscribe(subs: Subscription | Subscription[]): void {
   }
 }
 
-export function getNestedMatches(list: Array<unknown>, nestedProp: string, matchProp: string): unknown {
+export function getNestedMatches(list: unknown[], nestedProp: string, matchProp: string): unknown {
   const results = [];
   const listToCheck = cloneDeep(list);
   do {
@@ -51,7 +51,7 @@ export function getNestedMatches(list: Array<unknown>, nestedProp: string, match
   return results;
 }
 
-export function isEmpty(arrayToCheck: Array<unknown>): boolean {
+export function isEmpty(arrayToCheck: unknown[]): boolean {
   return !arrayToCheck || !arrayToCheck.length;
 }
 

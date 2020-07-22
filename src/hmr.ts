@@ -1,8 +1,7 @@
 import { ApplicationRef, NgModuleRef } from '@angular/core';
 import { createNewHosts } from '@angularclass/hmr';
-import Module = WebAssembly.Module;
 
-export const hmrBootstrap = (module: Module, bootstrap: () => Promise<NgModuleRef<unknown>>): void => {
+export const hmrBootstrap = (module: unknown, bootstrap: () => Promise<NgModuleRef<unknown>>): void => {
   let ngModule: NgModuleRef<unknown>;
   module['hot'].accept();
   bootstrap().then((mod) => (ngModule = mod));

@@ -19,8 +19,8 @@ export class LinksComponent implements OnInit {
     this.params = this.route.snapshot.params;
   }
 
-  getArticleLink(index: number): string {
-    let url = `/context/`;
+  getArticleLink(index: number | string): string {
+    let url = '/context/';
     if (this.params[PLUGIN_PARAM]) {
       url += `${this.params[PLUGIN_PARAM]}/`;
     } else {

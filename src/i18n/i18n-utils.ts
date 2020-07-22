@@ -1,6 +1,6 @@
-import { chain, flatMap, isObject, split, toString } from 'lodash';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
+import { chain, flatMap, isObject, split, toString } from 'lodash';
 
 export class I18NUtils {
   /**
@@ -9,14 +9,13 @@ export class I18NUtils {
    * @param prefixe leave default value.
    * @returns {TResult[]} the array of json keys.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
-  static flatten(data: any, prefixe = ''): unknown[] {
+  static flatten(data: unknown[], prefixe = ''): string[] {
     return flatMap(data, (val, key) => {
       const newPrefixe = prefixe ? `${prefixe}.${key}` : toString(key);
       if (!isObject(val)) {
         return newPrefixe;
       } else {
-        return this.flatten(val, newPrefixe);
+        return this.flatten(val as unknown[], newPrefixe);
       }
     });
   }
@@ -25,7 +24,6 @@ export class I18NUtils {
    * Returns an array of all i18n JSON file names.
    * @returns i18n filenames.
    */
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static getI18nFiles(): any {
     return chain(window.__json__)
