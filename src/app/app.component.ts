@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
   updateFavicon(): void {
     const faviconUrl = this.configService.getConfiguration().images.favicon;
 
-    const link: HTMLLinkElement = this.document.querySelector(`link[rel*='icon']`) as HTMLLinkElement;
+    const link: HTMLLinkElement = this.document.querySelector("link[rel*='icon']") as HTMLLinkElement;
     if (link && faviconUrl) {
       link.href = faviconUrl;
       this.document.getElementsByTagName('head')[0].appendChild(link);

@@ -20,7 +20,7 @@ const DirectionKey = {
 })
 export class KeyboardSelectDirective {
   // Notify the validation of the selection.
-  @Output() select = new EventEmitter<number>();
+  @Output() selectOut = new EventEmitter<number>();
 
   // The current selected element.
   current: HTMLElement;
@@ -45,9 +45,9 @@ export class KeyboardSelectDirective {
   @HostListener('document:keydown.enter')
   onEnter(): void {
     if (this.current && this.current.id && isNumber(toNumber(this.current.id))) {
-      this.select.emit(toNumber(this.current.id));
+      this.selectOut.emit(toNumber(this.current.id));
     } else {
-      this.select.emit(-1); // send -1 to indicate element is the "more result" and not a documentation.
+      this.selectOut.emit(-1); // send -1 to indicate element is the "more result" and not a documentation.
       const elements: HTMLElement[] = this.ul.nativeElement.querySelectorAll('li');
       if (elements && elements.length >= 2) {
         const lastDocumentation = elements[elements.length - 2];

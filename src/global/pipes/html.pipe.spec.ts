@@ -58,7 +58,7 @@ describe('Html pipe test', () => {
     it('should test transform', () => {
       const result = htmlPipe.transform(doc);
       const url = '/doc/html/en/1/23/img/lighthouse.jpg';
-      const onerror = `this.setAttribute('onerror', null);this.setAttribute('src', 'img/lighthouse.jpg');`;
+      const onerror = "this.setAttribute('onerror', null);this.setAttribute('src', 'img/lighthouse.jpg');";
       expect(result).toEqual(`<div><img src="${url}" style="height:150px" onerror="${onerror}"></div>`);
     });
   });
@@ -74,7 +74,7 @@ describe('Html pipe test', () => {
       expect(imgSrc.value).toEqual('img/lighthouse.jpg');
       const result = htmlPipe.getImgUrl(imgSrc.value, docUrl);
 
-      expect(result).toEqual(`/doc/html/en/1/23/img/lighthouse.jpg`);
+      expect(result).toEqual('/doc/html/en/1/23/img/lighthouse.jpg');
     });
   });
 

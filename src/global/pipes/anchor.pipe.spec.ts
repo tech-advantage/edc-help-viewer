@@ -21,7 +21,7 @@ describe('Anchor pipe test', () => {
   describe('runtime', () => {
     it('should transform a href', () => {
       // Given : a page with several type of "a" tag.
-      const htmlPage = `<div><a href=#END></a><a href='http://external-link.com/'></a><a></a></div>`;
+      const htmlPage = "<div><a href=#END></a><a href='http://external-link.com/'></a><a></a></div>";
 
       // When : using pipe.
       const result = anchorPipe.transform(htmlPage);
