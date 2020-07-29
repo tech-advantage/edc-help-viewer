@@ -30,8 +30,8 @@ describe('Home Component', () => {
   });
 
   beforeEach(() => {
-    helpService = TestBed.get(HelpService);
-    translateService = TestBed.get(TranslateService);
+    helpService = TestBed.inject(HelpService);
+    translateService = TestBed.inject(TranslateService);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(translateService, 'get').and.returnValue(of(title));
   });

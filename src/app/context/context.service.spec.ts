@@ -14,8 +14,8 @@ describe('ContextService', () => {
   });
 
   beforeEach(() => {
-    contextService = TestBed.get(ContextService);
-    helpService = TestBed.get(HelpService);
+    contextService = TestBed.inject(ContextService);
+    helpService = TestBed.inject(HelpService);
   });
 
   describe('runtime', () => {

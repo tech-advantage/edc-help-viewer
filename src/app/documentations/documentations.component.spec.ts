@@ -44,10 +44,10 @@ describe('DocumentationsComponent', () => {
   }));
 
   beforeEach(() => {
-    configService = TestBed.get(ConfigService);
-    store = TestBed.get(Store);
-    documentationsService = TestBed.get(DocumentationsService);
-    windowRefService = TestBed.get(WindowRefService);
+    configService = TestBed.inject(ConfigService);
+    store = TestBed.inject(Store);
+    documentationsService = TestBed.inject(DocumentationsService);
+    windowRefService = TestBed.inject(WindowRefService);
     spyOn(store, 'select').and.returnValue(of(documentation));
     spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
     spyOn(configService, 'getConfiguration').and.returnValue({ displayFirstDocInsteadOfToc: false });

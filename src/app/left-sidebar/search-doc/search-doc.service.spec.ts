@@ -28,10 +28,10 @@ describe('SearchDocService', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(SearchDocService);
-    configService = TestBed.get(ConfigService);
-    http = TestBed.get(HttpClient);
-    translateConfig = TestBed.get(TranslateConfig);
+    service = TestBed.inject(SearchDocService);
+    configService = TestBed.inject(ConfigService);
+    http = TestBed.inject(HttpClient);
+    translateConfig = TestBed.inject(TranslateConfig);
   });
 
   beforeEach(() => {

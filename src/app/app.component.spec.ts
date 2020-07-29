@@ -29,7 +29,7 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
-    configService = TestBed.get(ConfigService);
+    configService = TestBed.inject(ConfigService);
     spyOn(configService, 'getConfiguration').and.returnValue({ images: { favicon: 'myFaviconUrl' } });
     fixture.detectChanges();
   });

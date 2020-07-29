@@ -13,8 +13,8 @@ describe('HelpService', () => {
       providers: [HelpService, mockService(ConfigService, ['getConfiguration'])],
     });
 
-    helpService = TestBed.get(HelpService);
-    configService = TestBed.get(ConfigService);
+    helpService = TestBed.inject(HelpService);
+    configService = TestBed.inject(ConfigService);
   });
 
   beforeEach(() => {

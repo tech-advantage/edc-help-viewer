@@ -16,8 +16,8 @@ describe('ConfigService', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(ConfigService);
-    http = TestBed.get(HttpClient);
+    service = TestBed.inject(ConfigService);
+    http = TestBed.inject(HttpClient);
   });
 
   function getFakeConfig(httpServerValue: string | boolean): unknown {

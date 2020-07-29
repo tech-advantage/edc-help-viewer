@@ -17,8 +17,8 @@ describe('LeftSidebarService test', () => {
   );
 
   beforeEach(() => {
-    leftSidebarService = TestBed.get(LeftSidebarService);
-    helpService = TestBed.get(HelpService);
+    leftSidebarService = TestBed.inject(LeftSidebarService);
+    helpService = TestBed.inject(HelpService);
   });
 
   describe('runtime', () => {

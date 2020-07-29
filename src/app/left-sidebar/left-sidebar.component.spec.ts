@@ -44,10 +44,10 @@ describe('LeftSidebarComponent', () => {
   }));
 
   beforeEach(() => {
-    router = TestBed.get(Router);
-    store = TestBed.get(Store);
-    configService = TestBed.get(ConfigService);
-    leftSidebarService = TestBed.get(LeftSidebarService);
+    router = TestBed.inject(Router);
+    store = TestBed.inject(Store);
+    configService = TestBed.inject(ConfigService);
+    leftSidebarService = TestBed.inject(LeftSidebarService);
   });
 
   beforeEach(() => {

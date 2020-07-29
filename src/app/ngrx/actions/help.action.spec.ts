@@ -15,8 +15,8 @@ describe('help actions', () => {
       providers: [HelpActions, mockService(Store, ['dispatch', 'select'])],
     });
 
-    helpActions = TestBed.get(HelpActions);
-    store = TestBed.get(Store);
+    helpActions = TestBed.inject(HelpActions);
+    store = TestBed.inject(Store);
   });
 
   describe('update', () => {
