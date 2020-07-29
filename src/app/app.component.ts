@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   overlayMode = false;
   subs: Subscription[] = [];
 
-  @ViewChild('leftSidebar', { read: ElementRef, static: false })
+  @ViewChild('leftSidebar', { read: ElementRef })
   leftSidebar: ElementRef;
 
   constructor(

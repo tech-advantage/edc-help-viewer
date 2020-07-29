@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   pluginId: string;
   version: string;
 
-  @ViewChild('leftPanelToggle', { read: ElementRef, static: false })
+  @ViewChild('leftPanelToggle', { read: ElementRef })
   panelToggle: ElementRef;
 
   constructor(

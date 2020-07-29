@@ -36,7 +36,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
 
   displayFirstDocInsteadOfToc;
 
-  @ViewChild('linksBar', { read: ElementRef, static: false })
+  @ViewChild('linksBar', { read: ElementRef })
   linksBar: ElementRef;
 
   handleResponsive(window: Window): void {
