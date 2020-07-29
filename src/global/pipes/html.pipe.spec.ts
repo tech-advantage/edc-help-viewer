@@ -26,14 +26,14 @@ describe('Html pipe test', () => {
       ],
     });
 
-    htmlPipe = TestBed.get(HtmlPipe);
-    configService = TestBed.get(ConfigService);
+    htmlPipe = TestBed.inject(HtmlPipe);
+    configService = TestBed.inject(ConfigService);
     spyOn(configService, 'getConfiguration').and.returnValue({ docPath: '/doc' });
   });
 
   beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    domSanitizer = TestBed.get(DomSanitizer);
+    domSanitizer = TestBed.inject(DomSanitizer);
     docUrl = 'html/en/1/23/4.html';
     docPath = '/doc/';
   });

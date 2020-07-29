@@ -19,9 +19,11 @@
     "baseUrl": "",
     "types": ["node"]
   },
-  "exclude": [
-    "test.ts",
-    "**/test-helper.ts",
-    "**/*.spec.ts"
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ]
 }

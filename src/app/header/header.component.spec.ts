@@ -41,10 +41,10 @@ describe('HeaderComponent', () => {
   }));
 
   beforeEach(() => {
-    helpService = TestBed.get(HelpService);
-    titleService = TestBed.get(Title);
-    configService = TestBed.get(ConfigService);
-    windowRefService = TestBed.get(WindowRefService);
+    helpService = TestBed.inject(HelpService);
+    titleService = TestBed.inject(Title);
+    configService = TestBed.inject(ConfigService);
+    windowRefService = TestBed.inject(WindowRefService);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(titleService, 'setTitle');
     spyOn(configService, 'getConfiguration').and.returnValue({ images: { logo_header: 'myLogoUrl' } });

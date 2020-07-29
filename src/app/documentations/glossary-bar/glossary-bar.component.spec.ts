@@ -34,7 +34,7 @@ describe('GlossaryBarComponent ', () => {
   }));
 
   beforeEach(() => {
-    documentationsService = TestBed.get(DocumentationsService);
+    documentationsService = TestBed.inject(DocumentationsService);
     spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
 
     fixture = TestBed.createComponent(GlossaryBarComponent);

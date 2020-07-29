@@ -24,7 +24,7 @@ describe('SearchDoc component test', () => {
   });
 
   beforeEach(() => {
-    searchDocService = TestBed.get(SearchDocService);
+    searchDocService = TestBed.inject(SearchDocService);
   });
 
   const populateComponent = (compInstance) => {
