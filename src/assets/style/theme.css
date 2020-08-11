@@ -36,11 +36,9 @@
 
 /* Search: Search input and placeholder foreground and background color */
 .search-container .search-input,
-.search-container .search-input::placeholder,
-.search-container .search-input:-ms-input-placeholder,
-.search-container .search-input::-ms-input-placeholder {
-  color: #ffffff;
-  background-color: rgb(28, 22, 194);
+.search-container .search-input::placeholder {
+  color: rgb(73, 80, 87);
+  background-color: rgb(255, 255, 255);
 }
 
 /* Table of contents: Text and bottom border color */
@@ -83,10 +81,25 @@
   color: rgb(255, 255, 255);
 }
 
+/**
+ *     -- RIGHT PANEL, LINKS AND ARTICLES --
+ */
+
+/* Links and articles panel : background-color */
+.theme.content .context .panel.show {
+  background-color: rgb(255, 255, 255);
+}
+
 /* Right menu links and articles header: background-color and text color */
 .context-links .list-group .theme.list-group-item.header {
   background-color: rgb(60, 141, 188);
   color: rgb(255, 255, 255);
+}
+
+/* Links and articles items: background-color and text color */
+.context-links .list-group .theme.list-group-item.item {
+  background-color: rgb(255, 255, 255);
+  color: rgb(68, 68, 68);
 }
 
 /* Links and articles panel toggle button on hover */
