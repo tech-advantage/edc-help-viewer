@@ -11,7 +11,7 @@ Current release is compatible with edc v3+
 
 ## Building the project
 
-Distribution files can be found in the github release section: [download](https://github.com/tech-advantage/edc-help-viewer/releases/download/v3.2.0/edc-help-viewer.3.2.0.zip).
+Distribution files can be found in the [release assets section](https://github.com/tech-advantage/edc-help-viewer/releases/)
 
 Please note that it comes with a **"/help/"** base href, so url after deployment should be **"yourBaseUrl/help/"**
 
