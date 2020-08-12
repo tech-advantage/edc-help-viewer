@@ -35,10 +35,13 @@
 }
 
 /* Search: Search input and placeholder foreground and background color */
-.search-container .search-input,
-.search-container .search-input::placeholder {
-  color: rgb(73, 80, 87);
+.search-container .search-input {
+  color: rgb(60, 141, 188);
   background-color: rgb(255, 255, 255);
+}
+.search-container .search-input::placeholder {
+  color: rgb(140, 140, 140);
+  font-style: italic
 }
 
 /* Table of contents: Text and bottom border color */
@@ -50,24 +53,36 @@
 /* Left menu section titles: Title foreground and background color when collapsed */
 .left-sidebar-content .strategy-title {
   color: rgb(115, 115, 115);
-  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(240, 240, 245);
+  border-top: 1px solid rgb(240, 240, 245);
+  background: linear-gradient(250deg, #ffffff, #efefef);
 }
 
 /* Left menu section titles: Title foreground and background color when not collapsed */
 .left-sidebar-content .strategy-title.opened {
-  background-color: rgb(243, 243, 243);
-  color: rgb(51, 51, 51);
-  font-weight: 600;
+  background: linear-gradient(to left, rgb(60, 141, 188), rgb(60, 141, 188));
+  background-color: rgb(60, 141, 188);
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+/* Left menu section titles: Title foreground and background color on hover when not collapsed */
+.left-sidebar-content .strategy-title.opened:hover {
+  background: linear-gradient(to left, rgb(70, 151, 198), rgb(70, 151, 198));
+  background-color: rgb(60, 141, 188);
+  color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
-/* Left menu section titles: Title foreground and background color when not collapsed */
+/* Left menu section titles: Title foreground and background color on hover when collapsed */
 .left-sidebar-content .strategy-title:hover {
   background-color: rgb(245, 245, 245);
+  color: rgb(60, 141, 188);
 }
 
 /* Left menu links: Font color */
 .left-sidebar-content .theme.tree-item-header {
   color: rgb(51, 122, 183);
+  background: linear-gradient(to left, #ffffff, #ffffff);
 }
 
 /* Left menu links: Background color on hover */
@@ -77,8 +92,9 @@
 
 /* Left menu links: Font color and background color for active link */
 .left-sidebar-content .theme.tree-item-header.active-link {
-  background-color: rgb(160, 212, 104);
+  background: linear-gradient(to right, rgb(160, 212, 104), rgb(170, 222, 114));
   color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
 /**
