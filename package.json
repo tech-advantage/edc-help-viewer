@@ -5,8 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "build": "ng build",
-    "prod": "ng build --prod --base-href /help/",
+    "build": "ng build --base-href /help/",
     "start": "ng serve --port 4200 --base-href /help/",
     "lint": "eslint . --ext js,ts",
     "test": "ng test --watch=false",
