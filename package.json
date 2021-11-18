@@ -1,11 +1,11 @@
 {
   "name": "edc-help-ng2",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "build": "ng build --base-href /help/",
+    "build": "ng build --source-map=false --base-href /help/",
     "start": "ng serve --port 4200 --base-href /help/",
     "lint": "eslint . --ext js,ts",
     "test": "ng test --watch=false",
