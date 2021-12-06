@@ -10,7 +10,6 @@ import { ConfigService } from '../../app/config.service';
 describe('Html pipe test', () => {
   let htmlPipe: HtmlPipe;
   let configService: ConfigService;
-  let domSanitizer: DomSanitizer;
 
   let docUrl: string;
   let docPath: string;
@@ -32,16 +31,12 @@ describe('Html pipe test', () => {
   });
 
   beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    domSanitizer = TestBed.inject(DomSanitizer);
     docUrl = 'html/en/1/23/4.html';
     docPath = '/doc/';
   });
 
   describe('transform', () => {
     let doc: Doc;
-    let htmlDoc: Document;
-    let images: HTMLCollectionOf<HTMLImageElement>;
 
     beforeEach(() => {
       doc = mock(Doc, {
@@ -49,10 +44,7 @@ describe('Html pipe test', () => {
         content: '<html><body><div><img src="img/lighthouse.jpg" style="height:150px" /></div></body></html>',
       });
       const parser = new DOMParser();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      htmlDoc = parser.parseFromString(doc.content, 'text/html');
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      images = htmlDoc.getElementsByTagName('img');
+      parser.parseFromString(doc.content, 'text/html');
     });
 
     it('should test transform', () => {
