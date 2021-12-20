@@ -1,6 +1,6 @@
 {
   "name": "edc-help-ng2",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
@@ -35,7 +35,7 @@
     "bootstrap": "4.5.0",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.7",
-    "edc-client-js": "3.2.1",
+    "edc-client-js": "3.2.2",
     "font-awesome": "4.7.0",
     "lodash": "^4.17.19",
     "mathjax": "2.7.4",
