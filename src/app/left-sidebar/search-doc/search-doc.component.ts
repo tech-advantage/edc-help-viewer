@@ -105,7 +105,8 @@ export class SearchDocComponent implements OnInit, OnDestroy {
     if (this.isValid && search && search.length > 2) {
       this.isLoading = true;
       this.subs.push(
-        this.searchDocService.getDocumentationsByText(search, this.translateConfig.getCurrentLang(), this.informationMaps).subscribe((docs) => {
+        this.searchDocService.getDocumentationsByText(search, this.translateConfig.getCurrentLang(),
+         this.informationMaps).subscribe((docs) => {
           this.isLoading = false;
           this.documentations = docs;
           this.searchResultsChange.emit(docs);
