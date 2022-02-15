@@ -27,7 +27,11 @@ export class SearchDocService {
    * @param toc the table of contents
    * @return the list of matching documentations, or an empty list if invalid parameters.
    */
-  getDocumentationsByText(  search: string, lang: string,   informationMaps?: HelpInformationMap[]): Observable<SearchDocResult[]> {
+  getDocumentationsByText(
+    search: string,
+    lang: string,
+    informationMaps?: HelpInformationMap[]
+  ): Observable<SearchDocResult[]> {
     if (!search || size(search) < 3) {
       return of([]);
     }
