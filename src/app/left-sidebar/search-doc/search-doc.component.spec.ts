@@ -20,7 +20,7 @@ describe('SearchDoc component test', () => {
       providers: [
         mockService(SearchDocService, ['getDocumentationsByText']),
         mockService(TranslateService, ['instant']),
-        mockService(TranslateConfig,['getCurrentLang'])
+        mockService(TranslateConfig, ['getCurrentLang']),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
@@ -191,7 +191,7 @@ describe('SearchDoc component test', () => {
         componentInstance.populateDocumentations('abdd');
 
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledTimes(1);
-        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd','en', componentInstance.toc);
+        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'en', componentInstance.toc);
       }));
 
       it('should update documentations', async(() => {
@@ -203,7 +203,7 @@ describe('SearchDoc component test', () => {
         componentInstance.populateDocumentations('abdd');
 
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledTimes(1);
-        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd','en', componentInstance.toc);
+        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'en', componentInstance.toc);
         expect(componentInstance.documentations).toEqual(docs);
         expect(componentInstance.isLoading).toBeFalsy();
       }));
@@ -214,7 +214,7 @@ describe('SearchDoc component test', () => {
         componentInstance.populateDocumentations('abdd');
 
         expect(translateConfig.getCurrentLang).toHaveBeenCalledTimes(1);
-        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd','fr', componentInstance.toc);
+        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'fr', componentInstance.toc);
       }));
     });
   });
