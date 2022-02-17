@@ -88,22 +88,22 @@ describe('SearchDocService', () => {
     });
     it('should call webservice if help configured with http server', () => {
       spyOn(configService, 'useHttpdServer').and.returnValue(true);
-      service.getDocumentationsByText('mySearch').subscribe((results) => {
+      service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
         expect(results).toBeDefined();
-        const params: HttpParams = new HttpParams().set('query', 'mySearch');
+        const params: HttpParams = new HttpParams().set('query', 'mySearch').set('lang', 'en');
         expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
       });
     });
     it('should NOT call webservice if help configured without http server', () => {
       spyOn(configService, 'useHttpdServer').and.returnValue(false);
-      service.getDocumentationsByText('mySearch').subscribe((results) => {
+      service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
         expect(results).toBeDefined();
         expect(http.get).not.toHaveBeenCalled();
       });
     });
     it('should return 5 results', () => {
       spyOn(configService, 'useHttpdServer').and.returnValue(false);
-      service.getDocumentationsByText('document', informationMaps).subscribe((results) => {
+      service.getDocumentationsByText('document', 'en', informationMaps).subscribe((results) => {
         expect(results).toBeDefined();
         expect(results.length).toEqual(5);
         expect(results).toEqual([
@@ -117,7 +117,7 @@ describe('SearchDocService', () => {
     });
     it('should return 2 results', () => {
       spyOn(configService, 'useHttpdServer').and.returnValue(false);
-      service.getDocumentationsByText('document-2', informationMaps).subscribe((results) => {
+      service.getDocumentationsByText('document-2', 'en', informationMaps).subscribe((results) => {
         expect(results).toBeDefined();
         expect(results.length).toEqual(2);
         expect(results).toEqual([service.createResult(doc4, infomap2), service.createResult(doc5, infomap2)]);
@@ -125,7 +125,7 @@ describe('SearchDocService', () => {
     });
     it('should return 1 result', () => {
       spyOn(configService, 'useHttpdServer').and.returnValue(false);
-      service.getDocumentationsByText('document 3', informationMaps).subscribe((results) => {
+      service.getDocumentationsByText('document 3', 'en', informationMaps).subscribe((results) => {
         expect(results).toBeDefined();
         expect(results.length).toEqual(1);
         expect(results).toEqual([service.createResult(doc3, infomap1)]);
