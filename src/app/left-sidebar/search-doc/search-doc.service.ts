@@ -27,17 +27,21 @@ export class SearchDocService {
    * @param toc the table of contents
    * @return the list of matching documentations, or an empty list if invalid parameters.
    */
-  getDocumentationsByText(search: string, informationMaps?: HelpInformationMap[]): Observable<SearchDocResult[]> {
+  getDocumentationsByText(
+    search: string,
+    lang: string,
+    informationMaps?: HelpInformationMap[]
+  ): Observable<SearchDocResult[]> {
     if (!search || size(search) < 3) {
       return of([]);
     }
     return this.configService.useHttpdServer()
-      ? this.findFromServer(search)
+      ? this.findFromServer(search, lang)
       : this.findFromToc(search, informationMaps);
   }
 
-  findFromServer(search: string): Observable<SearchDocResult[]> {
-    const params: HttpParams = new HttpParams().set('query', search);
+  findFromServer(search: string, lang: string): Observable<SearchDocResult[]> {
+    const params: HttpParams = new HttpParams().set('query', search).set('lang', lang);
     return this.http.get<SearchDocResult[]>(this.baseURL, { params });
   }
 

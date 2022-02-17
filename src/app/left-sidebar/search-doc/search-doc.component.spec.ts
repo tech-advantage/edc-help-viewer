@@ -6,11 +6,13 @@ import { FormControl } from '@angular/forms';
 import { mock, mockPipe, mockService } from '../../../utils/test-helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchDocResult } from './search-doc-result';
+import { TranslateConfig } from '../../../global/config/translate.config';
 
 import { of } from 'rxjs';
 
 describe('SearchDoc component test', () => {
   let searchDocService: SearchDocService;
+  let translateConfig: TranslateConfig;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,6 +20,7 @@ describe('SearchDoc component test', () => {
       providers: [
         mockService(SearchDocService, ['getDocumentationsByText']),
         mockService(TranslateService, ['instant']),
+        mockService(TranslateConfig, ['getCurrentLang']),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
@@ -25,6 +28,7 @@ describe('SearchDoc component test', () => {
 
   beforeEach(() => {
     searchDocService = TestBed.inject(SearchDocService);
+    translateConfig = TestBed.inject(TranslateConfig);
   });
 
   const populateComponent = (compInstance) => {
@@ -181,15 +185,17 @@ describe('SearchDoc component test', () => {
       }));
 
       it('should subscribe to getDocumentationsByText if search is valid and search length > 3', async(() => {
+        spyOn(translateConfig, 'getCurrentLang').and.returnValue('en');
         componentInstance.isValid = true;
 
         componentInstance.populateDocumentations('abdd');
 
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledTimes(1);
-        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', componentInstance.toc);
+        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'en', componentInstance.toc);
       }));
 
       it('should update documentations', async(() => {
+        spyOn(translateConfig, 'getCurrentLang').and.returnValue('en');
         componentInstance.isValid = true;
         componentInstance.isLoading = true;
         componentInstance.documentations = [];
@@ -197,9 +203,18 @@ describe('SearchDoc component test', () => {
         componentInstance.populateDocumentations('abdd');
 
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledTimes(1);
-        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', componentInstance.toc);
+        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'en', componentInstance.toc);
         expect(componentInstance.documentations).toEqual(docs);
         expect(componentInstance.isLoading).toBeFalsy();
+      }));
+      it('lang should be returned by getCurrentLang', async(() => {
+        spyOn(translateConfig, 'getCurrentLang').and.returnValue('fr');
+        componentInstance.isValid = true;
+
+        componentInstance.populateDocumentations('abdd');
+
+        expect(translateConfig.getCurrentLang).toHaveBeenCalledTimes(1);
+        expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'fr', componentInstance.toc);
       }));
     });
   });
