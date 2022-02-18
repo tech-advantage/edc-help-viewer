@@ -41,7 +41,11 @@ export class SearchDocService {
   }
 
   findFromServer(search: string, lang: string): Observable<SearchDocResult[]> {
-    const params: HttpParams = new HttpParams().set('query', search).set('lang', lang);
+    const params: HttpParams = new HttpParams()
+      .set('query', search)
+      .set('lang', lang)
+      .set('limit', this.configService.limitNumber().toString())
+      .set('exact-match', this.configService.useExactMatch().toString());
     return this.http.get<SearchDocResult[]>(this.baseURL, { params });
   }
 

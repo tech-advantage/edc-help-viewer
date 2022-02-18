@@ -20,7 +20,7 @@ describe('SearchDocService', () => {
     TestBed.configureTestingModule({
       providers: [
         SearchDocService,
-        mockService(ConfigService, ['useHttpdServer']),
+        mockService(ConfigService, ['useHttpdServer','limitNumber','useExactMatch']),
         mockService(HttpClient, ['get']),
         mockService(TranslateConfig, ['getCurrentLang']),
       ],
@@ -88,9 +88,11 @@ describe('SearchDocService', () => {
     });
     it('should call webservice if help configured with http server', () => {
       spyOn(configService, 'useHttpdServer').and.returnValue(true);
+      spyOn(configService, 'useExactMatch').and.returnValue(false);
+      spyOn(configService, 'limitNumber').and.returnValue(25);
       service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
         expect(results).toBeDefined();
-        const params: HttpParams = new HttpParams().set('query', 'mySearch').set('lang', 'en');
+        const params: HttpParams = new HttpParams().set('query', 'mySearch').set('lang', 'en').set('limit','25').set('exact-match','false');
         expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
       });
     });

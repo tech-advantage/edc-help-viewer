@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { get, isBoolean } from 'lodash';
+import { get, isBoolean, isNumber } from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { EdcConfiguration } from '../global/config/edc-configuration';
 
@@ -31,5 +31,27 @@ export class ConfigService {
   useHttpdServer(): boolean {
     const value = get(this.config, 'useHttpdServer');
     return isBoolean(value) ? value : value === 'true';
+  }
+
+  /**
+   * Return exact-match value, set from json file config.json
+   * Both string and boolean value types are allowed
+   *
+   * @return {boolean}
+   */
+  useExactMatch(): boolean {
+    const value = get(this.config, 'search.exactMatch');
+    return isBoolean(value) ? value : value === 'true';
+  }
+
+  /**
+   * Return  value, set from json file config.json
+   * Both string and boolean value types are allowed
+   *
+   * @return {boolean}
+   */
+  limitNumber(): number {
+    const value = get(this.config, 'search.limitNumber');
+    return isNumber(value) ? value : value;
   }
 }
