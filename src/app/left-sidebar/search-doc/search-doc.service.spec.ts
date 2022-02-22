@@ -20,7 +20,7 @@ describe('SearchDocService', () => {
     TestBed.configureTestingModule({
       providers: [
         SearchDocService,
-        mockService(ConfigService, ['useHttpdServer','limitNumber','useExactMatch']),
+        mockService(ConfigService, ['useHttpdServer', 'limitNumber', 'useExactMatch']),
         mockService(HttpClient, ['get']),
         mockService(TranslateConfig, ['getCurrentLang']),
       ],
@@ -92,7 +92,24 @@ describe('SearchDocService', () => {
       spyOn(configService, 'limitNumber').and.returnValue(25);
       service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
         expect(results).toBeDefined();
-        const params: HttpParams = new HttpParams().set('query', 'mySearch').set('lang', 'en').set('limit','25').set('exact-match','false');
+        const params: HttpParams = new HttpParams()
+          .set('query', 'mySearch')
+          .set('lang', 'en')
+          .set('exact-match', 'false')
+          .set('limit', '25');
+        expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
+      });
+    });
+    it('should call webservice if help configured with http server and use exactMatch without a limit', () => {
+      spyOn(configService, 'useHttpdServer').and.returnValue(true);
+      spyOn(configService, 'useExactMatch').and.returnValue(true);
+      spyOn(configService, 'limitNumber').and.returnValue(null);
+      service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
+        expect(results).toBeDefined();
+        const params: HttpParams = new HttpParams()
+          .set('query', 'mySearch')
+          .set('lang', 'en')
+          .set('exact-match', 'true');
         expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
       });
     });

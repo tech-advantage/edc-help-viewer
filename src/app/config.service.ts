@@ -50,8 +50,8 @@ export class ConfigService {
    *
    * @return {boolean}
    */
-  limitNumber(): number {
+  limitNumber(): number | null {
     const value = get(this.config, 'search.limitNumber');
-    return isNumber(value) ? value : value;
+    return isNumber(value) ? value : null;
   }
 }
