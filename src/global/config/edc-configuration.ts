@@ -17,7 +17,7 @@ export class EdcConfiguration {
 
   search: {
     limitNumber: number;
-    exactMatch: string;
+    exactMatch: boolean;
   };
 
   useHttpdServer: boolean;
