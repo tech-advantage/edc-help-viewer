@@ -15,6 +15,11 @@ export class EdcConfiguration {
     mathjax: string;
   };
 
+  search: {
+    limitNumber: number;
+    exactMatch: boolean;
+  };
+
   useHttpdServer: boolean;
   collapseTocAsDefault: boolean;
   displayFirstDocInsteadOfToc: boolean;
