@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HelpService } from '../help/help.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfigService } from 'app/config.service';
 
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +16,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   titleKey = 'global.home.title';
   title: string;
   sub: Subscription;
+  stylePath: SafeResourceUrl;
 
-  constructor(private readonly helpService: HelpService, private readonly translateService: TranslateService) {}
+  constructor(
+    private readonly helpService: HelpService,
+    private readonly translateService: TranslateService,
+    private readonly sanitizer: DomSanitizer,
+    private readonly configService: ConfigService
+  ) {}
 
   ngOnInit(): void {
     this.initTitle();
+    this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.configService.getConfiguration().documentationStylePath
+    );
   }
 
   initTitle(): void {
