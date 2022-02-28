@@ -1,4 +1,7 @@
+<link *ngIf="stylePath" rel="stylesheet" [href]="stylePath">
+<div class="custom-style">
 <div class="home">
-  <div class="title">{{ title }}</div>
-  <div class="subtitle" [translate]="'global.home.subtitle'"> </div>
+  <h1 class="title">{{ title }}</h1>
+  <p class="subtitle" [translate]="'global.home.subtitle'"> </p>
+</div>
 </div>
