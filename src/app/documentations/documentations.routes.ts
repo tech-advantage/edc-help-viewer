@@ -4,6 +4,7 @@ import { DocumentationsResolve } from 'app/documentations/documentations.resolve
 import { ContextResolve } from 'app/context/context.resolve';
 import { KEY_PARAM, SUB_KEY_PARAM, LANG_PARAM, INDEX_PARAM, PLUGIN_PARAM } from 'app/context/context.constants';
 import { DOC_ID_PARAM } from './documentations.constants';
+import { GuardService } from './documentation.guard.service';
 
 export const documentationsRoutes: Routes = [
   {
@@ -35,5 +36,6 @@ export const documentationsRoutes: Routes = [
     resolve: {
       documentation: DocumentationsResolve,
     },
+    canActivate: [GuardService],
   },
 ];
