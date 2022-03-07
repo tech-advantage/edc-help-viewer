@@ -20,9 +20,10 @@ export class DocumentationsResolve implements Resolve<unknown> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<DocumentationTransfer> {
     const params: Params = route.params;
+    const queryparams: Params = route.queryParams;
     const docId = Number(params[DOC_ID_PARAM]);
     const langToLoad = params[LANG_PARAM];
-    const pluginId = params[PLUGIN_PARAM];
+    const pluginId = queryparams[PLUGIN_PARAM];
     return this.getDocumentation(docId, langToLoad, pluginId);
   }
 

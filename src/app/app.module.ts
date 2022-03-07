@@ -29,6 +29,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpLoaderFactory } from '../global/config/translate-loader';
 import { HomeResolve } from './home/home.resolve';
 import { WindowRefService } from './window-ref.service';
+import { GuardService } from './documentations/documentation.guard.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LeftSidebarComponent, HomeComponent],
@@ -71,6 +72,7 @@ import { WindowRefService } from './window-ref.service';
     LeftSidebarService,
     HomeResolve,
     WindowRefService,
+    GuardService,
   ],
   bootstrap: [AppComponent],
 })
