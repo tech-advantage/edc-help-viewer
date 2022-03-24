@@ -12,6 +12,7 @@ import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentationLanguage, selectExportId } from '../ngrx/selectors/help-selectors';
 import { unsubscribe } from '../../utils/global-helper';
+import { ExportInfo } from 'edc-client-js';
 
 @Component({
   selector: 'app-header',
@@ -87,5 +88,19 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   historyForward(): void {
     this.location.forward();
+  }
+
+  goHome(): void {
+    this.store.select(selectExportId).subscribe((exportId: string) => {
+      this.pluginId = exportId;
+    });
+    this.helpService.getContent().subscribe((content: ExportInfo) => {
+      if (this.pluginId) {
+        this.location.go('/home/' + this.pluginId + '/' + content.currentLanguage);
+      } else {
+        this.location.go('/home/' + content.pluginId + '/' + content.currentLanguage);
+      }
+      window.location.reload();
+    });
   }
 }

@@ -24,16 +24,14 @@ export class HomeResolve implements Resolve<unknown> {
     const pluginId: string = route.params[PLUGIN_PARAM];
     if (pluginId) {
       // Check if it matches any currently loaded export
-      this.store.select(selectExportId).pipe(
-        tap((exportId: string) => {
-          if (exportId !== pluginId) {
-            // Not current export, reload export with new export id
-            const lang: string = route.params[LANG_PARAM];
-            this.helpService.connect(pluginId, lang);
-          }
-          this.initContent();
-        })
-      );
+      this.store.select(selectExportId).subscribe((exportId: string) => {
+        if (exportId !== pluginId) {
+          // Not current export, reload export with new export id
+          const lang: string = route.params[LANG_PARAM];
+          this.helpService.connect(pluginId, lang);
+        }
+        this.initContent();
+      });
     } else {
       this.initContent();
     }
