@@ -77,11 +77,11 @@ As an example, with the default value (**"/doc"**), the viewer will try to load 
 
 + **`images`**: Paths for favicon and other logo images. More information below.
     
-+ **"libsUrl"**: URL of libs (Own installation by default, but you can use the CDN)
++ **`libsUrl`**: URL of libs (Own installation by default, but you can use the CDN)
   
   For Mathjax : [MathJax CDN](https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML)
 
-+ **"search"**: Parameters for searches in search area
++ **`search`**: Parameters for searches in search area
 + **`limit`**: To set a limit of the number of results
 + **`exact-match`**: To set if the results should match exactly with the search
 
@@ -91,7 +91,7 @@ As an example, with the default value (**"/doc"**), the viewer will try to load 
 
 + **`displayFirstDocInsteadOfToc`**: Set this property as true if you want to display the first Document when you click on a chapter.
 
-+ **"fullHeightRightSidebarOnMobile"**: Set this property as true if you want display the right sidebar with a full height background instead of floating links box
++ **`fullHeightRightSidebarOnMobile`**: Set this property as true if you want display the right sidebar with a full height background instead of floating links box
 
 ## Logos and style customization
 
