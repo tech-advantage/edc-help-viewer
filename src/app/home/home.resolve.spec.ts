@@ -2,7 +2,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { AppState } from 'app/app.state';
-import { ConfigService } from 'app/config.service';
 import { HelpService } from 'app/help/help.service';
 import { HelpActions } from 'app/ngrx/actions/help.actions';
 import { EMPTY, of } from 'rxjs';
