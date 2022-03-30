@@ -25,7 +25,6 @@ describe('homeResolve', () => {
       providers: [
         HomeResolve,
         mockService(HelpService, ['connect', 'getContent', 'advanced']),
-        mockService(ConfigService, ['getConfiguration']),
         mockService(Store, ['select']),
         mockService(HelpActions, ['setDocumentationLanguage', 'setExportId']),
         mockService(ActivatedRouteSnapshot, ['params']),
@@ -34,23 +33,20 @@ describe('homeResolve', () => {
 
     helpService = TestBed.inject(HelpService);
     helpActions = TestBed.inject(HelpActions);
-    configService = TestBed.inject(ConfigService);
     homeResolve = TestBed.inject(HomeResolve);
     route = TestBed.inject(ActivatedRouteSnapshot);
     store = TestBed.inject(Store) as Store<AppState>;
   });
 
   beforeEach(() => {
-    spyOn(configService, 'getConfiguration').and.returnValue({ docPath: '/doc' });
     spyOn(helpActions, 'setDocumentationLanguage');
     spyOn(helpActions, 'setExportId');
     spyOn(helpService, 'connect');
 
-    //const spy = jasmine.createSpyObj('helpActions',['setDocumentationLanguage','setExportId']);
   });
 
   describe('resolve', () => {
-    fit('params empty', () => {
+    it('params empty', () => {
       const task = homeResolve.resolve(route);
 
       expect(helpService.connect).not.toHaveBeenCalled();
@@ -59,7 +55,7 @@ describe('homeResolve', () => {
       expect(task).toBeDefined();
       expect(task).toEqual(EMPTY);
     });
-    fit('params not empty case equal current', () => {
+    it('params not empty case equal current', () => {
       route = mock(ActivatedRouteSnapshot, convertToParamMap({ [PLUGIN_PARAM]: 'pluginid', [LANG_PARAM]: 'en' }));
       spyOn(helpService, 'getContent').and.returnValue(
         of(mock(ExportInfo, { pluginId: 'pluginid', currentLanguage: 'en' }))
@@ -75,7 +71,7 @@ describe('homeResolve', () => {
       expect(task).toBeDefined();
       expect(task).toEqual(EMPTY);
     });
-    fit('params not empty case not equal current', () => {
+    it('params not empty case not equal current', () => {
       route = mock(ActivatedRouteSnapshot, convertToParamMap({ [PLUGIN_PARAM]: 'dinigulp', [LANG_PARAM]: 'en' }));
       spyOn(helpService, 'getContent').and.returnValue(
         of(mock(ExportInfo, { pluginId: 'dinigulp', currentLanguage: 'en' }))
@@ -85,6 +81,8 @@ describe('homeResolve', () => {
       const result = homeResolve.resolve(route);
 
       expect(store.select).toHaveBeenCalled();
+      expect(route.params[PLUGIN_PARAM]).toEqual('dinigulp');
+      expect(route.params[LANG_PARAM]).toEqual('en');
       expect(helpService.connect).toHaveBeenCalledWith('dinigulp', 'en');
       expect(helpActions.setDocumentationLanguage).toHaveBeenCalled();
       expect(helpActions.setExportId).toHaveBeenCalledWith('dinigulp');
