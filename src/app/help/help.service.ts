@@ -18,8 +18,15 @@ export class HelpService {
     return from<Promise<ExportInfo>>(this.edcClient.getContent());
   }
 
-  connect(): void {
-    this.edcClient = new EdcClient(this.configService.getConfiguration().docPath);
+  connect(pluginId?: string, langId?: string): void {
+    this.edcClient = new EdcClient(
+      this.configService.getConfiguration().docPath,
+      undefined,
+      pluginId,
+      false,
+      undefined,
+      langId
+    );
   }
 
   getTitle(): Observable<string> {

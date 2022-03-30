@@ -88,4 +88,17 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   historyForward(): void {
     this.location.forward();
   }
+
+  goHome(): void {
+    combineLatest([this.store.select(selectExportId), this.store.select(selectDocumentationLanguage)]).subscribe(
+      ([exportId, languageId]) => {
+        let url = `/home/${exportId}`;
+        if (languageId) {
+          url += `/${languageId}`;
+        }
+        this.location.go(url);
+        window.location.reload();
+      }
+    );
+  }
 }
