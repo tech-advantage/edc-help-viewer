@@ -42,7 +42,6 @@ describe('homeResolve', () => {
     spyOn(helpActions, 'setDocumentationLanguage');
     spyOn(helpActions, 'setExportId');
     spyOn(helpService, 'connect');
-
   });
 
   describe('resolve', () => {
