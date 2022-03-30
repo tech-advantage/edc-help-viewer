@@ -16,7 +16,6 @@ describe('homeResolve', () => {
   let helpService: HelpService;
   let helpActions: HelpActions;
   let store: Store<AppState>;
-  let configService: ConfigService;
   let homeResolve: HomeResolve;
   let route: ActivatedRouteSnapshot;
 

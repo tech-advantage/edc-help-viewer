@@ -12,7 +12,6 @@ import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentationLanguage, selectExportId } from '../ngrx/selectors/help-selectors';
 import { unsubscribe } from '../../utils/global-helper';
-import { ExportInfo } from 'edc-client-js';
 
 @Component({
   selector: 'app-header',
