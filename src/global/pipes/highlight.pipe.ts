@@ -14,7 +14,7 @@ export class HighlightPipe implements PipeTransform {
         .join('|');
       const regex = new RegExp(pattern, 'gi');
       return this.sanitizer.bypassSecurityTrustHtml(
-        text.replace(regex, (match) => `<span style="font-weight: 600">${match}</span>`)
+        text.replace(regex, (match) => `<span style="font-weight: 600; background: #fff2a8;">${match}</span>`)
       );
     } else {
       return text;
