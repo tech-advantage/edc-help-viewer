@@ -12,9 +12,9 @@ import { KeyboardSelectDirective } from './search-doc.directive';
 
 @NgModule({
   imports: [CommonModule, RouterModule, TranslateModule, ReactiveFormsModule, BsDropdownModule.forRoot()],
-  declarations: [SearchDocComponent, ClickOutsideDirective, HighlightPipe, KeyboardSelectDirective],
+  declarations: [SearchDocComponent, ClickOutsideDirective, KeyboardSelectDirective],
   bootstrap: [SearchDocComponent],
   providers: [SearchDocService],
-  exports: [SearchDocComponent, HighlightPipe],
+  exports: [SearchDocComponent],
 })
 export class SearchDocModule {}
