@@ -14,9 +14,10 @@ import { DocumentationsComponent } from 'app/documentations/documentations.compo
 import { MathjaxDirective } from '../../global/directive/mathjax.directive';
 import { GlossaryOnclickDirective } from '../../global/directive/glossary-onclick.directive';
 import { GlossaryBarComponent } from './glossary-bar/glossary-bar.component';
+import { SearchDocModule } from 'app/left-sidebar/search-doc/search-doc.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, RouterModule, SharedPipeHtmlModule, LinksModule, TreeModule],
+  imports: [CommonModule, TranslateModule, RouterModule, SharedPipeHtmlModule, LinksModule, TreeModule, SearchDocModule],
   providers: [DocumentationsService, DocumentationsResolve, ContextService, ContextResolve],
   declarations: [
     DocumentationsComponent,

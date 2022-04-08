@@ -1,5 +1,5 @@
 import { get, filter, forEach, isEmpty, size } from 'lodash';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../../config.service';
@@ -14,6 +14,9 @@ import { TranslateConfig } from '../../../global/config/translate.config';
 @Injectable()
 export class SearchDocService {
   private readonly baseURL = '/httpd/api/search';
+
+  private searchContentValue:any = new BehaviorSubject('');
+  searchContentObservable = this.searchContentValue.asObservable();
 
   constructor(
     private readonly configService: ConfigService,
@@ -64,6 +67,7 @@ export class SearchDocService {
     forEach(informationMaps, (informationMap: HelpInformationMap) =>
       this.populateResults(search, informationMap.topics, informationMap, results)
     );
+
     return of(results);
   }
 
@@ -95,5 +99,9 @@ export class SearchDocService {
       '',
       TypeDocumentation.DOCUMENT
     );
+  }
+
+  setInputResearch(search: string){
+    this.searchContentValue.next(search);
   }
 }
