@@ -15,6 +15,6 @@ import { KeyboardSelectDirective } from './search-doc.directive';
   declarations: [SearchDocComponent, ClickOutsideDirective, HighlightPipe, KeyboardSelectDirective],
   bootstrap: [SearchDocComponent],
   providers: [SearchDocService],
-  exports: [SearchDocComponent],
+  exports: [SearchDocComponent, HighlightPipe],
 })
 export class SearchDocModule {}

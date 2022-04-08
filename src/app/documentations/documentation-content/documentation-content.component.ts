@@ -15,6 +15,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { of } from 'rxjs/internal/observable/of';
 import { delay } from 'rxjs/operators';
+import { SearchDocService } from '../../left-sidebar/search-doc/search-doc.service';
 
 @Component({
   selector: 'app-documentation-content',
@@ -25,6 +26,7 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
   imgUrl: string;
 
   @Input() documentation: Doc;
+  @Input() searchValueObservable: string;
   @Output() showGlossary = new EventEmitter<number>();
 
   @ViewChild('lightbox', { static: true }) lightbox: unknown;
@@ -33,13 +35,18 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
     private readonly configService: ConfigService,
     private readonly sanitizer: DomSanitizer,
     private readonly modalService: BsModalService,
-    private readonly eleRef: ElementRef
+    private readonly eleRef: ElementRef,
+    private searchDocService: SearchDocService
   ) {}
 
   ngOnInit(): void {
     this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.configService.getConfiguration().documentationStylePath
     );
+
+    this.searchDocService.searchContentObservable.subscribe((data: string) => {
+      this.searchValueObservable = data;
+    })
   }
 
   onImgDBClick(event: MouseEvent): void {

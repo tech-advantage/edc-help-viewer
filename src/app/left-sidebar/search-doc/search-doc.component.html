@@ -10,7 +10,7 @@
       <i *ngIf="searchCtrl.value && isLoading" class="fa fa-spinner fa-spin"></i>
     </div>
     <input type="text" class="form-control search-input" [formControl]="searchCtrl" [ngStyle]="{border: 0}"
-           [placeholder]="getPlaceholder()" (focus)="onFocus()"/>
+           [placeholder]="getPlaceholder()" (focus)="onFocus()" (keyup)="onKeyUp($event)"/>
   </span>
 
   <!-- Dropdown. -->
@@ -27,7 +27,7 @@
         <li *ngFor="let doc of documentations | slice:0:resultsNumber" class="list-group-item" [routerLink]="['/doc', doc.id]" (click)="closeDropdown()">
 
           <!-- Template for each element of the list. -->
-          <span [innerHTML]="'[' + doc.strategyLabel + '] ' + doc.label  | highlight:searchCtrl.value"> </span>
+          <span [innerHTML]="'[' + doc.strategyLabel + '] ' + doc.label  | highlight:searchCtrl.value:false"> </span>
         </li>
         <li *ngIf="isShowMoreVisible()" class="list-group-item has-more" (click)="showMore($event)">
           <span [translate]="'global.search.more'"></span>
