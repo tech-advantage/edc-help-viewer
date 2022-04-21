@@ -57,7 +57,7 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.searchDocService.searchContentObservable.subscribe((data: string) => {
       this.searchValueObservable = data;
-    })
+    });
 
     if (changes.documentation && changes.documentation.currentValue) {
       of(this.documentation)

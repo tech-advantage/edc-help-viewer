@@ -11,7 +11,14 @@ import { KeyboardSelectDirective } from './search-doc.directive';
 import { SharedPipeHtmlModule } from 'app/shared/shared-pipe-html.module';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, TranslateModule, ReactiveFormsModule, SharedPipeHtmlModule, BsDropdownModule.forRoot()],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    SharedPipeHtmlModule,
+    BsDropdownModule.forRoot(),
+  ],
   declarations: [SearchDocComponent, ClickOutsideDirective, KeyboardSelectDirective],
   bootstrap: [SearchDocComponent],
   providers: [SearchDocService],

@@ -23,7 +23,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
     private readonly store: Store<AppState>,
     readonly configService: ConfigService,
     private readonly docService: DocumentationsService,
-    private readonly windowRefService: WindowRefService,
+    private readonly windowRefService: WindowRefService
   ) {
     this.handleResponsive(windowRefService.nativeWindow);
   }
