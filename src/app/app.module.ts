@@ -30,10 +30,9 @@ import { HttpLoaderFactory } from '../global/config/translate-loader';
 import { HomeResolve } from './home/home.resolve';
 import { WindowRefService } from './window-ref.service';
 import { GuardService } from './documentations/documentation.guard.service';
-import { HighlightPipe } from '../global/pipes/highlight.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LeftSidebarComponent, HomeComponent, HighlightPipe],
+  declarations: [AppComponent, HeaderComponent, LeftSidebarComponent, HomeComponent],
   imports: [
     ModalModule.forRoot(),
     TranslateModule.forRoot({
