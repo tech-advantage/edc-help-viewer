@@ -15,7 +15,7 @@ import { TranslateConfig } from '../../../global/config/translate.config';
 export class SearchDocService {
   private readonly baseURL = '/httpd/api/search';
 
-  private searchContentValue:any = new BehaviorSubject('');
+  private searchContentValue = new BehaviorSubject('');
   searchContentObservable = this.searchContentValue.asObservable();
 
   constructor(
@@ -54,7 +54,6 @@ export class SearchDocService {
     if (valueLimit) {
       params = params.set('limit', String(valueLimit));
     }
-    
     return this.http.get<SearchDocResult[]>(this.baseURL, { params });
   }
 
@@ -101,7 +100,7 @@ export class SearchDocService {
     );
   }
 
-  setInputResearch(search: string){
+  setInputResearch(search: string) {
     this.searchContentValue.next(search);
   }
 }

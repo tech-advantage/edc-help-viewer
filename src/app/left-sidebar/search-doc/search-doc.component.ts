@@ -34,7 +34,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
   @Input() informationMaps: HelpInformationMap[];
   @Output() searchResultsChange = new EventEmitter<SearchDocResult[]>();
 
-  @Output() searchFormValue = new EventEmitter<Observable<any>>();
+  @Output() searchFormValue = new EventEmitter<Observable<string>>();
 
   constructor(
     private readonly searchDocService: SearchDocService,
@@ -67,14 +67,13 @@ export class SearchDocComponent implements OnInit, OnDestroy {
     if (this.searchCtrl.value.length) {
       // Have to use setTimeout otherwise 'DropdownOutsideClickDirective' close the dropdown.
       this.populateDocumentations(this.searchCtrl.value);
-      
       setTimeout(() => (this.isOpen = true), 200);
     }
   }
 
   /**
    * Send the value typed to the service
-   * @param $event 
+   * @param $event
    */
   onKeyUp($event: { target: HTMLInputElement }): void {
     this.searchDocService.setInputResearch($event.target.value);
@@ -91,12 +90,9 @@ export class SearchDocComponent implements OnInit, OnDestroy {
    * Sets search input control listener.
    */
   private initSearchField(): void {
-    
     this.searchCtrl = new FormControl('');
-    
     this.subs.push(
       this.searchCtrl.valueChanges.pipe(debounceTime(200), distinctUntilChanged()).subscribe((value) => {
-        
         this.isOpen = !!value;
         if (value.length >= 3) {
           this.isValid = true;
@@ -116,8 +112,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
    */
   private populateDocumentations(search: string): void {
     this.resultsNumber = 10;
-    
-    
+
     if (this.isValid && search && search.length > 2) {
       this.isLoading = true;
       this.subs.push(
