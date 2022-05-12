@@ -97,7 +97,7 @@ describe('SearchDocService', () => {
           .set('lang', 'en')
           .set('exact-match', 'false')
           .set('limit', '25');
-        expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
+        expect(http.get).toHaveBeenCalledWith(configService.getConfiguration().httpdServer.url+'/httpd/api/search', { params });
       });
     });
     it('should call webservice if help configured with http server and use exactMatch without a limit', () => {
@@ -110,7 +110,7 @@ describe('SearchDocService', () => {
           .set('query', 'mySearch')
           .set('lang', 'en')
           .set('exact-match', 'true');
-        expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
+        expect(http.get).toHaveBeenCalledWith(configService.getConfiguration().httpdServer.url+'/httpd/api/search', { params });
       });
     });
     it('should NOT call webservice if help configured without http server', () => {

@@ -29,7 +29,7 @@ export class ConfigService {
    * @return {boolean}
    */
   useHttpdServer(): boolean {
-    const value = get(this.config, 'useHttpdServer');
+    const value = get(this.config, 'httpdServer.enable');
     return isBoolean(value) ? value : value === 'true';
   }
 

@@ -20,7 +20,10 @@ export class EdcConfiguration {
     exactMatch: boolean;
   };
 
-  useHttpdServer: boolean;
+  httpdServer: { 
+    enable: boolean;
+    url: string;
+  }
   collapseTocAsDefault: boolean;
   displayFirstDocInsteadOfToc: boolean;
   fullHeightRightSidebarOnMobile: boolean;

@@ -52,7 +52,7 @@ export class SearchDocService {
       params = params.set('limit', String(valueLimit));
     }
 
-    return this.http.get<SearchDocResult[]>(this.baseURL, { params });
+    return this.http.get<SearchDocResult[]>(this.configService.getConfiguration().httpdServer.url + this.baseURL, { params });
   }
 
   findFromToc(search: string, informationMaps: HelpInformationMap[]): Observable<SearchDocResult[]> {

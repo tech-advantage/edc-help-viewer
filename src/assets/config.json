@@ -15,7 +15,10 @@
     "limitNumber": 25,
     "exactMatch": false
   },
-  "useHttpdServer": false,
+  "httpdServer": {
+    "enable": false,
+    "url": ""
+  },
   "collapseTocAsDefault": true,
   "displayFirstDocInsteadOfToc": true,
   "fullHeightRightSidebarOnMobile": true
