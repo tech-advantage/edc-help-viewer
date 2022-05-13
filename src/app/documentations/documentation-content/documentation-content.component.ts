@@ -45,8 +45,6 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
     );
 
     this.searchDocService.searchContentObservable.subscribe((data: string) => {
-      console.log(data, "data");
-      
       this.searchValueObservable = data;
     })
   }
@@ -64,7 +62,6 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
     this.searchDocService.searchContentObservable.subscribe((data: string) => {
       this.searchValueObservable = data;
     });
-    console.log(this.searchValueObservable, "searchValueObservable");
     
     if (changes.documentation && changes.documentation.currentValue) {
       of(this.documentation)

@@ -27,7 +27,7 @@
         <li *ngFor="let doc of documentations | slice:0:resultsNumber" class="list-group-item" [routerLink]="['/doc', doc.id]" (click)="closeDropdown()">
 
           <!-- Template for each element of the list. -->
-          <span [innerHTML]="'[' + doc.strategyLabel + '] ' + doc.label  | highlight:searchCtrl.value"> </span>
+          <span [innerHTML]="'[' + doc.strategyLabel + '] ' + doc.label  | highlight:searchCtrl.value:false"> </span>
         </li>
         <li *ngIf="isShowMoreVisible()" class="list-group-item has-more" (click)="showMore($event)">
           <span [translate]="'global.search.more'"></span>
