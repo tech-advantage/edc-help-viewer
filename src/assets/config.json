@@ -1,5 +1,5 @@
 {
-  "docPath": "https://demo.easydoccontents.com/doc",
+  "docPath": "http://localhost:60000/doc",
   "documentationStylePath": "/help/assets/style/custom.css",
   "themeStylePath": "/help/assets/style/theme.css",
   "images": {
@@ -17,7 +17,7 @@
   },
   "httpdServer": {
     "enable": false,
-    "url": ""
+    "url": "http://localhost:60000"
   },
   "collapseTocAsDefault": true,
   "displayFirstDocInsteadOfToc": true,

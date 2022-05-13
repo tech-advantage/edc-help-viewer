@@ -1,6 +1,6 @@
 <link *ngIf="stylePath" rel="stylesheet" [href]="stylePath">
 <div class="custom-style"
-     [innerHTML]="documentation | html | anchor | safe:'html' | highlight:searchValueObservable:true"
+     [innerHTML]="documentation | html | anchor | highlight:searchValueObservable"
      [mathJax]="documentation"
      [glossaryOnclick]="documentation"
      (glossaryClicked)="glossaryClicked($event)">
