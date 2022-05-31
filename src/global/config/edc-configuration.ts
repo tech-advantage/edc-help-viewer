@@ -15,15 +15,13 @@ export class EdcConfiguration {
     mathjax: string;
   };
 
-  search: {
+  contentSearch: {
     limitNumber: number;
     exactMatch: boolean;
-  };
-
-  httpdServer: { 
     enable: boolean;
     url: string;
-  }
+  };
+
   collapseTocAsDefault: boolean;
   displayFirstDocInsteadOfToc: boolean;
   fullHeightRightSidebarOnMobile: boolean;

@@ -55,7 +55,9 @@ export class SearchDocService {
       params = params.set('limit', String(valueLimit));
     }
 
-    return this.http.get<SearchDocResult[]>(this.configService.getConfiguration().httpdServer.url + this.baseURL, { params });
+    return this.http.get<SearchDocResult[]>(this.configService.getConfiguration().contentSearch.url + this.baseURL, {
+      params,
+    });
   }
 
   findFromToc(search: string, informationMaps: HelpInformationMap[]): Observable<SearchDocResult[]> {
@@ -101,7 +103,7 @@ export class SearchDocService {
     );
   }
 
-  setInputResearch(search: string) {
+  setInputResearch(search: string): void {
     this.searchContentValue.next(search);
   }
 }

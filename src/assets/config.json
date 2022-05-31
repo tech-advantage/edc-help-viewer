@@ -1,5 +1,5 @@
 {
-  "docPath": "http://localhost:60000/doc",
+  "docPath": "https://demo.easydoccontents.com/doc",
   "documentationStylePath": "/help/assets/style/custom.css",
   "themeStylePath": "/help/assets/style/theme.css",
   "images": {
@@ -10,14 +10,11 @@
   "libsUrl": {
     "mathjax": "./MathJax/MathJax.js?config=TeX-MML-AM_CHTML"
   },
-
-  "search": {
+  "contentSearch": {
     "limitNumber": 25,
-    "exactMatch": false
-  },
-  "httpdServer": {
+    "exactMatch": false,
     "enable": false,
-    "url": "http://localhost:60000"
+    "url": ""
   },
   "collapseTocAsDefault": true,
   "displayFirstDocInsteadOfToc": true,

@@ -43,10 +43,9 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
     this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.configService.getConfiguration().documentationStylePath
     );
-
     this.searchDocService.searchContentObservable.subscribe((data: string) => {
       this.searchValueObservable = data;
-    })
+    });
   }
 
   onImgDBClick(event: MouseEvent): void {
@@ -59,10 +58,6 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.searchDocService.searchContentObservable.subscribe((data: string) => {
-      this.searchValueObservable = data;
-    });
-    
     if (changes.documentation && changes.documentation.currentValue) {
       of(this.documentation)
         .pipe(delay(100))

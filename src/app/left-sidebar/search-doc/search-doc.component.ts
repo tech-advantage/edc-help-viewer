@@ -121,8 +121,6 @@ export class SearchDocComponent implements OnInit, OnDestroy {
           .subscribe((docs) => {
             this.isLoading = false;
             this.documentations = docs;
-            console.log(this.documentations, "this.doc");
-            
             this.searchResultsChange.emit(docs);
           })
       );

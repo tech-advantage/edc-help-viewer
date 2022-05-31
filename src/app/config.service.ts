@@ -29,7 +29,7 @@ export class ConfigService {
    * @return {boolean}
    */
   useHttpdServer(): boolean {
-    const value = get(this.config, 'httpdServer.enable');
+    const value = get(this.config, 'contentSearch.enable');
     return isBoolean(value) ? value : value === 'true';
   }
 
@@ -40,7 +40,7 @@ export class ConfigService {
    * @return {boolean}
    */
   useExactMatch(): boolean {
-    const value = get(this.config, 'search.exactMatch');
+    const value = get(this.config, 'contentSearch.exactMatch');
     return isBoolean(value) ? value : value === 'true';
   }
 
@@ -51,7 +51,7 @@ export class ConfigService {
    * @return {boolean}
    */
   limitNumber(): number | null {
-    const value = get(this.config, 'search.limitNumber');
+    const value = get(this.config, 'contentSearch.limitNumber');
     return isNumber(value) ? value : null;
   }
 }
