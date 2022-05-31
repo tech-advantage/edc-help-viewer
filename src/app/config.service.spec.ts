@@ -29,7 +29,13 @@ describe('ConfigService', () => {
         logo_header: 'assets/images/logo_edc_header.png',
         logo_info: 'assets/images/logo_edc_info.png',
       },
-      useHttpdServer: httpServerValue,
+      contentSearch: {
+        limitNumber: 25,
+        exactMatch: false,
+        matchCase: true,
+        enable: httpServerValue,
+        url: '',
+      },
     };
   }
 
