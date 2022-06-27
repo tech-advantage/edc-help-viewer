@@ -10,7 +10,7 @@
       <i *ngIf="searchCtrl.value && isLoading" class="fa fa-spinner fa-spin"></i>
     </div>
     <input type="text" class="form-control search-input" [formControl]="searchCtrl" [ngStyle]="{border: 0}"
-           [placeholder]="getPlaceholder()" (focus)="onFocus()" (keyup)="onKeyUp($event)"/>
+           [placeholder]="getPlaceholder()" (focus)="onFocus()"/>
   </span>
 
   <!-- Dropdown. -->

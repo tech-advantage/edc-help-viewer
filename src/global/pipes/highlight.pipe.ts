@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-
 @Pipe({ name: 'highlight' })
 export class HighlightPipe implements PipeTransform {
   constructor(public sanitizer: DomSanitizer) {}
@@ -21,8 +20,9 @@ export class HighlightPipe implements PipeTransform {
         );
       } else {
         const regex = new RegExp('(' + search + ')(?!([^<]+)?>)', 'gi');
-
-        return text.replace(regex, (match) => `<span style="font-weight: 600; background: #fff2a8;">${match}</span>`);
+        return search.length > 3
+          ? text.replace(regex, (match) => `<span style="font-weight: 600; background: #fff2a8;">${match}</span>`)
+          : text;
       }
     } else {
       return text;

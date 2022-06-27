@@ -33,7 +33,6 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   glossaryId: number;
   showSidebar: boolean;
   overlayMode: boolean;
-  searchValueObservable: string;
   displayFirstDocInsteadOfToc;
 
   @ViewChild('linksBar', { read: ElementRef })

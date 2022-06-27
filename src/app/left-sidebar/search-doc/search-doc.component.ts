@@ -6,7 +6,7 @@ import { SearchDocResult } from './search-doc-result';
 import { TranslateService } from '@ngx-translate/core';
 import { HelpInformationMap } from 'global/classes/help-information-map';
 
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TranslateConfig } from '../../../global/config/translate.config';
@@ -33,8 +33,6 @@ export class SearchDocComponent implements OnInit, OnDestroy {
 
   @Input() informationMaps: HelpInformationMap[];
   @Output() searchResultsChange = new EventEmitter<SearchDocResult[]>();
-
-  @Output() searchFormValue = new EventEmitter<Observable<string>>();
 
   constructor(
     private readonly searchDocService: SearchDocService,
@@ -69,14 +67,6 @@ export class SearchDocComponent implements OnInit, OnDestroy {
       this.populateDocumentations(this.searchCtrl.value);
       setTimeout(() => (this.isOpen = true), 200);
     }
-  }
-
-  /**
-   * Send the value typed to the service
-   * @param $event
-   */
-  onKeyUp($event: { target: HTMLInputElement }): void {
-    this.searchDocService.setInputResearch($event.target.value);
   }
 
   /**

@@ -6,6 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
+  OnDestroy,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -16,17 +17,18 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { of } from 'rxjs/internal/observable/of';
 import { delay } from 'rxjs/operators';
 import { SearchDocService } from '../../left-sidebar/search-doc/search-doc.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-documentation-content',
   templateUrl: './documentation-content.component.html',
 })
-export class DocumentationContentComponent implements OnInit, OnChanges {
+export class DocumentationContentComponent implements OnInit, OnChanges, OnDestroy {
   stylePath: SafeResourceUrl;
   imgUrl: string;
-
+  searchValueObservable: string;
+  private searchEventSubscription: Subscription;
   @Input() documentation: Doc;
-  @Input() searchValueObservable: string;
   @Output() showGlossary = new EventEmitter<number>();
 
   @ViewChild('lightbox', { static: true }) lightbox: unknown;
@@ -43,9 +45,13 @@ export class DocumentationContentComponent implements OnInit, OnChanges {
     this.stylePath = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.configService.getConfiguration().documentationStylePath
     );
-    this.searchDocService.searchContentObservable.subscribe((data: string) => {
+    this.searchEventSubscription = this.searchDocService.searchContentObservable.subscribe((data: string) => {
       this.searchValueObservable = data;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.searchEventSubscription.unsubscribe();
   }
 
   onImgDBClick(event: MouseEvent): void {
