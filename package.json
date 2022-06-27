@@ -37,7 +37,7 @@
     "core-js": "2.5.7",
     "edc-client-js": "3.2.2",
     "font-awesome": "4.7.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "mathjax": "2.7.4",
     "ngx-bootstrap": "5.6.2",
     "rxjs": "6.5.5",
