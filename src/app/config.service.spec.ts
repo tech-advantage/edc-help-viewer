@@ -20,35 +20,43 @@ describe('ConfigService', () => {
     http = TestBed.inject(HttpClient);
   });
 
-  function getFakeConfig(httpServerValue: string | boolean): unknown {
+  function getFakeConfig(enable: string | boolean, url: string): unknown {
     return {
-      docPath: '/doc',
+      docPath: 'http://localhost:8088/doc',
       stylePath: '/help/assets/style/custom.css',
       images: {
         favicon: 'assets/images/favicon.ico',
         logo_header: 'assets/images/logo_edc_header.png',
         logo_info: 'assets/images/logo_edc_info.png',
       },
-      useHttpdServer: httpServerValue,
+      libsUrl: {
+        mathjax: './MathJax/MathJax.js?config=TeX-MML-AM_CHTML',
+      },
+      contentSearch: {
+        limitNumber: 25,
+        exactMatch: false,
+        enable: enable,
+        url: url,
+      },
     };
   }
 
-  describe('useHttpdServer', () => {
+  describe('useHttpServer', () => {
     it('should return true if http server config value is true', () => {
-      spyOn(http, 'get').and.returnValue(of(getFakeConfig('true')));
-      service.load(null).then(() => expect(service.useHttpdServer()).toBeTruthy());
+      spyOn(http, 'get').and.returnValue(of(getFakeConfig('true', 'http://localhost:8088')));
+      service.load(null).then(() => expect(service.useHttpServer()).toBeTruthy());
     });
     it('should return false if http server config value is false', () => {
-      spyOn(http, 'get').and.returnValue(of(new HttpResponse({ body: getFakeConfig('false'), status: null })));
-      service.load(null).then(() => expect(service.useHttpdServer()).toBeFalsy());
+      spyOn(http, 'get').and.returnValue(of(new HttpResponse({ body: getFakeConfig('false', ''), status: null })));
+      service.load(null).then(() => expect(service.useHttpServer()).toBeFalsy());
     });
     it('should return true if http server config value is (boolean) true', () => {
-      spyOn(http, 'get').and.returnValue(of(getFakeConfig(true)));
-      service.load(null).then(() => expect(service.useHttpdServer()).toBeTruthy());
+      spyOn(http, 'get').and.returnValue(of(getFakeConfig(true, 'http://localhost:8088')));
+      service.load(null).then(() => expect(service.useHttpServer()).toBeTruthy());
     });
     it('should return false if http server config value is (boolean) false', () => {
-      spyOn(http, 'get').and.returnValue(of(getFakeConfig(false)));
-      service.load(null).then(() => expect(service.useHttpdServer()).toBeFalsy());
+      spyOn(http, 'get').and.returnValue(of(getFakeConfig(false, '')));
+      service.load(null).then(() => expect(service.useHttpServer()).toBeFalsy());
     });
   });
 });

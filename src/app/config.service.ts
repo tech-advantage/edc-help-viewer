@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { get, isBoolean, isNumber } from 'lodash';
+import { get, isBoolean, isNumber, isString } from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { EdcConfiguration } from '../global/config/edc-configuration';
 
@@ -28,9 +28,19 @@ export class ConfigService {
    *
    * @return {boolean}
    */
-  useHttpdServer(): boolean {
+  useHttpServer(): boolean {
     const value = get(this.config, 'contentSearch.enable');
     return isBoolean(value) ? value : value === 'true';
+  }
+
+  /**
+   * Return server url value, set from json file config.json
+   *
+   * @returns {string}
+   */
+  getUrlServer(): string {
+    const value = get(this.config, 'contentSearch.url');
+    return value.length > 0 ? value : '';
   }
 
   /**

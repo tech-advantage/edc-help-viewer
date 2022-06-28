@@ -39,8 +39,8 @@ export class SearchDocService {
       return of([]);
     }
     this.searchContentValue.next(search);
-    
-    return this.configService.useHttpdServer()
+
+    return this.configService.useHttpServer()
       ? this.findFromServer(search, lang)
       : this.findFromToc(search, informationMaps);
   }
@@ -56,8 +56,8 @@ export class SearchDocService {
     if (valueLimit) {
       params = params.set('limit', String(valueLimit));
     }
-    
-    return this.http.get<SearchDocResult[]>(this.configService.getConfiguration().contentSearch.url + this.baseURL, {
+
+    return this.http.get<SearchDocResult[]>(this.configService.getUrlServer() + this.baseURL, {
       params,
     });
   }
