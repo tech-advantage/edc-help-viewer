@@ -1,9 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ConfigService } from '../../app/config.service';
 
 @Pipe({ name: 'highlight' })
 export class HighlightPipe implements PipeTransform {
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer, public configService: ConfigService) {}
 
   transform(text: string, search: string, onContent: boolean): SafeHtml {
     if (search && text) {
@@ -19,7 +20,10 @@ export class HighlightPipe implements PipeTransform {
           text.replace(regex, (match) => `<span style="font-weight: 600; background: #fff2a8;">${match}</span>`)
         );
       } else {
-        const regex = new RegExp('(' + search + ')(?!([^<]+)?>)', 'gi');
+        let flag = 'g';
+        this.configService.useMatchCase() ? flag : (flag = 'gi');
+        const regex = new RegExp('(' + search + ')(?!([^<]+)?>)', flag);
+
         return search.length > 3
           ? text.replace(regex, (match) => `<span style="font-weight: 600; background: #fff2a8;">${match}</span>`)
           : text;

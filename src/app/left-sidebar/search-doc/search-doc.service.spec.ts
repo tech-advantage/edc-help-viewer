@@ -87,7 +87,7 @@ describe('SearchDocService', () => {
       informationMaps = [infomap1, infomap2];
     });
     it('should call webservice if help configured with http server', () => {
-      spyOn(configService, 'getUrlServer').and.returnValue('http://localhost:8088');
+      spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
       spyOn(configService, 'useHttpServer').and.returnValue(true);
       spyOn(configService, 'useExactMatch').and.returnValue(false);
       spyOn(configService, 'limitNumber').and.returnValue(25);
@@ -105,7 +105,7 @@ describe('SearchDocService', () => {
       });
     });
     it('should call webservice if help configured with http server and use exactMatch without a limit', () => {
-      spyOn(configService, 'getUrlServer').and.returnValue('http://localhost:8088');
+      spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
       spyOn(configService, 'useHttpServer').and.returnValue(true);
       spyOn(configService, 'useExactMatch').and.returnValue(true);
       spyOn(configService, 'limitNumber').and.returnValue(null);

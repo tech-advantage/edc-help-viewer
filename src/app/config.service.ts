@@ -55,6 +55,17 @@ export class ConfigService {
   }
 
   /**
+   * Return match case value, set from json file config.json
+   * Both string and boolean value types are allowed
+   *
+   * @return {boolean}
+   */
+  useMatchCase(): boolean {
+    const value = get(this.config, 'contentSearch.matchCase');
+    return isBoolean(value) ? value : value === 'true';
+  }
+
+  /**
    * Return  value, set from json file config.json
    * Both string and boolean value types are allowed
    *

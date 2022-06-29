@@ -13,7 +13,8 @@
   "contentSearch": {
     "limitNumber": 25,
     "exactMatch": false,
-    "enable": false,
+    "matchCase": false,
+    "enable": true,
     "url": ""
   },
   "collapseTocAsDefault": true,
