@@ -7,12 +7,19 @@ import { SearchDocComponent } from './search-doc.component';
 import { SearchDocService } from './search-doc.service';
 import { RouterModule } from '@angular/router';
 import { ClickOutsideDirective } from '../../../global/directive/click-outside.directive';
-import { HighlightPipe } from '../../../global/pipes/highlight.pipe';
 import { KeyboardSelectDirective } from './search-doc.directive';
+import { SharedPipeHtmlModule } from 'app/shared/shared-pipe-html.module';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, TranslateModule, ReactiveFormsModule, BsDropdownModule.forRoot()],
-  declarations: [SearchDocComponent, ClickOutsideDirective, HighlightPipe, KeyboardSelectDirective],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    SharedPipeHtmlModule,
+    BsDropdownModule.forRoot(),
+  ],
+  declarations: [SearchDocComponent, ClickOutsideDirective, KeyboardSelectDirective],
   bootstrap: [SearchDocComponent],
   providers: [SearchDocService],
   exports: [SearchDocComponent],

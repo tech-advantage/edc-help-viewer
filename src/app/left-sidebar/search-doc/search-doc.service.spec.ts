@@ -20,7 +20,7 @@ describe('SearchDocService', () => {
     TestBed.configureTestingModule({
       providers: [
         SearchDocService,
-        mockService(ConfigService, ['useHttpdServer', 'limitNumber', 'useExactMatch']),
+        mockService(ConfigService, ['useHttpServer', 'limitNumber', 'useExactMatch', 'getUrlServer']),
         mockService(HttpClient, ['get']),
         mockService(TranslateConfig, ['getCurrentLang']),
       ],
@@ -87,41 +87,45 @@ describe('SearchDocService', () => {
       informationMaps = [infomap1, infomap2];
     });
     it('should call webservice if help configured with http server', () => {
-      spyOn(configService, 'useHttpdServer').and.returnValue(true);
+      spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
+      spyOn(configService, 'useHttpServer').and.returnValue(true);
       spyOn(configService, 'useExactMatch').and.returnValue(false);
       spyOn(configService, 'limitNumber').and.returnValue(25);
-      service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
+      service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
         const params: HttpParams = new HttpParams()
-          .set('query', 'mySearch')
+          .set('query', 'how')
           .set('lang', 'en')
           .set('exact-match', 'false')
           .set('limit', '25');
-        expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
+
+        expect(http.get).toHaveBeenCalledWith(configService.getUrlServer() + '/httpd/api/search', {
+          params,
+        });
       });
     });
     it('should call webservice if help configured with http server and use exactMatch without a limit', () => {
-      spyOn(configService, 'useHttpdServer').and.returnValue(true);
+      spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
+      spyOn(configService, 'useHttpServer').and.returnValue(true);
       spyOn(configService, 'useExactMatch').and.returnValue(true);
       spyOn(configService, 'limitNumber').and.returnValue(null);
-      service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
+      service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
-        const params: HttpParams = new HttpParams()
-          .set('query', 'mySearch')
-          .set('lang', 'en')
-          .set('exact-match', 'true');
-        expect(http.get).toHaveBeenCalledWith('/httpd/api/search', { params });
+        const params: HttpParams = new HttpParams().set('query', 'how').set('lang', 'en').set('exact-match', 'true');
+        expect(http.get).toHaveBeenCalledWith(configService.getUrlServer() + '/httpd/api/search', {
+          params,
+        });
       });
     });
     it('should NOT call webservice if help configured without http server', () => {
-      spyOn(configService, 'useHttpdServer').and.returnValue(false);
-      service.getDocumentationsByText('mySearch', 'en').subscribe((results) => {
+      spyOn(configService, 'useHttpServer').and.returnValue(false);
+      service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
         expect(http.get).not.toHaveBeenCalled();
       });
     });
     it('should return 5 results', () => {
-      spyOn(configService, 'useHttpdServer').and.returnValue(false);
+      spyOn(configService, 'useHttpServer').and.returnValue(false);
       service.getDocumentationsByText('document', 'en', informationMaps).subscribe((results) => {
         expect(results).toBeDefined();
         expect(results.length).toEqual(5);
@@ -135,7 +139,7 @@ describe('SearchDocService', () => {
       });
     });
     it('should return 2 results', () => {
-      spyOn(configService, 'useHttpdServer').and.returnValue(false);
+      spyOn(configService, 'useHttpServer').and.returnValue(false);
       service.getDocumentationsByText('document-2', 'en', informationMaps).subscribe((results) => {
         expect(results).toBeDefined();
         expect(results.length).toEqual(2);
@@ -143,7 +147,7 @@ describe('SearchDocService', () => {
       });
     });
     it('should return 1 result', () => {
-      spyOn(configService, 'useHttpdServer').and.returnValue(false);
+      spyOn(configService, 'useHttpServer').and.returnValue(false);
       service.getDocumentationsByText('document 3', 'en', informationMaps).subscribe((results) => {
         expect(results).toBeDefined();
         expect(results.length).toEqual(1);

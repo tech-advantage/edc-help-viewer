@@ -1,5 +1,5 @@
 import { get, filter, forEach, isEmpty, size } from 'lodash';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../../config.service';
@@ -14,6 +14,9 @@ import { TranslateConfig } from '../../../global/config/translate.config';
 @Injectable()
 export class SearchDocService {
   private readonly baseURL = '/httpd/api/search';
+
+  private searchContentValue = new BehaviorSubject('');
+  searchContentObservable = this.searchContentValue.asObservable();
 
   constructor(
     private readonly configService: ConfigService,
@@ -35,7 +38,9 @@ export class SearchDocService {
     if (!search || size(search) < 3) {
       return of([]);
     }
-    return this.configService.useHttpdServer()
+    this.searchContentValue.next(search);
+
+    return this.configService.useHttpServer()
       ? this.findFromServer(search, lang)
       : this.findFromToc(search, informationMaps);
   }
@@ -52,7 +57,9 @@ export class SearchDocService {
       params = params.set('limit', String(valueLimit));
     }
 
-    return this.http.get<SearchDocResult[]>(this.baseURL, { params });
+    return this.http.get<SearchDocResult[]>(this.configService.getUrlServer() + this.baseURL, {
+      params,
+    });
   }
 
   findFromToc(search: string, informationMaps: HelpInformationMap[]): Observable<SearchDocResult[]> {
@@ -64,6 +71,7 @@ export class SearchDocService {
     forEach(informationMaps, (informationMap: HelpInformationMap) =>
       this.populateResults(search, informationMap.topics, informationMap, results)
     );
+
     return of(results);
   }
 

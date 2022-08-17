@@ -10,12 +10,13 @@
   "libsUrl": {
     "mathjax": "./MathJax/MathJax.js?config=TeX-MML-AM_CHTML"
   },
-
-  "search": {
+  "contentSearch": {
     "limitNumber": 25,
-    "exactMatch": false
+    "exactMatch": false,
+    "matchCase": false,
+    "enable": true,
+    "url": ""
   },
-  "useHttpdServer": false,
   "collapseTocAsDefault": true,
   "displayFirstDocInsteadOfToc": true,
   "fullHeightRightSidebarOnMobile": true

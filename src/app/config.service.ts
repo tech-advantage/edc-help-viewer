@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { get, isBoolean, isNumber } from 'lodash';
+import { get, isBoolean, isNumber, isString } from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { EdcConfiguration } from '../global/config/edc-configuration';
 
@@ -28,9 +28,19 @@ export class ConfigService {
    *
    * @return {boolean}
    */
-  useHttpdServer(): boolean {
-    const value = get(this.config, 'useHttpdServer');
+  useHttpServer(): boolean {
+    const value = get(this.config, 'contentSearch.enable');
     return isBoolean(value) ? value : value === 'true';
+  }
+
+  /**
+   * Return server url value, set from json file config.json
+   *
+   * @returns {string}
+   */
+  getUrlServer(): string {
+    const value = get(this.config, 'contentSearch.url');
+    return value.length > 0 ? value : '';
   }
 
   /**
@@ -40,7 +50,18 @@ export class ConfigService {
    * @return {boolean}
    */
   useExactMatch(): boolean {
-    const value = get(this.config, 'search.exactMatch');
+    const value = get(this.config, 'contentSearch.exactMatch');
+    return isBoolean(value) ? value : value === 'true';
+  }
+
+  /**
+   * Return match case value, set from json file config.json
+   * Both string and boolean value types are allowed
+   *
+   * @return {boolean}
+   */
+  useMatchCase(): boolean {
+    const value = get(this.config, 'contentSearch.matchCase');
     return isBoolean(value) ? value : value === 'true';
   }
 
@@ -51,7 +72,7 @@ export class ConfigService {
    * @return {boolean}
    */
   limitNumber(): number | null {
-    const value = get(this.config, 'search.limitNumber');
+    const value = get(this.config, 'contentSearch.limitNumber');
     return isNumber(value) ? value : null;
   }
 }

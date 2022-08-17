@@ -102,6 +102,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
    */
   private populateDocumentations(search: string): void {
     this.resultsNumber = 10;
+
     if (this.isValid && search && search.length > 2) {
       this.isLoading = true;
       this.subs.push(
