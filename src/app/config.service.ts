@@ -30,7 +30,7 @@ export class ConfigService {
    */
   useHttpServer(): boolean {
     const value = get(this.config, 'contentSearch.enable');
-    return isBoolean(value) ? value : value == 'true';
+    return isBoolean(value) ? value : value === 'true';
   }
 
   /**
@@ -51,7 +51,7 @@ export class ConfigService {
    */
   useExactMatch(): boolean {
     const value = get(this.config, 'contentSearch.exactMatch');
-    return isBoolean(value) ? value : value == 'true';
+    return isBoolean(value) ? value : value === 'true';
   }
 
   /**
@@ -62,7 +62,7 @@ export class ConfigService {
    */
   useMatchCase(): boolean {
     const value = get(this.config, 'contentSearch.matchCase');
-    return isBoolean(value) ? value : value == 'true';
+    return isBoolean(value) ? value : value === 'true';
   }
 
   /**
