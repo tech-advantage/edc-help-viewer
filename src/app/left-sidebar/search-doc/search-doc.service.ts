@@ -38,11 +38,13 @@ export class SearchDocService {
     if (!search || size(search) < 3) {
       return of([]);
     }
-    this.searchContentValue.next(search);
-
     return this.configService.useHttpServer()
       ? this.findFromServer(search, lang)
       : this.findFromToc(search, informationMaps);
+  }
+
+  getSearchValue(search: string): void {
+    this.searchContentValue.next(search);
   }
 
   findFromServer(search: string, lang: string): Observable<SearchDocResult[]> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { get, isBoolean, isNumber, isString } from 'lodash';
+import { get, isBoolean, isNumber } from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { EdcConfiguration } from '../global/config/edc-configuration';
 
