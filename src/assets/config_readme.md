@@ -15,8 +15,8 @@
   For Mathjax : [MathJax CDN](https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML)
 
 + **"search"**: Parameters for searches in search area
-+ `limit`: To set a limit of the number of results
-+ `exact-match`: To set if the results should match exactly with the search
++ `valueMaxResultNumber`: To set a limit of the number of results
++ `matchWholeWord`: To set if the results should match exactly with the search
 
 + **"useHttpServer"**: Set this property as true if you're using edc-help-ng along with edc-httpd project (https://github.com/tech-advantage/edc-httpd-java). edc-httpd serves the documentation while exposing an enhanced search web-service.
 

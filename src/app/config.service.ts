@@ -44,13 +44,13 @@ export class ConfigService {
   }
 
   /**
-   * Return exact-match value, set from json file config.json
+   * Return matchWholeWord value, set from json file config.json
    * Both string and boolean value types are allowed
    *
    * @return {boolean}
    */
-  useExactMatch(): boolean {
-    const value = get(this.config, 'contentSearch.exactMatch');
+  useMatchWholeWord(): boolean {
+    const value = get(this.config, 'contentSearch.matchWholeWord');
     return isBoolean(value) ? value : value === 'true';
   }
 
@@ -66,13 +66,13 @@ export class ConfigService {
   }
 
   /**
-   * Return  value, set from json file config.json
+   * Return max result number value, set from json file config.json
    * Both string and boolean value types are allowed
    *
    * @return {boolean}
    */
-  limitNumber(): number | null {
-    const value = get(this.config, 'contentSearch.limitNumber');
+  maxResultNumber(): number | null {
+    const value = get(this.config, 'contentSearch.maxResultNumber');
     return isNumber(value) ? value : null;
   }
 }

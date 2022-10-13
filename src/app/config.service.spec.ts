@@ -33,8 +33,8 @@ describe('ConfigService', () => {
         mathjax: './MathJax/MathJax.js?config=TeX-MML-AM_CHTML',
       },
       contentSearch: {
-        limitNumber: 25,
-        exactMatch: false,
+        maxResultNumber: 25,
+        matchWholeWord: false,
         enable: enable,
         url: url,
       },

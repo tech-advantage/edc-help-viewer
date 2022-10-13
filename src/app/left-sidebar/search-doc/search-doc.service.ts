@@ -48,15 +48,15 @@ export class SearchDocService {
   }
 
   findFromServer(search: string, lang: string): Observable<SearchDocResult[]> {
-    const valueLimit = this.configService.limitNumber();
-    const valueMatch = this.configService.useExactMatch();
+    const valueMaxResultNumber = this.configService.maxResultNumber();
+    const valueMatch = this.configService.useMatchWholeWord();
 
     let params: HttpParams = new HttpParams()
       .set('query', search)
       .set('lang', lang)
-      .set('exact-match', String(valueMatch));
-    if (valueLimit) {
-      params = params.set('limit', String(valueLimit));
+      .set('match-whole-word', String(valueMatch));
+    if (valueMaxResultNumber) {
+      params = params.set('max-result-number', String(valueMaxResultNumber));
     }
 
     return this.http.get<SearchDocResult[]>(this.configService.getUrlServer() + this.baseURL, {

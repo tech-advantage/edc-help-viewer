@@ -20,7 +20,7 @@ describe('SearchDocService', () => {
     TestBed.configureTestingModule({
       providers: [
         SearchDocService,
-        mockService(ConfigService, ['useHttpServer', 'limitNumber', 'useExactMatch', 'getUrlServer']),
+        mockService(ConfigService, ['useHttpServer', 'maxResultNumber', 'useMatchWholeWord', 'getUrlServer']),
         mockService(HttpClient, ['get']),
         mockService(TranslateConfig, ['getCurrentLang']),
       ],
@@ -89,29 +89,32 @@ describe('SearchDocService', () => {
     it('should call webservice if help configured with http server', () => {
       spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
       spyOn(configService, 'useHttpServer').and.returnValue(true);
-      spyOn(configService, 'useExactMatch').and.returnValue(false);
-      spyOn(configService, 'limitNumber').and.returnValue(25);
+      spyOn(configService, 'useMatchWholeWord').and.returnValue(false);
+      spyOn(configService, 'maxResultNumber').and.returnValue(25);
       service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
         const params: HttpParams = new HttpParams()
           .set('query', 'how')
           .set('lang', 'en')
-          .set('exact-match', 'false')
-          .set('limit', '25');
+          .set('match-whole-word', 'false')
+          .set('max-result-number', '25');
 
         expect(http.get).toHaveBeenCalledWith(configService.getUrlServer() + '/httpd/api/search', {
           params,
         });
       });
     });
-    it('should call webservice if help configured with http server and use exactMatch without a limit', () => {
+    it('should call webservice if help configured with http server and use exactMatch without a maxResultNumber', () => {
       spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
       spyOn(configService, 'useHttpServer').and.returnValue(true);
-      spyOn(configService, 'useExactMatch').and.returnValue(true);
-      spyOn(configService, 'limitNumber').and.returnValue(null);
+      spyOn(configService, 'useMatchWholeWord').and.returnValue(true);
+      spyOn(configService, 'maxResultNumber').and.returnValue(null);
       service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
-        const params: HttpParams = new HttpParams().set('query', 'how').set('lang', 'en').set('exact-match', 'true');
+        const params: HttpParams = new HttpParams()
+          .set('query', 'how')
+          .set('lang', 'en')
+          .set('match-whole-word', 'true');
         expect(http.get).toHaveBeenCalledWith(configService.getUrlServer() + '/httpd/api/search', {
           params,
         });
