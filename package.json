@@ -1,6 +1,6 @@
 {
   "name": "edc-help-ng2",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
@@ -32,6 +32,7 @@
     "@angular/upgrade": "9.1.12",
     "@ngrx/store": "8.6.0",
     "@ngx-translate/core": "11.0.1",
+    "@types/mathjax": "^0.0.37",
     "bootstrap": "4.5.0",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.7",

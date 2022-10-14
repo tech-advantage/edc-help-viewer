@@ -18,7 +18,7 @@ describe('SearchDoc component test', () => {
     TestBed.configureTestingModule({
       declarations: [SearchDocComponent, mockPipe('highlight'), mockPipe('translate')],
       providers: [
-        mockService(SearchDocService, ['getDocumentationsByText']),
+        mockService(SearchDocService, ['getDocumentationsByText', 'getSearchValue']),
         mockService(TranslateService, ['instant']),
         mockService(TranslateConfig, ['getCurrentLang']),
       ],

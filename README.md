@@ -79,14 +79,15 @@ As an example, with the default value (**"/doc"**), the viewer will try to load 
     
 + **`libsUrl`**: URL of libs (Own installation by default, but you can use the CDN)
   
-  For Mathjax : [MathJax CDN](https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML)
+  + For Mathjax : [MathJax CDN](https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML)
 
-+ **`contentSearch`**: Parameters for searches in search area document content
-+ **`limit`**: To set a limit of the number of results
-+ **`exact-match`**: To set if the results should match exactly with the search
-+ **`matchCase`**: To set if the results should match with case sensitive
++ **`contentSearch`**: Parameters for searches in document content
+  + **`enable`**: Set this property as true and **`url`** empty if you're using edc-help-viewer along with edc-httpd project (https://github.com/tech-advantage/edc-httpd-java). edc-httpd serves the documentation while exposing an enhanced search web-service on the documentation content.
+  If *`enable`* is **false**, the search is done only on the titles.
 
-+ **`enable`**: Set this property as true and **`url`** empty if you're using edc-help-ng along with edc-httpd project (https://github.com/tech-advantage/edc-httpd-java). edc-httpd serves the documentation while exposing an enhanced search web-service.
+  + **`maxResultNumber`**: To set a limit of the number of results. Available only if *`enable`* is **true**.
+  + **`matchWholeWord`**: To set if the results should match exactly with the search. Available only if *`enable`* is **true**.
+  + **`matchCase`**: To set if the results should match with case sensitive. Available only if *`enable`* is **true**.
 
 + **`collapseTocAsDefault`**: Set this property as true if you want to display TOC list collapsed by default.
 

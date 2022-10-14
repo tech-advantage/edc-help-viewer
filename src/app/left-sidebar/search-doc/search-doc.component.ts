@@ -47,11 +47,9 @@ export class SearchDocComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     unsubscribe(this.subs);
   }
-
   isShowMoreVisible(): boolean {
     return this.documentations.length > this.resultsNumber;
   }
-
   showMore($event: Event): void {
     this.resultsNumber += 10;
     $event.preventDefault();
@@ -92,6 +90,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
           this.documentations = [];
           this.searchResultsChange.emit([]);
         }
+        this.searchDocService.getSearchValue(value);
       })
     );
   }
@@ -102,7 +101,6 @@ export class SearchDocComponent implements OnInit, OnDestroy {
    */
   private populateDocumentations(search: string): void {
     this.resultsNumber = 10;
-
     if (this.isValid && search && search.length > 2) {
       this.isLoading = true;
       this.subs.push(

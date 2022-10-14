@@ -16,8 +16,8 @@ export class EdcConfiguration {
   };
 
   contentSearch: {
-    limitNumber: number;
-    exactMatch: boolean;
+    maxResultNumber: number;
+    matchWholeWord: boolean;
     matchCase: boolean;
     enable: boolean;
     url: string;
