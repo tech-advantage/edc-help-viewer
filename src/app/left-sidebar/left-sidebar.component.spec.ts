@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { assign } from 'lodash';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LeftSidebarComponent } from './left-sidebar.component';
 import { mock, mockService } from '../../utils/test-helpers';
@@ -30,7 +30,7 @@ describe('LeftSidebarComponent', () => {
   let info1, info2: HelpInformationMap;
   let docState: DocState;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LeftSidebarComponent],
       providers: [
@@ -60,7 +60,29 @@ describe('LeftSidebarComponent', () => {
       documentationLanguage: 'it',
       exportId: 'myExportId',
     };
-    spyOn(configService, 'getConfiguration').and.returnValue({ collapseTocAsDefault: true });
+    spyOn(configService, 'getConfiguration').and.returnValue({ 
+      docPath: 'myDoc',
+      documentationStylePath: 'myDocStylePath',
+      themeStylePath: 'myThemeStylePath', 
+      images: {
+        favicon: 'myFaviconUrl',
+        logo_header: 'myLogoHeader',
+        logo_info: 'myLogoInfo'
+      },
+      libsUrl: {
+        mathjax: 'mathjaxLib'
+      },
+      contentSearch: {
+        maxResultNumber: 25,
+        matchWholeWord: false,
+        matchCase: false,
+        enable: false,
+        url: ''
+      },
+      collapseTocAsDefault: true,
+      displayFirstDocInsteadOfToc: false,
+      fullHeightRightSidebarOnMobile: false
+    });
     spyOn(store, 'select').and.returnValue(of(docState));
     spyOn(leftSidebarService, 'initToc').and.returnValue(of([info1, info2]));
     spyOn(leftSidebarService, 'getCurrentInformationMap').and.returnValue(of(rawInfoMap));
@@ -69,7 +91,7 @@ describe('LeftSidebarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', async(() => {
+  it('should create', waitForAsync(() => {
     expect(component).toBeDefined();
     expect(component.informationMapList).toEqual([info1, info2]);
     expect(component.opened).toEqual(info2);

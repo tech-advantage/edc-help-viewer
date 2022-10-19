@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HelpService } from './help.service';
 import { ExportInfo } from 'edc-client-js';
 import { mockService, mock } from '../../utils/test-helpers';
@@ -18,7 +18,29 @@ describe('HelpService', () => {
   });
 
   beforeEach(() => {
-    spyOn(configService, 'getConfiguration').and.returnValue({ docPath: '/doc' });
+    spyOn(configService, 'getConfiguration').and.returnValue({
+      docPath: '/doc',
+      documentationStylePath: 'myDocStylePath',
+      themeStylePath: 'myThemeStylePath', 
+      images: {
+        favicon: 'myFaviconUrl',
+        logo_header: 'myLogoHeader',
+        logo_info: 'myLogoInfo'
+      },
+      libsUrl: {
+        mathjax: 'mathjaxLib'
+      },
+      contentSearch: {
+        maxResultNumber: 25,
+        matchWholeWord: false,
+        matchCase: false,
+        enable: false,
+        url: ''
+      },
+      collapseTocAsDefault: false,
+      displayFirstDocInsteadOfToc: false,
+      fullHeightRightSidebarOnMobile: false
+     });
   });
 
   it('should init with pluginId as undefined', () => {
@@ -29,15 +51,15 @@ describe('HelpService', () => {
   });
 
   describe('runtime', () => {
-    it('should get context help', async(() => {
-      spyOn(helpService.edcClient, 'getHelper').and.returnValue(Promise.resolve());
+    it('should get context help', waitForAsync(() => {
+      spyOn(helpService.edcClient, 'getHelper').and.returnValue(Promise.resolve(helpService.edcClient.getHelper('key', 'subKey', 'pluginId', 'en')));
 
       helpService.getContextHelp('foo', 'bar', 'pluginId', 'en').subscribe();
 
       expect(helpService.edcClient.getHelper).toHaveBeenCalledWith('foo', 'bar', 'pluginId', 'en');
     }));
 
-    it('should get current content', async(() => {
+    it('should get current content', waitForAsync(() => {
       spyOn(helpService.edcClient, 'getContent').and.returnValue(
         Promise.resolve(mock(ExportInfo, { pluginId: 'myExportId', currentLanguage: 'fr' }))
       );

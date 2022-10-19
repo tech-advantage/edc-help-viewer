@@ -86,7 +86,7 @@ export class AppModule {}
  */
 export function ConfigLoader(configService: ConfigService, injector: Injector) {
   return (): Promise<unknown> =>
-    new Promise<unknown>((resolve) => {
+    new Promise<void>((resolve) => {
       const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
       locationInitialized.then(() => {
         return configService.load(environment.configFile).then(() => resolve());

@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SearchDocComponent } from './search-doc.component';
 import { SearchDocService } from './search-doc.service';
@@ -76,7 +76,7 @@ describe('SearchDoc component test', () => {
       expect(componentInstance.subs.length).toEqual(1);
     });
 
-    it('should call populateDocumentations when search value changed and is greater than 3 characters', async(() => {
+    it('should call populateDocumentations when search value changed and is greater than 3 characters', waitForAsync(() => {
       spyOn(componentInstance, 'populateDocumentations');
       expect(componentInstance.documentations.length).toEqual(4);
       componentInstance.ngOnInit();
@@ -93,7 +93,7 @@ describe('SearchDoc component test', () => {
       }, 200);
     }));
 
-    it('should NOT call populateDocumentations when search value changed and is smaller than 3 characters', async(() => {
+    it('should NOT call populateDocumentations when search value changed and is smaller than 3 characters', waitForAsync(() => {
       spyOn(componentInstance, 'populateDocumentations');
       expect(componentInstance.documentations.length).toEqual(4);
       componentInstance.ngOnInit();
@@ -140,7 +140,7 @@ describe('SearchDoc component test', () => {
         setTimeout(() => expect(componentInstance.isOpen).toBeFalsy(), 200);
       });
 
-      it('should open result droplist and call populateDocumentations if search text has at least one character', async(() => {
+      it('should open result droplist and call populateDocumentations if search text has at least one character', waitForAsync(() => {
         componentInstance.searchCtrl.setValue('ab');
         componentInstance.isOpen = false;
 
@@ -168,7 +168,7 @@ describe('SearchDoc component test', () => {
         spyOn(searchDocService, 'getDocumentationsByText').and.returnValue(of(docs));
       });
 
-      it('should NOT subscribe to getDocumentationsByText if search is not valid ', async(() => {
+      it('should NOT subscribe to getDocumentationsByText if search is not valid ', waitForAsync(() => {
         componentInstance.isValid = false;
 
         componentInstance.populateDocumentations('abdd');
@@ -176,7 +176,7 @@ describe('SearchDoc component test', () => {
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledTimes(0);
       }));
 
-      it('should NOT subscribe to getDocumentationsByText if search length < 3', async(() => {
+      it('should NOT subscribe to getDocumentationsByText if search length < 3', waitForAsync(() => {
         componentInstance.isValid = true;
 
         componentInstance.populateDocumentations('ab');
@@ -184,7 +184,7 @@ describe('SearchDoc component test', () => {
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledTimes(0);
       }));
 
-      it('should subscribe to getDocumentationsByText if search is valid and search length > 3', async(() => {
+      it('should subscribe to getDocumentationsByText if search is valid and search length > 3', waitForAsync(() => {
         spyOn(translateConfig, 'getCurrentLang').and.returnValue('en');
         componentInstance.isValid = true;
 
@@ -194,7 +194,7 @@ describe('SearchDoc component test', () => {
         expect(searchDocService.getDocumentationsByText).toHaveBeenCalledWith('abdd', 'en', componentInstance.toc);
       }));
 
-      it('should update documentations', async(() => {
+      it('should update documentations', waitForAsync(() => {
         spyOn(translateConfig, 'getCurrentLang').and.returnValue('en');
         componentInstance.isValid = true;
         componentInstance.isLoading = true;
@@ -207,7 +207,7 @@ describe('SearchDoc component test', () => {
         expect(componentInstance.documentations).toEqual(docs);
         expect(componentInstance.isLoading).toBeFalsy();
       }));
-      it('lang should be returned by getCurrentLang', async(() => {
+      it('lang should be returned by getCurrentLang', waitForAsync(() => {
         spyOn(translateConfig, 'getCurrentLang').and.returnValue('fr');
         componentInstance.isValid = true;
 

@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { mock, mockService } from '../../utils/test-helpers';
 import { DocumentationsComponent } from 'app/documentations/documentations.component';
 import { NO_ERRORS_SCHEMA, Pipe, PipeTransform, Renderer2 } from '@angular/core';
-import { Article, Link } from 'edc-client-js';
+import { Article, DocumentationTransfer, Link } from 'edc-client-js';
 import { Doc } from 'app/documentations/documentation';
 
 import { of } from 'rxjs';
@@ -26,9 +26,10 @@ describe('DocumentationsComponent', () => {
   let configService: ConfigService;
   let documentationsService: DocumentationsService;
   let windowRefService: WindowRefService;
-  const documentation = mock(Doc, { id: 1, content: 'content' });
+  const documentation = mock(Doc, { id: 1, content: 'content'});
+  const documentationTransfert = mock(DocumentationTransfer, { doc: documentation, exportId: '', hasExportChanged: false, resolvedLanguage: ''})
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DocumentationsComponent, StubHtmlPipe],
       providers: [
@@ -49,8 +50,30 @@ describe('DocumentationsComponent', () => {
     documentationsService = TestBed.inject(DocumentationsService);
     windowRefService = TestBed.inject(WindowRefService);
     spyOn(store, 'select').and.returnValue(of(documentation));
-    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
-    spyOn(configService, 'getConfiguration').and.returnValue({ displayFirstDocInsteadOfToc: false });
+    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentationTransfert));
+    spyOn(configService, 'getConfiguration').and.returnValue({ 
+      docPath: 'myDoc',
+      documentationStylePath: 'myDocStylePath',
+      themeStylePath: 'myThemeStylePath', 
+      images: {
+        favicon: 'myFaviconUrl',
+        logo_header: 'myLogoHeader',
+        logo_info: 'myLogoInfo'
+      },
+      libsUrl: {
+        mathjax: 'mathjaxLib'
+      },
+      contentSearch: {
+        maxResultNumber: 25,
+        matchWholeWord: false,
+        matchCase: false,
+        enable: false,
+        url: ''
+      },
+      collapseTocAsDefault: false,
+      displayFirstDocInsteadOfToc: false,
+      fullHeightRightSidebarOnMobile: false
+    });
 
     spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
 
@@ -59,7 +82,7 @@ describe('DocumentationsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', async(() => {
+  it('should create', waitForAsync(() => {
     expect(component).toBeTruthy();
     expect(component.documentation).toEqual(documentation);
   }));

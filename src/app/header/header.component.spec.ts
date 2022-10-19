@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 
 import { HeaderComponent } from './header.component';
@@ -24,7 +24,7 @@ describe('HeaderComponent', () => {
 
   const title = 'foo';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       providers: [
@@ -47,7 +47,29 @@ describe('HeaderComponent', () => {
     windowRefService = TestBed.inject(WindowRefService);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(titleService, 'setTitle');
-    spyOn(configService, 'getConfiguration').and.returnValue({ images: { logo_header: 'myLogoUrl' } });
+    spyOn(configService, 'getConfiguration').and.returnValue({ 
+      docPath: 'myDoc',
+      documentationStylePath: 'myDocStylePath',
+      themeStylePath: 'myThemeStylePath', 
+      images: {
+        favicon: 'myFaviconUrl',
+        logo_header: 'myLogoHeader',
+        logo_info: 'myLogoInfo'
+      },
+      libsUrl: {
+        mathjax: 'mathjaxLib'
+      },
+      contentSearch: {
+        maxResultNumber: 25,
+        matchWholeWord: false,
+        matchCase: false,
+        enable: false,
+        url: ''
+      },
+      collapseTocAsDefault: false,
+      displayFirstDocInsteadOfToc: false,
+      fullHeightRightSidebarOnMobile: false
+    });
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
@@ -62,7 +84,7 @@ describe('HeaderComponent', () => {
 
   describe('toggle left side bar collapse', () => {
     it('method should be called', () => {
-      spyOn(component, 'toggleCollapseSideBar').and.returnValue(of(true));
+      spyOn(component, 'toggleCollapseSideBar');
       component.toggleCollapseSideBar();
       expect(component.toggleCollapseSideBar).toHaveBeenCalled();
     });

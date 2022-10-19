@@ -2,11 +2,11 @@ import * as Helper from './global-helper';
 import { getWindowSize, ScreenSize } from './global-helper';
 
 import { Subscription } from 'rxjs';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('Glocal helper test', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [{ provide: Window, useValue: window }],
       schemas: [NO_ERRORS_SCHEMA],

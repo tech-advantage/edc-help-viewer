@@ -1,5 +1,5 @@
 import { GlossaryBarComponent } from './glossary-bar.component';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DocumentationsService } from '../documentations.service';
 import { mock, mockService } from '../../../utils/test-helpers';
 import { Doc } from '../documentation';
@@ -8,6 +8,7 @@ import { LeftSideBarSharedService } from '../../left-sidebar/left-sidebar-shared
 
 import { of } from 'rxjs';
 import { WindowRefService } from '../../window-ref.service';
+import { DocumentationTransfer } from 'edc-client-js';
 
 @Pipe({ name: 'html' })
 class MockHtmlPipe implements PipeTransform {
@@ -20,8 +21,9 @@ describe('GlossaryBarComponent ', () => {
   let fixture: ComponentFixture<GlossaryBarComponent>;
   let documentationsService: DocumentationsService;
   const documentation = mock(Doc, { id: 1 });
+  const documentationTransfert = mock(DocumentationTransfer, { doc: documentation, exportId: '', hasExportChanged: false, resolvedLanguage: ''})
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [GlossaryBarComponent, MockHtmlPipe],
       providers: [
@@ -35,7 +37,7 @@ describe('GlossaryBarComponent ', () => {
 
   beforeEach(() => {
     documentationsService = TestBed.inject(DocumentationsService);
-    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
+    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentationTransfert));
 
     fixture = TestBed.createComponent(GlossaryBarComponent);
     component = fixture.componentInstance;
@@ -43,7 +45,7 @@ describe('GlossaryBarComponent ', () => {
     fixture.detectChanges();
   });
 
-  it('should create', async(() => {
+  it('should create', waitForAsync(() => {
     expect(component).toBeTruthy();
     expect(component._glossaryId).toEqual(1);
   }));
