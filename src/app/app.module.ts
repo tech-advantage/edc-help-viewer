@@ -46,7 +46,12 @@ import { GuardService } from './documentations/documentation.guard.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     CommonModule,
-    StoreModule.forRoot(reducerToken),
+    StoreModule.forRoot(reducerToken, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 5 }) : [],
     FormsModule,
     HttpClientModule,

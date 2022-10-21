@@ -9,6 +9,7 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewChild,
+  TemplateRef,
 } from '@angular/core';
 import { Doc } from 'app/documentations/documentation';
 import { ConfigService } from 'app/config.service';
@@ -31,7 +32,7 @@ export class DocumentationContentComponent implements OnInit, OnChanges, OnDestr
   @Input() documentation: Doc;
   @Output() showGlossary = new EventEmitter<number>();
 
-  @ViewChild('lightbox', { static: true }) lightbox: unknown;
+  @ViewChild('lightbox', { static: true }) lightbox: TemplateRef<unknown>;
 
   constructor(
     private readonly configService: ConfigService,
