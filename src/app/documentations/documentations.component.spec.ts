@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { mock, mockService } from '../../utils/test-helpers';
 import { DocumentationsComponent } from 'app/documentations/documentations.component';
 import { NO_ERRORS_SCHEMA, Pipe, PipeTransform, Renderer2 } from '@angular/core';
-import { Article, DocumentationTransfer, Link } from 'edc-client-js';
+import { Article, Link } from 'edc-client-js';
 import { Doc } from 'app/documentations/documentation';
 
 import { of } from 'rxjs';
@@ -10,7 +10,7 @@ import { ConfigService } from '../config.service';
 import { DocumentationsService } from './documentations.service';
 import { Store } from '@ngrx/store';
 import { Location } from '@angular/common';
-import * as ScreenFuncs from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 import { WindowRefService } from '../window-ref.service';
 
 @Pipe({ name: 'html' })
@@ -26,8 +26,7 @@ describe('DocumentationsComponent', () => {
   let configService: ConfigService;
   let documentationsService: DocumentationsService;
   let windowRefService: WindowRefService;
-  const documentation = mock(Doc, { id: 1, content: 'content'});
-  const documentationTransfert = mock(DocumentationTransfer, { doc: documentation, exportId: '', hasExportChanged: false, resolvedLanguage: ''})
+  const documentation = mock(Doc, { id: 1, content: 'content' });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -50,32 +49,8 @@ describe('DocumentationsComponent', () => {
     documentationsService = TestBed.inject(DocumentationsService);
     windowRefService = TestBed.inject(WindowRefService);
     spyOn(store, 'select').and.returnValue(of(documentation));
-    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentationTransfert));
-    spyOn(configService, 'getConfiguration').and.returnValue({ 
-      docPath: 'myDoc',
-      documentationStylePath: 'myDocStylePath',
-      themeStylePath: 'myThemeStylePath', 
-      images: {
-        favicon: 'myFaviconUrl',
-        logo_header: 'myLogoHeader',
-        logo_info: 'myLogoInfo'
-      },
-      libsUrl: {
-        mathjax: 'mathjaxLib'
-      },
-      contentSearch: {
-        maxResultNumber: 25,
-        matchWholeWord: false,
-        matchCase: false,
-        enable: false,
-        url: ''
-      },
-      collapseTocAsDefault: false,
-      displayFirstDocInsteadOfToc: false,
-      fullHeightRightSidebarOnMobile: false
-    });
-
-    spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
+    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
+    spyOn(configService, 'getConfiguration').and.returnValue({ displayFirstDocInsteadOfToc: false });
 
     fixture = TestBed.createComponent(DocumentationsComponent);
     component = fixture.componentInstance;
@@ -115,16 +90,16 @@ describe('DocumentationsComponent', () => {
 
   describe('handle responsive', () => {
     it('should collapse if screen is too small (mobile)', () => {
-      spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
-
+      spyOn(GlobalHelper, 'isMobile').and.returnValue(true);
+      fixture.detectChanges();
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).not.toBeTruthy();
       expect(doc.overlayMode).toBeTruthy();
     });
 
     it('should not collapse if screen is big enough', () => {
-      spyOn(ScreenFuncs, 'isMobile').and.returnValue(false);
-
+      spyOn(GlobalHelper, 'isMobile').and.returnValue(false);
+      fixture.detectChanges();
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).toBeTruthy();
       expect(doc.overlayMode).not.toBeTruthy();

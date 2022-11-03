@@ -1,4 +1,4 @@
-import { lowerDeburr } from './global-helper';
+import { GlobalHelper } from './global-helper';
 
 /**
  * Utility class for search/filter feature in Configuration components (Product & User management).
@@ -11,8 +11,8 @@ export class SearchUtils {
    * @returns {boolean} true if "search" has been found in "source", otherwise false.
    */
   public static filterString(source: string, search: string): boolean {
-    const searchText: string = lowerDeburr(search);
-    const text: string = lowerDeburr(source);
+    const searchText: string = GlobalHelper.lowerDeburr(search);
+    const text: string = GlobalHelper.lowerDeburr(source);
     return text.indexOf(searchText) > -1;
   }
 }

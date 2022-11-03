@@ -11,7 +11,7 @@ import { environment } from 'environments/environment';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentationLanguage, selectExportId } from '../ngrx/selectors/help-selectors';
-import { unsubscribe } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 
 @Component({
   selector: 'app-header',
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    unsubscribe(this.subs);
+    GlobalHelper.unsubscribe(this.subs);
   }
 
   @HostListener('window:resize', ['$event'])

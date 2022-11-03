@@ -10,7 +10,7 @@ import { LeftSidebarService } from './left-sidebar.service';
 import { HelpInformationMap } from '../../global/classes/help-information-map';
 import { HelpDocumentation } from '../../global/classes/help-documentation';
 import { TypeDocumentation } from '../documentations/type-documentation';
-import { getNestedMatches } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
@@ -60,29 +60,7 @@ describe('LeftSidebarComponent', () => {
       documentationLanguage: 'it',
       exportId: 'myExportId',
     };
-    spyOn(configService, 'getConfiguration').and.returnValue({ 
-      docPath: 'myDoc',
-      documentationStylePath: 'myDocStylePath',
-      themeStylePath: 'myThemeStylePath', 
-      images: {
-        favicon: 'myFaviconUrl',
-        logo_header: 'myLogoHeader',
-        logo_info: 'myLogoInfo'
-      },
-      libsUrl: {
-        mathjax: 'mathjaxLib'
-      },
-      contentSearch: {
-        maxResultNumber: 25,
-        matchWholeWord: false,
-        matchCase: false,
-        enable: false,
-        url: ''
-      },
-      collapseTocAsDefault: true,
-      displayFirstDocInsteadOfToc: false,
-      fullHeightRightSidebarOnMobile: false
-    });
+    spyOn(configService, 'getConfiguration').and.returnValue({ collapseTocAsDefault: true });
     spyOn(store, 'select').and.returnValue(of(docState));
     spyOn(leftSidebarService, 'initToc').and.returnValue(of([info1, info2]));
     spyOn(leftSidebarService, 'getCurrentInformationMap').and.returnValue(of(rawInfoMap));
@@ -158,7 +136,7 @@ describe('LeftSidebarComponent', () => {
 
         component.handleSearchMatchingDocs(docs);
 
-        expect(getNestedMatches(docs, 'topics', '$matchesSearch')).toEqual([doc2]);
+        expect(GlobalHelper.getNestedMatches(docs, 'topics', '$matchesSearch')).toEqual([doc2]);
       });
     });
   });

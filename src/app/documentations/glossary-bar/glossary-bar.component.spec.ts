@@ -8,7 +8,6 @@ import { LeftSideBarSharedService } from '../../left-sidebar/left-sidebar-shared
 
 import { of } from 'rxjs';
 import { WindowRefService } from '../../window-ref.service';
-import { DocumentationTransfer } from 'edc-client-js';
 
 @Pipe({ name: 'html' })
 class MockHtmlPipe implements PipeTransform {
@@ -21,7 +20,6 @@ describe('GlossaryBarComponent ', () => {
   let fixture: ComponentFixture<GlossaryBarComponent>;
   let documentationsService: DocumentationsService;
   const documentation = mock(Doc, { id: 1 });
-  const documentationTransfert = mock(DocumentationTransfer, { doc: documentation, exportId: '', hasExportChanged: false, resolvedLanguage: ''})
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -37,7 +35,7 @@ describe('GlossaryBarComponent ', () => {
 
   beforeEach(() => {
     documentationsService = TestBed.inject(DocumentationsService);
-    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentationTransfert));
+    spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
 
     fixture = TestBed.createComponent(GlossaryBarComponent);
     component = fixture.componentInstance;

@@ -41,29 +41,7 @@ describe('Home Component', () => {
     configService = TestBed.inject(ConfigService);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(translateService, 'get').and.returnValue(of(title));
-    spyOn(configService, 'getConfiguration').and.returnValue({
-      docPath: 'myDoc',
-      documentationStylePath: '/assets/style/custom.css',
-      themeStylePath: 'myThemeStylePath', 
-      images: {
-        favicon: 'myFaviconUrl',
-        logo_header: 'myLogoHeader',
-        logo_info: 'myLogoInfo'
-      },
-      libsUrl: {
-        mathjax: 'mathjaxLib'
-      },
-      contentSearch: {
-        maxResultNumber: 25,
-        matchWholeWord: false,
-        matchCase: false,
-        enable: false,
-        url: ''
-      },
-      collapseTocAsDefault: false,
-      displayFirstDocInsteadOfToc: false,
-      fullHeightRightSidebarOnMobile: false
-     });
+    spyOn(configService, 'getConfiguration').and.returnValue({ documentationStylePath: '/assets/style/custom.css' });
   });
 
   beforeEach(() => {

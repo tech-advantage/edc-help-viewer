@@ -18,29 +18,7 @@ describe('HelpService', () => {
   });
 
   beforeEach(() => {
-    spyOn(configService, 'getConfiguration').and.returnValue({
-      docPath: '/doc',
-      documentationStylePath: 'myDocStylePath',
-      themeStylePath: 'myThemeStylePath', 
-      images: {
-        favicon: 'myFaviconUrl',
-        logo_header: 'myLogoHeader',
-        logo_info: 'myLogoInfo'
-      },
-      libsUrl: {
-        mathjax: 'mathjaxLib'
-      },
-      contentSearch: {
-        maxResultNumber: 25,
-        matchWholeWord: false,
-        matchCase: false,
-        enable: false,
-        url: ''
-      },
-      collapseTocAsDefault: false,
-      displayFirstDocInsteadOfToc: false,
-      fullHeightRightSidebarOnMobile: false
-     });
+    spyOn(configService, 'getConfiguration').and.returnValue({ docPath: '/doc' });
   });
 
   it('should init with pluginId as undefined', () => {
@@ -52,7 +30,9 @@ describe('HelpService', () => {
 
   describe('runtime', () => {
     it('should get context help', waitForAsync(() => {
-      spyOn(helpService.edcClient, 'getHelper').and.returnValue(Promise.resolve(helpService.edcClient.getHelper('key', 'subKey', 'pluginId', 'en')));
+      spyOn(helpService.edcClient, 'getHelper').and.returnValue(
+        Promise.resolve(helpService.edcClient.getHelper('key', 'subKey', 'pluginId', 'en'))
+      );
 
       helpService.getContextHelp('foo', 'bar', 'pluginId', 'en').subscribe();
 

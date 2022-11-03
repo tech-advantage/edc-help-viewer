@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 
 import { HeaderComponent } from './header.component';
@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { WindowRefService } from '../window-ref.service';
-import * as ScreenFuncs from '../../utils/global-helper';
+import { GlobalHelper, ScreenSize } from '../../utils/global-helper';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -47,29 +47,7 @@ describe('HeaderComponent', () => {
     windowRefService = TestBed.inject(WindowRefService);
     spyOn(helpService, 'getTitle').and.returnValue(of(title));
     spyOn(titleService, 'setTitle');
-    spyOn(configService, 'getConfiguration').and.returnValue({ 
-      docPath: 'myDoc',
-      documentationStylePath: 'myDocStylePath',
-      themeStylePath: 'myThemeStylePath', 
-      images: {
-        favicon: 'myFaviconUrl',
-        logo_header: 'myLogoHeader',
-        logo_info: 'myLogoInfo'
-      },
-      libsUrl: {
-        mathjax: 'mathjaxLib'
-      },
-      contentSearch: {
-        maxResultNumber: 25,
-        matchWholeWord: false,
-        matchCase: false,
-        enable: false,
-        url: ''
-      },
-      collapseTocAsDefault: false,
-      displayFirstDocInsteadOfToc: false,
-      fullHeightRightSidebarOnMobile: false
-    });
+    spyOn(configService, 'getConfiguration').and.returnValue({ images: { logo_header: 'myLogoUrl' } });
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
@@ -91,23 +69,22 @@ describe('HeaderComponent', () => {
   });
 
   describe('initial value of left side bar collapse', () => {
-    beforeEach(() => jasmine.clock().install());
-    afterEach(() => jasmine.clock().uninstall());
-
-    it('should start collapsed if window is too small', () => {
-      spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
+    it('should start collapsed if window is too small', fakeAsync(() => {
+      spyOn(GlobalHelper, 'isMobile').and.returnValue(true);
+      fixture.detectChanges();
       const leftBar = new LeftSideBarSharedService(windowRefService);
-      jasmine.clock().tick(5);
-      expect(leftBar.isCollapsed()).toBeTruthy();
+      tick(5);
       expect(leftBar.isInOverlayMode()).toBeTruthy();
-    });
+      expect(leftBar.isCollapsed()).toBeTruthy();
+    }));
 
-    it('should not start collapsed if default value is false', () => {
-      spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
+    it('should not start collapsed if default value is false', fakeAsync(() => {
+      spyOn(GlobalHelper, 'getWindowSize').and.returnValue(ScreenSize.LG);
+      fixture.detectChanges();
       const leftBar = new LeftSideBarSharedService(windowRefService);
-      jasmine.clock().tick(5);
+      tick(5);
       expect(leftBar.isCollapsed()).not.toBeTruthy();
       expect(leftBar.isInOverlayMode()).not.toBeTruthy();
-    });
+    }));
   });
 });

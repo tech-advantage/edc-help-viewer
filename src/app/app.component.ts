@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChi
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from './config.service';
 import { LeftSideBarSharedService } from './left-sidebar/left-sidebar-shared.service';
-import { unsubscribe } from 'utils/global-helper';
+import { GlobalHelper } from 'utils/global-helper';
 
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    unsubscribe(this.subs);
+    GlobalHelper.unsubscribe(this.subs);
   }
 
   /**

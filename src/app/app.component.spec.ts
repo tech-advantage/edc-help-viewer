@@ -30,29 +30,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     configService = TestBed.inject(ConfigService);
-    spyOn(configService, 'getConfiguration').and.returnValue({ 
-      docPath: 'myDoc',
-      documentationStylePath: 'myDocStylePath',
-      themeStylePath: 'myThemeStylePath', 
-      images: {
-        favicon: 'myFaviconUrl',
-        logo_header: 'myLogoHeader',
-        logo_info: 'myLogoInfo'
-      },
-      libsUrl: {
-        mathjax: 'mathjaxLib'
-      },
-      contentSearch: {
-        maxResultNumber: 25,
-        matchWholeWord: false,
-        matchCase: false,
-        enable: false,
-        url: ''
-      },
-      collapseTocAsDefault: false,
-      displayFirstDocInsteadOfToc: false,
-      fullHeightRightSidebarOnMobile: false
-    });
+    spyOn(configService, 'getConfiguration').and.returnValue({ images: { favicon: 'myFaviconUrl' } });
     fixture.detectChanges();
   });
 
