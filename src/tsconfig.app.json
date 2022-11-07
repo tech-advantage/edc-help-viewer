@@ -15,7 +15,7 @@
       "dom"
     ],
     "outDir": "../out-tsc/app",
-    "module": "es2020",
+    "module": "esnext",
     "baseUrl": "",
     "types": ["node", "mathjax"]
   },
