@@ -24,20 +24,22 @@ export class HighlightPipe implements PipeTransform {
           .join('|');
 
         this.configService.useMatchCase() ? this.flag : (this.flag = 'gi');
+
         this.regex = new RegExp(pattern, this.flag);
 
         return this.sanitizer.bypassSecurityTrustHtml(
           text.replace(this.regex, (match) => `<span ${this.highlightStyle}>${match}</span>`)
         );
       } else {
+        search = '(' + search + ')';
         this.configService.useMatchCase() ? this.flag : (this.flag = 'gi');
+        this.configService.useMatchWholeWord() ? (search = '(\\b)' + search + '(\\b)') : search;
 
         if (text.match(this.mathJaxRegex)) {
           this.regex = new RegExp('(' + search + ')(?!([^<]+)?>)(?!(.(?!<span class="math-tex"))*</span>)', this.flag);
         } else {
           this.regex = new RegExp('(' + search + ')(?!([^<]+)?>)', this.flag);
         }
-
         return search.length >= 1
           ? text.replace(this.regex, (match) => `<span ${this.highlightStyle}>${match}</span>`)
           : text;

@@ -20,7 +20,13 @@ describe('SearchDocService', () => {
     TestBed.configureTestingModule({
       providers: [
         SearchDocService,
-        mockService(ConfigService, ['useHttpServer', 'maxResultNumber', 'useMatchWholeWord', 'getUrlServer']),
+        mockService(ConfigService, [
+          'useHttpServer',
+          'maxResultNumber',
+          'useMatchWholeWord',
+          'useMatchCase',
+          'getUrlServer',
+        ]),
         mockService(HttpClient, ['get']),
         mockService(TranslateConfig, ['getCurrentLang']),
       ],
@@ -90,6 +96,7 @@ describe('SearchDocService', () => {
       spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
       spyOn(configService, 'useHttpServer').and.returnValue(true);
       spyOn(configService, 'useMatchWholeWord').and.returnValue(false);
+      spyOn(configService, 'useMatchCase').and.returnValue(false);
       spyOn(configService, 'maxResultNumber').and.returnValue(25);
       service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
@@ -97,6 +104,7 @@ describe('SearchDocService', () => {
           .set('query', 'how')
           .set('lang', 'en')
           .set('match-whole-word', 'false')
+          .set('match-case', 'false')
           .set('max-result-number', '25');
 
         expect(http.get).toHaveBeenCalledWith(configService.getUrlServer() + '/httpd/api/search', {
@@ -108,13 +116,15 @@ describe('SearchDocService', () => {
       spyOn(configService, 'getUrlServer').and.returnValue(configService.getUrlServer());
       spyOn(configService, 'useHttpServer').and.returnValue(true);
       spyOn(configService, 'useMatchWholeWord').and.returnValue(true);
+      spyOn(configService, 'useMatchCase').and.returnValue(false);
       spyOn(configService, 'maxResultNumber').and.returnValue(null);
       service.getDocumentationsByText('how', 'en').subscribe((results) => {
         expect(results).toBeDefined();
         const params: HttpParams = new HttpParams()
           .set('query', 'how')
           .set('lang', 'en')
-          .set('match-whole-word', 'true');
+          .set('match-whole-word', 'true')
+          .set('match-case', 'false');
         expect(http.get).toHaveBeenCalledWith(configService.getUrlServer() + '/httpd/api/search', {
           params,
         });
