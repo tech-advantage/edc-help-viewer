@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { WindowRefService } from '../window-ref.service';
 import { GlobalHelper, ScreenSize } from '../../utils/global-helper';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -27,6 +28,7 @@ describe('HeaderComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
+      imports: [RouterTestingModule],
       providers: [
         mockService(Title, ['setTitle']),
         mockService(HelpService, ['getTitle']),
@@ -34,6 +36,7 @@ describe('HeaderComponent', () => {
         mockService(Store, ['select']),
         mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed']),
         Location,
+        RouterTestingModule,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         WindowRefService,
       ],

@@ -1,4 +1,4 @@
-import { EMPTY, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
@@ -35,7 +35,7 @@ export class HomeResolve implements Resolve<unknown> {
     } else {
       this.initContent();
     }
-    return EMPTY;
+    return of(null);
   }
 
   private initContent(): void {
