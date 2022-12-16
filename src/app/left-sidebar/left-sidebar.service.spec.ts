@@ -119,22 +119,24 @@ describe('LeftSidebarService test', () => {
         spyOn(leftSidebarService, 'buildHelpInformationMaps');
       });
 
-      it('should init Toc building help information maps', () => {
+      it('should init Toc building help information maps', (done) => {
         spyOn(helpService, 'getToc').and.returnValue(Promise.resolve(toc));
 
         leftSidebarService.initToc().subscribe(() => {
           expect(helpService.getToc).toHaveBeenCalledTimes(1);
           expect(leftSidebarService.buildHelpInformationMaps).toHaveBeenCalledTimes(1);
           expect(leftSidebarService.buildHelpInformationMaps).toHaveBeenCalledWith(toc, undefined);
+          done();
         });
       });
-      it('should return an empty array if couldn"t retrieve the toc', () => {
+      it('should return an empty array if couldn"t retrieve the toc', (done) => {
         spyOn(helpService, 'getToc').and.returnValue(Promise.reject(''));
 
         leftSidebarService.initToc().subscribe((ims) => {
           expect(helpService.getToc).toHaveBeenCalledTimes(1);
           expect(leftSidebarService.buildHelpInformationMaps).toHaveBeenCalledTimes(0);
           expect(ims).toEqual(new Array<HelpInformationMap>());
+          done();
         });
       });
     });
