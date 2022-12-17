@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { isMobile } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 import { WindowRefService } from '../window-ref.service';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class LeftSideBarSharedService {
   }
 
   handleResponsive(window: Window): void {
-    const mobileMode = isMobile(window, true);
+    const mobileMode = GlobalHelper.isMobile(window, true);
     this.setOverlayMode(mobileMode);
     this.setCollapseValue(mobileMode);
   }

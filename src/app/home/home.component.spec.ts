@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { mockService } from '../../utils/test-helpers';
 import { HelpService } from '../help/help.service';
@@ -17,7 +17,7 @@ describe('Home Component', () => {
 
   const title = 'foo';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
       providers: [
@@ -50,7 +50,7 @@ describe('Home Component', () => {
     fixture.detectChanges();
   });
 
-  it('should init', async(() => {
+  it('should init', waitForAsync(() => {
     expect(component).toBeTruthy();
     expect(component.title).toBe(title);
   }));

@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { unsubscribe } from 'utils/global-helper';
+import { GlobalHelper } from 'utils/global-helper';
 import { SearchDocService } from './search-doc.service';
 import { SearchDocResult } from './search-doc-result';
 import { TranslateService } from '@ngx-translate/core';
@@ -45,7 +45,7 @@ export class SearchDocComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    unsubscribe(this.subs);
+    GlobalHelper.unsubscribe(this.subs);
   }
   isShowMoreVisible(): boolean {
     return this.documentations.length > this.resultsNumber;

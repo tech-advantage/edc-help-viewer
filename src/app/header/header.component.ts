@@ -11,7 +11,8 @@ import { environment } from 'environments/environment';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentationLanguage, selectExportId } from '../ngrx/selectors/help-selectors';
-import { unsubscribe } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -34,12 +35,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly configService: ConfigService,
     private readonly store: Store<AppState>,
     private readonly sideBarSharedService: LeftSideBarSharedService,
-    private readonly location: Location
+    private readonly location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.logoUrl = this.configService.getConfiguration().images.logo_header;
-
     // Update title every time language or export id changes
     this.subs.push(
       combineLatest([this.store.select(selectExportId), this.store.select(selectDocumentationLanguage)])
@@ -53,7 +54,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         )
         .subscribe((title: string) => this.setTitle(title))
     );
-
     this.version = environment.version;
   }
 
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    unsubscribe(this.subs);
+    GlobalHelper.unsubscribe(this.subs);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -96,8 +96,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         if (languageId) {
           url += `/${languageId}`;
         }
-        this.location.go(url);
-        window.location.reload();
+        this.router.navigate([url]);
       }
     );
   }

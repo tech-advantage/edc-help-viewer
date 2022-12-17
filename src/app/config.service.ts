@@ -9,7 +9,7 @@ export class ConfigService {
 
   constructor(private readonly http: HttpClient) {}
 
-  load(url: string): Promise<unknown> {
+  load(url: string): Promise<void> {
     return new Promise((resolve) => {
       this.http.get(url).subscribe((config: EdcConfiguration) => {
         this.config = config;

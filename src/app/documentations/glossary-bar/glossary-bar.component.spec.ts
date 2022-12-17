@@ -1,5 +1,5 @@
 import { GlossaryBarComponent } from './glossary-bar.component';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DocumentationsService } from '../documentations.service';
 import { mock, mockService } from '../../../utils/test-helpers';
 import { Doc } from '../documentation';
@@ -21,7 +21,7 @@ describe('GlossaryBarComponent ', () => {
   let documentationsService: DocumentationsService;
   const documentation = mock(Doc, { id: 1 });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [GlossaryBarComponent, MockHtmlPipe],
       providers: [
@@ -43,7 +43,7 @@ describe('GlossaryBarComponent ', () => {
     fixture.detectChanges();
   });
 
-  it('should create', async(() => {
+  it('should create', waitForAsync(() => {
     expect(component).toBeTruthy();
     expect(component._glossaryId).toEqual(1);
   }));

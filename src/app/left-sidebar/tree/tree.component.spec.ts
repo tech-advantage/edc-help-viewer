@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TreeComponent } from './tree.component';
@@ -10,7 +10,7 @@ describe('TreeComponent', () => {
   let component: TreeComponent;
   let fixture: ComponentFixture<TreeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TreeComponent],
       imports: [RouterTestingModule],

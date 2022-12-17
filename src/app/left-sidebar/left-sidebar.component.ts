@@ -15,7 +15,7 @@ import { find, first, forEach, get, isEmpty, isEqual, isNil, last, map, some, to
 
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { InformationMap } from 'edc-client-js';
-import { unsubscribe } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 import { SearchDocResult } from 'app/left-sidebar/search-doc/search-doc-result';
 import { HelpInformationMap } from 'global/classes/help-information-map';
 import { HelpDocumentation } from 'global/classes/help-documentation';
@@ -79,7 +79,7 @@ export class LeftSidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    unsubscribe(this.subs);
+    GlobalHelper.unsubscribe(this.subs);
   }
 
   /**

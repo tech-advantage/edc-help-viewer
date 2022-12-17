@@ -11,6 +11,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs",
+              "@angularclass/hmr"
+            ],
+            "baseHref": "/help/",
             "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
@@ -26,7 +31,15 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "optimization": {
+              "scripts": true,
+              "styles": {
+                "minify": true,
+                "inlineCritical": false
+              },
+              "fonts": true
+            }
           },
           "configurations": {
             "production": {
@@ -39,7 +52,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,

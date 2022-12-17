@@ -10,7 +10,7 @@ import { ConfigService } from '../config.service';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectDocumentation } from '../ngrx/selectors/help-selectors';
-import { isMobile, unsubscribe } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 import { WindowRefService } from '../window-ref.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   linksBar: ElementRef;
 
   handleResponsive(window: Window): void {
-    const mobileMode = isMobile(window, false);
+    const mobileMode = GlobalHelper.isMobile(window, false);
     this.overlayMode = mobileMode;
     this.showSidebar = !mobileMode;
   }
@@ -72,7 +72,7 @@ export class DocumentationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    unsubscribe(this.sub);
+    GlobalHelper.unsubscribe(this.sub);
   }
 
   showLinksbar(): boolean {

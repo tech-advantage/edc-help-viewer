@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { assign } from 'lodash';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LeftSidebarComponent } from './left-sidebar.component';
 import { mock, mockService } from '../../utils/test-helpers';
@@ -10,7 +10,7 @@ import { LeftSidebarService } from './left-sidebar.service';
 import { HelpInformationMap } from '../../global/classes/help-information-map';
 import { HelpDocumentation } from '../../global/classes/help-documentation';
 import { TypeDocumentation } from '../documentations/type-documentation';
-import { getNestedMatches } from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ describe('LeftSidebarComponent', () => {
   let info1, info2: HelpInformationMap;
   let docState: DocState;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LeftSidebarComponent],
       providers: [
@@ -69,7 +69,7 @@ describe('LeftSidebarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', async(() => {
+  it('should create', waitForAsync(() => {
     expect(component).toBeDefined();
     expect(component.informationMapList).toEqual([info1, info2]);
     expect(component.opened).toEqual(info2);
@@ -136,7 +136,7 @@ describe('LeftSidebarComponent', () => {
 
         component.handleSearchMatchingDocs(docs);
 
-        expect(getNestedMatches(docs, 'topics', '$matchesSearch')).toEqual([doc2]);
+        expect(GlobalHelper.getNestedMatches(docs, 'topics', '$matchesSearch')).toEqual([doc2]);
       });
     });
   });

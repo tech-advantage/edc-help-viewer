@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 
 import { HeaderComponent } from './header.component';
@@ -12,7 +12,8 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { WindowRefService } from '../window-ref.service';
-import * as ScreenFuncs from '../../utils/global-helper';
+import { GlobalHelper, ScreenSize } from '../../utils/global-helper';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -24,9 +25,10 @@ describe('HeaderComponent', () => {
 
   const title = 'foo';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
+      imports: [RouterTestingModule],
       providers: [
         mockService(Title, ['setTitle']),
         mockService(HelpService, ['getTitle']),
@@ -34,6 +36,7 @@ describe('HeaderComponent', () => {
         mockService(Store, ['select']),
         mockService(LeftSideBarSharedService, ['toggleCollapseValue', 'isCollapsed']),
         Location,
+        RouterTestingModule,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         WindowRefService,
       ],
@@ -62,30 +65,29 @@ describe('HeaderComponent', () => {
 
   describe('toggle left side bar collapse', () => {
     it('method should be called', () => {
-      spyOn(component, 'toggleCollapseSideBar').and.returnValue(of(true));
+      spyOn(component, 'toggleCollapseSideBar');
       component.toggleCollapseSideBar();
       expect(component.toggleCollapseSideBar).toHaveBeenCalled();
     });
   });
 
   describe('initial value of left side bar collapse', () => {
-    beforeEach(() => jasmine.clock().install());
-    afterEach(() => jasmine.clock().uninstall());
-
-    it('should start collapsed if window is too small', () => {
-      spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
+    it('should start collapsed if window is too small', fakeAsync(() => {
+      spyOn(GlobalHelper, 'isMobile').and.returnValue(true);
+      fixture.detectChanges();
       const leftBar = new LeftSideBarSharedService(windowRefService);
-      jasmine.clock().tick(5);
-      expect(leftBar.isCollapsed()).toBeTruthy();
+      tick(5);
       expect(leftBar.isInOverlayMode()).toBeTruthy();
-    });
+      expect(leftBar.isCollapsed()).toBeTruthy();
+    }));
 
-    it('should not start collapsed if default value is false', () => {
-      spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
+    it('should not start collapsed if default value is false', fakeAsync(() => {
+      spyOn(GlobalHelper, 'getWindowSize').and.returnValue(ScreenSize.LG);
+      fixture.detectChanges();
       const leftBar = new LeftSideBarSharedService(windowRefService);
-      jasmine.clock().tick(5);
+      tick(5);
       expect(leftBar.isCollapsed()).not.toBeTruthy();
       expect(leftBar.isInOverlayMode()).not.toBeTruthy();
-    });
+    }));
   });
 });

@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HelpService } from './help.service';
 import { ExportInfo } from 'edc-client-js';
 import { mockService, mock } from '../../utils/test-helpers';
@@ -29,15 +29,17 @@ describe('HelpService', () => {
   });
 
   describe('runtime', () => {
-    it('should get context help', async(() => {
-      spyOn(helpService.edcClient, 'getHelper').and.returnValue(Promise.resolve());
+    it('should get context help', waitForAsync(() => {
+      spyOn(helpService.edcClient, 'getHelper').and.returnValue(
+        Promise.resolve(helpService.edcClient.getHelper('key', 'subKey', 'pluginId', 'en'))
+      );
 
       helpService.getContextHelp('foo', 'bar', 'pluginId', 'en').subscribe();
 
       expect(helpService.edcClient.getHelper).toHaveBeenCalledWith('foo', 'bar', 'pluginId', 'en');
     }));
 
-    it('should get current content', async(() => {
+    it('should get current content', waitForAsync(() => {
       spyOn(helpService.edcClient, 'getContent').and.returnValue(
         Promise.resolve(mock(ExportInfo, { pluginId: 'myExportId', currentLanguage: 'fr' }))
       );

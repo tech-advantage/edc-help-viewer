@@ -50,11 +50,13 @@ export class SearchDocService {
   findFromServer(search: string, lang: string): Observable<SearchDocResult[]> {
     const valueMaxResultNumber = this.configService.maxResultNumber();
     const valueMatch = this.configService.useMatchWholeWord();
+    const valueMatchCase = this.configService.useMatchCase();
 
     let params: HttpParams = new HttpParams()
       .set('query', search)
       .set('lang', lang)
-      .set('match-whole-word', String(valueMatch));
+      .set('match-whole-word', String(valueMatch))
+      .set('match-case', String(valueMatchCase));
     if (valueMaxResultNumber) {
       params = params.set('max-result-number', String(valueMaxResultNumber));
     }

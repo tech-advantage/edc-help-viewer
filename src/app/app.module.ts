@@ -46,7 +46,12 @@ import { GuardService } from './documentations/documentation.guard.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     CommonModule,
-    StoreModule.forRoot(reducerToken),
+    StoreModule.forRoot(reducerToken, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 5 }) : [],
     FormsModule,
     HttpClientModule,
@@ -86,7 +91,7 @@ export class AppModule {}
  */
 export function ConfigLoader(configService: ConfigService, injector: Injector) {
   return (): Promise<unknown> =>
-    new Promise<unknown>((resolve) => {
+    new Promise<void>((resolve) => {
       const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
       locationInitialized.then(() => {
         return configService.load(environment.configFile).then(() => resolve());

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { mock, mockService } from '../../utils/test-helpers';
 import { DocumentationsComponent } from 'app/documentations/documentations.component';
 import { NO_ERRORS_SCHEMA, Pipe, PipeTransform, Renderer2 } from '@angular/core';
@@ -10,7 +10,7 @@ import { ConfigService } from '../config.service';
 import { DocumentationsService } from './documentations.service';
 import { Store } from '@ngrx/store';
 import { Location } from '@angular/common';
-import * as ScreenFuncs from '../../utils/global-helper';
+import { GlobalHelper } from '../../utils/global-helper';
 import { WindowRefService } from '../window-ref.service';
 
 @Pipe({ name: 'html' })
@@ -28,7 +28,7 @@ describe('DocumentationsComponent', () => {
   let windowRefService: WindowRefService;
   const documentation = mock(Doc, { id: 1, content: 'content' });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DocumentationsComponent, StubHtmlPipe],
       providers: [
@@ -52,14 +52,12 @@ describe('DocumentationsComponent', () => {
     spyOn(documentationsService, 'getDocumentation').and.returnValue(of(documentation));
     spyOn(configService, 'getConfiguration').and.returnValue({ displayFirstDocInsteadOfToc: false });
 
-    spyOn(ScreenFuncs, 'getWindowSize').and.returnValue(ScreenFuncs.ScreenSize.LG);
-
     fixture = TestBed.createComponent(DocumentationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', async(() => {
+  it('should create', waitForAsync(() => {
     expect(component).toBeTruthy();
     expect(component.documentation).toEqual(documentation);
   }));
@@ -92,16 +90,16 @@ describe('DocumentationsComponent', () => {
 
   describe('handle responsive', () => {
     it('should collapse if screen is too small (mobile)', () => {
-      spyOn(ScreenFuncs, 'isMobile').and.returnValue(true);
-
+      spyOn(GlobalHelper, 'isMobile').and.returnValue(true);
+      fixture.detectChanges();
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).not.toBeTruthy();
       expect(doc.overlayMode).toBeTruthy();
     });
 
     it('should not collapse if screen is big enough', () => {
-      spyOn(ScreenFuncs, 'isMobile').and.returnValue(false);
-
+      spyOn(GlobalHelper, 'isMobile').and.returnValue(false);
+      fixture.detectChanges();
       const doc = new DocumentationsComponent(null, null, null, windowRefService);
       expect(doc.showSidebar).toBeTruthy();
       expect(doc.overlayMode).not.toBeTruthy();

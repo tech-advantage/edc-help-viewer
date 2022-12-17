@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HelpService } from './help/help.service';
@@ -34,7 +34,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the app', async(() => {
+  it('should create the app', waitForAsync(() => {
     const app: AppComponent = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));

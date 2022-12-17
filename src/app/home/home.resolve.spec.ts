@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'app/app.state';
 import { HelpService } from 'app/help/help.service';
 import { HelpActions } from 'app/ngrx/actions/help.actions';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { mock, mockService } from '../../utils/test-helpers';
 import { HomeResolve } from './home.resolve';
 import { ActivatedRouteSnapshot, convertToParamMap } from '@angular/router';
@@ -50,7 +50,7 @@ describe('homeResolve', () => {
       expect(helpActions.setDocumentationLanguage).toHaveBeenCalled();
       expect(helpActions.setExportId).toHaveBeenCalled();
       expect(task).toBeDefined();
-      expect(task).toEqual(EMPTY);
+      task.subscribe((res) => expect(res).toBeNull());
     });
     it('params not empty case equal current', () => {
       route = mock(ActivatedRouteSnapshot, convertToParamMap({ [PLUGIN_PARAM]: 'pluginid', [LANG_PARAM]: 'en' }));
@@ -66,7 +66,7 @@ describe('homeResolve', () => {
       expect(helpActions.setDocumentationLanguage).toHaveBeenCalled();
       expect(helpActions.setExportId).toHaveBeenCalledWith('pluginid');
       expect(task).toBeDefined();
-      expect(task).toEqual(EMPTY);
+      task.subscribe((res) => expect(res).toBeNull());
     });
     it('params not empty case not equal current', () => {
       route = mock(ActivatedRouteSnapshot, convertToParamMap({ [PLUGIN_PARAM]: 'dinigulp', [LANG_PARAM]: 'en' }));
@@ -84,7 +84,7 @@ describe('homeResolve', () => {
       expect(helpActions.setDocumentationLanguage).toHaveBeenCalled();
       expect(helpActions.setExportId).toHaveBeenCalledWith('dinigulp');
       expect(result).toBeDefined();
-      expect(result).toEqual(EMPTY);
+      result.subscribe((res) => expect(res).toBeNull());
     });
   });
 });
