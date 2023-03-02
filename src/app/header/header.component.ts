@@ -90,14 +90,17 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   goHome(): void {
-    combineLatest([this.store.select(selectExportId), this.store.select(selectDocumentationLanguage)]).subscribe(
-      ([exportId, languageId]) => {
-        let url = `/home/${exportId}`;
-        if (languageId) {
-          url += `/${languageId}`;
+    this.subs.push(
+      combineLatest([this.store.select(selectExportId), this.store.select(selectDocumentationLanguage)]).subscribe(
+        ([exportId, languageId]) => {
+          let url = `/home/${exportId}`;
+          if (languageId) {
+            url += `/${languageId}`;
+          }
+          this.router.navigate([url]);
         }
-        this.router.navigate([url]);
-      }
+      )
     );
+    GlobalHelper.unsubscribe(this.subs);
   }
 }
