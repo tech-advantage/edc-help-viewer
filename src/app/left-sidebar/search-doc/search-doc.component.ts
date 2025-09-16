@@ -47,13 +47,41 @@ export class SearchDocComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     GlobalHelper.unsubscribe(this.subs);
   }
+
   isShowMoreVisible(): boolean {
     return this.documentations.length > this.resultsNumber;
   }
+
   showMore($event: Event): void {
     this.resultsNumber += 10;
     $event.preventDefault();
     $event.stopPropagation();
+  }
+
+  /**
+   * Check if the label text is too long and needs a tooltip
+   * @param text the text to check
+   */
+  isTooLong(text: string): boolean {
+    return text && text.length > 80; // Seuil de 80 caractères
+  }
+
+  /**
+   * Get the full text for tooltip display
+   * @param doc the documentation result
+   */
+  getFullText(doc: SearchDocResult): string {
+    return `[${doc.strategyLabel}] ${doc.label}`;
+  }
+
+  /**
+   * Get clean text without HTML for tooltip
+   * @param text the text that may contain HTML
+   */
+  getCleanText(text: string): string {
+    if (!text) return '';
+    // Supprime les balises HTML pour le tooltip
+    return text.replace(/<[^>]*>/g, '');
   }
 
   /**

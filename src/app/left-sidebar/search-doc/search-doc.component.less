@@ -24,40 +24,87 @@
 // Dropdown to display documentation search result (see SearchDocComponent).
 .dropdown-menu.search-doc {
   height: auto;
-  width: 275px;
+  width: 275px; 
   font-size: 0.9rem;
-  max-height: 200px;
+  max-height: 300px;
   padding: 2px 0;
   overflow-x: hidden;
   margin-top: 1rem;
+  
   .list-group {
     margin-bottom: 0;
   }
+  
   .list-group-item {
     display: flex;
-    align-items: center;
-    min-height: 32px;
+    align-items: flex-start;
+    min-height: 45px; 
     cursor: pointer;
-    padding: 0;
+    padding: 8px 10px;
     border: 0;
     border-radius: 0;
-    .truncate();
+    position: relative; 
+    
     &.has-more {
       background-color: @whitesmoke;
       font-style: italic;
       justify-content: center;
       font-weight: 600;
+      align-items: center;
+      min-height: 32px; 
     }
+    
     &.doc-selected {
       background-color: @ivory;
     }
 
-    > span {
-      padding-left: 2px;
-      font-size: 13px;
-      .truncate();
+    // add icon to identify item with tooltip
+    &[title]:not([title=""]) {
+      &::after {
+        content: "ⓘ";
+        position: absolute;
+        top: 4px;
+        right: 6px;
+        font-size: 10px;
+        color: #999;
+        opacity: 0.7;
+      }
+    }
+
+    .doc-item {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      
+      .doc-strategy {
+        font-size: 11px;
+        color: #666;
+        font-weight: 600;
+        margin-bottom: 3px;
+        line-height: 1.2;
+        .truncate(); // truncate the strategy name
+      }
+      
+      .doc-label {
+        font-size: 13px;
+        line-height: 1.3;
+        color: #333;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        
+        // For the too long text, we limit to 3 lines with ellipsis
+        &.truncated {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 3.9em; // 3 lignes * 1.3 line-height
+        }
+      }
     }
   }
+  
   .no-result {
     text-align: center;
     font-style: italic;

@@ -24,10 +24,23 @@
 
       <!-- Results. -->
       <ul *ngIf="documentations.length" keyboardSelect class="list-group">
-        <li *ngFor="let doc of documentations | slice:0:resultsNumber" class="list-group-item" [routerLink]="['/doc', doc.id]" (click)="closeDropdown()">
+        <li *ngFor="let doc of documentations | slice:0:resultsNumber" 
+            class="list-group-item" 
+            [routerLink]="['/doc', doc.id]" 
+            (click)="closeDropdown()"
+            [title]="isTooLong(doc.label) ? getCleanText(getFullText(doc)) : ''">
 
-          <!-- Template for each element of the list. -->
-          <span [innerHTML]="'[' + doc.strategyLabel + '] ' + doc.label  | highlight:searchCtrl.value:false"> </span>
+          <!-- Template for each element of the list with two lines. -->
+          <div class="doc-item">
+            <div class="doc-strategy" 
+                 [title]="doc.strategyLabel.length > 25 ? doc.strategyLabel : ''">
+              [{{ doc.strategyLabel }}]
+            </div>
+            <div class="doc-label" 
+                 [innerHTML]="doc.label | highlight:searchCtrl.value:false"
+                 [class.truncated]="isTooLong(doc.label)">
+            </div>
+          </div>
         </li>
         <li *ngIf="isShowMoreVisible()" class="list-group-item has-more" (click)="showMore($event)">
           <span [translate]="'global.search.more'"></span>
